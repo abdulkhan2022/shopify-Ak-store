@@ -121,6 +121,87 @@
     position: absolute;
     inset: 0;
   }
+
+  /* Figma-like announcement bar styling */
+  .announcement-bar {
+    background-color: #000;
+    color: #fff;
+    border-block-end: 1px solid #2a2a2a;
+  }
+
+  /* Thin strip height */
+  .announcement-bar.spacing-style {
+    --padding-block-start: 8px;
+    --padding-block-end: 8px;
+  }
+
+  .announcement-bar__slides {
+    max-width: 520px;
+  }
+
+  .announcement-bar__text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  /* Keep arrows near text instead of both ends */
+  .announcement-bar__slider {
+    --announcement-arrow-offset: 120px;
+  }
+
+  .announcement-bar__slider slideshow-arrows {
+    justify-content: center;
+    inset: 0;
+  }
+
+  .announcement-bar__slider slideshow-arrows .slideshow-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 0;
+    color: #fff;
+  }
+
+  .announcement-bar__slider slideshow-arrows .slideshow-control--previous {
+    left: calc(50% - var(--announcement-arrow-offset));
+  }
+
+  .announcement-bar__slider slideshow-arrows .slideshow-control--next {
+    left: calc(50% + var(--announcement-arrow-offset));
+  }
+
+  .announcement-bar__slider .slideshow-control .svg-wrapper {
+    width: 12px;
+    height: 12px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar.spacing-style {
+      --padding-block-start: 7px;
+      --padding-block-end: 7px;
+    }
+
+    .announcement-bar__text {
+      font-size: 13px;
+    }
+
+    .announcement-bar__slider {
+      --announcement-arrow-offset: 90px;
+    }
+
+    .announcement-bar__slider .slideshow-control .svg-wrapper {
+      width: 10px;
+      height: 10px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
