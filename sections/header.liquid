@@ -1113,6 +1113,63 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* Custom desktop header styling to match provided design */
+  @media screen and (min-width: 990px) {
+    #header-component {
+      --header-padding: 10px;
+      --header-left: auto;
+      --header-center: 1fr;
+      --header-right: auto;
+    }
+
+    #header-component .header__row--top {
+      --color-foreground: 255 255 255;
+      --color-foreground-rgb: 255 255 255;
+      --color-border: 255 255 255;
+      --color-border-rgb: 255 255 255;
+      background-color: #8b8f94;
+      border-bottom-width: 0;
+    }
+
+    #header-component .header__column--left {
+      gap: 26px;
+    }
+
+    #header-component .header__column--center {
+      justify-content: flex-start;
+    }
+
+    #header-component .header-logo__image {
+      height: 48px;
+      width: auto;
+      max-width: 210px;
+    }
+
+    #header-component .menu-list {
+      --menu-horizontal-gap: 8px;
+    }
+
+    #header-component .menu-list__link {
+      font-size: 20px;
+      font-weight: 400;
+      color: #fff;
+    }
+
+    #header-component .menu-list__link-title {
+      padding-inline: 10px;
+    }
+
+    #header-component .header__column--right {
+      gap: 10px;
+    }
+
+    #header-component .header-actions__action,
+    #header-component .search-action,
+    #header-component .account-button__icon {
+      color: #fff;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
