@@ -1,0 +1,416 @@
+{% if section.blocks.size > 0 %}
+  <script
+    src="{{ 'header-tabs-hero.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+<header-tabs-hero
+  class="header-tabs-hero section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="
+    {% render 'spacing-padding', settings: section.settings %}
+    --header-tabs-hero-height: {{ section.settings.section_height }}px;
+    --header-tabs-hero-radius: {{ section.settings.corner_radius }}px;
+    --header-tabs-progress-duration: {{ section.settings.autoplay_speed }}s;
+  "
+  {% if section.settings.autoplay and section.blocks.size > 1 %}
+    autoplay
+  {% endif %}
+  data-autoplay-ms="{{ section.settings.autoplay_speed | times: 1000 }}"
+  data-testid="header-tabs-hero"
+>
+  <div class="header-tabs-hero__viewport">
+    {% for block in section.blocks %}
+      {% assign is_active = forloop.first %}
+      <article
+        class="header-tabs-hero__slide"
+        data-tab-slide
+        {% if is_active %}
+          data-active="true"
+          aria-hidden="false"
+        {% else %}
+          data-active="false"
+          aria-hidden="true"
+        {% endif %}
+        {{ block.shopify_attributes }}
+      >
+        <div class="header-tabs-hero__media">
+          {% if block.settings.background_image != blank %}
+            {{
+              block.settings.background_image
+              | image_url: width: 2400
+              | image_tag:
+                widths: '640, 900, 1200, 1600, 2000, 2400',
+                sizes: '100vw',
+                class: 'header-tabs-hero__image',
+                loading: 'lazy',
+                alt: block.settings.background_image.alt
+            }}
+          {% else %}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'header-tabs-hero__image header-tabs-hero__image--placeholder' }}
+          {% endif %}
+        </div>
+        <div class="header-tabs-hero__overlay"></div>
+        <div class="header-tabs-hero__content">
+          {% if block.settings.heading_bold != blank %}
+            <h2 class="header-tabs-hero__heading-bold">
+              {{ block.settings.heading_bold }}
+            </h2>
+          {% endif %}
+          {% if block.settings.heading_italic != blank %}
+            <p class="header-tabs-hero__heading-italic">
+              {{ block.settings.heading_italic }}
+            </p>
+          {% endif %}
+          {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+            <a
+              class="button button-primary header-tabs-hero__button"
+              href="{{ block.settings.button_link }}"
+            >
+              {{ block.settings.button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size > 1 %}
+    <div class="header-tabs-hero__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
+      {% for block in section.blocks %}
+        <button
+          type="button"
+          class="header-tabs-hero__tab"
+          data-tab-button
+          data-index="{{ forloop.index0 }}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-controls="header-tabs-hero-panel-{{ section.id }}-{{ forloop.index0 }}"
+        >
+          <span class="header-tabs-hero__tab-label">
+            {{ block.settings.tab_label | default: block.settings.heading_bold | strip_html | truncate: 20 }}
+          </span>
+          <span class="header-tabs-hero__tab-progress" aria-hidden="true">
+            <span class="header-tabs-hero__tab-progress-fill" data-tab-progress></span>
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</header-tabs-hero>
+
+{% stylesheet %}
+  .header-tabs-hero {
+    display: grid;
+    gap: var(--gap-md);
+  }
+
+  .header-tabs-hero__viewport {
+    position: relative;
+    min-height: var(--header-tabs-hero-height);
+    border-radius: var(--header-tabs-hero-radius);
+    overflow: hidden;
+  }
+
+  .header-tabs-hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 350ms ease;
+  }
+
+  .header-tabs-hero__slide[data-active='true'] {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .header-tabs-hero__media,
+  .header-tabs-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .header-tabs-hero__image {
+    object-fit: cover;
+  }
+
+  .header-tabs-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(0 0 0 / 55%) 0%, rgb(0 0 0 / 35%) 40%, rgb(0 0 0 / 20%) 100%);
+  }
+
+  .header-tabs-hero__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-content: center;
+    gap: var(--gap-xs);
+    max-width: 38rem;
+    min-height: 100%;
+    padding: clamp(1.25rem, 4vw, 3rem);
+    color: #fff;
+  }
+
+  .header-tabs-hero__heading-bold {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 0;
+    color: #fff;
+  }
+
+  .header-tabs-hero__heading-italic {
+    margin: 0;
+    font-family: var(--font-accent--family);
+    font-style: italic;
+    font-size: clamp(1.5rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  .header-tabs-hero__button {
+    margin-top: var(--margin-sm);
+    width: fit-content;
+  }
+
+  .header-tabs-hero__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-md);
+  }
+
+  .header-tabs-hero__tab {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--color-foreground);
+    display: grid;
+    gap: var(--gap-2xs);
+    min-width: 90px;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .header-tabs-hero__tab-label {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .header-tabs-hero__tab-progress {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: rgb(var(--color-foreground-rgb) / var(--opacity-30));
+    overflow: hidden;
+  }
+
+  .header-tabs-hero__tab-progress-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: currentColor;
+  }
+
+  .header-tabs-hero[autoplay] .header-tabs-hero__tab[aria-selected='true'] .header-tabs-hero__tab-progress-fill {
+    animation: header-tabs-progress var(--header-tabs-progress-duration) linear forwards;
+  }
+
+  @keyframes header-tabs-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-tabs-hero {
+      gap: var(--gap-sm);
+    }
+
+    .header-tabs-hero__viewport {
+      min-height: min(72vh, var(--header-tabs-hero-height));
+    }
+
+    .header-tabs-hero__tabs {
+      gap: var(--gap-sm);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header tabs hero",
+  "tag": "section",
+  "class": "header-tabs-hero-section",
+  "max_blocks": 12,
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section height",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate tabs",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Tab duration",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "tabs_aria_label",
+      "label": "Tabs accessibility label",
+      "default": "Header hero tabs"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Tab"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background image"
+        },
+        {
+          "type": "text",
+          "id": "heading_bold",
+          "label": "Heading bold text",
+          "default": "Meet the Therra"
+        },
+        {
+          "type": "text",
+          "id": "heading_italic",
+          "label": "Heading italic text",
+          "default": "Organic Powders"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header tabs hero",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 1",
+            "heading_bold": "Meet the Therra",
+            "heading_italic": "Organic Powders",
+            "button_label": "Shop Powders"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 2",
+            "heading_bold": "Pure ingredients",
+            "heading_italic": "Daily wellness",
+            "button_label": "Explore"
+          }
+        }
+      },
+      "block_order": ["tab_1", "tab_2"]
+    }
+  ]
+}
+{% endschema %}
