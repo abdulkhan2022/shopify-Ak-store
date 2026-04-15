@@ -94,36 +94,34 @@
         </div>
       </article>
     {% endfor %}
-  </div>
-
-  {% if section.blocks.size > 1 %}
-    <div class="header-tabs-hero__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
-      {% for block in section.blocks %}
-        <button
-          type="button"
-          class="header-tabs-hero__tab"
-          data-tab-button
-          data-index="{{ forloop.index0 }}"
-          role="tab"
-          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-          aria-controls="header-tabs-hero-panel-{{ section.id }}-{{ forloop.index0 }}"
-        >
-          <span class="header-tabs-hero__tab-label">
-            {{ block.settings.tab_label | default: block.settings.heading_bold | strip_html | truncate: 20 }}
-          </span>
-          <span class="header-tabs-hero__tab-progress" aria-hidden="true">
-            <span class="header-tabs-hero__tab-progress-fill" data-tab-progress></span>
-          </span>
-        </button>
-      {% endfor %}
+    {% if section.blocks.size > 1 %}
+      <div class="header-tabs-hero__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
+        {% for block in section.blocks %}
+          <button
+            type="button"
+            class="header-tabs-hero__tab"
+            data-tab-button
+            data-index="{{ forloop.index0 }}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-controls="header-tabs-hero-panel-{{ section.id }}-{{ forloop.index0 }}"
+          >
+            <span class="header-tabs-hero__tab-label">
+              {{ block.settings.tab_label | default: block.settings.heading_bold | strip_html | truncate: 20 }}
+            </span>
+            <span class="header-tabs-hero__tab-progress" aria-hidden="true">
+              <span class="header-tabs-hero__tab-progress-fill" data-tab-progress></span>
+            </span>
+          </button>
+        {% endfor %}
+      </div>
     </div>
   {% endif %}
 </header-tabs-hero>
 
 {% stylesheet %}
   .header-tabs-hero {
-    display: grid;
-    gap: var(--gap-md);
+    display: block;
   }
 
   .header-tabs-hero__viewport {
@@ -239,6 +237,10 @@
   }
 
   .header-tabs-hero__tabs {
+    position: absolute;
+    left: 32px;
+    bottom: 80px;
+    z-index: 2;
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap-md);
@@ -294,15 +296,13 @@
   }
 
   @media screen and (max-width: 749px) {
-    .header-tabs-hero {
-      gap: var(--gap-sm);
-    }
-
     .header-tabs-hero__viewport {
       min-height: min(72vh, var(--header-tabs-hero-height));
     }
 
     .header-tabs-hero__tabs {
+      left: 20px;
+      bottom: 24px;
       gap: var(--gap-sm);
     }
   }
