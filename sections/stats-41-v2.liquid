@@ -1,13 +1,138 @@
-<section class="stats-41-v2 section section--full-width color-{{ section.settings.color_scheme }}" style="{% render 'spacing-padding', settings: section.settings %}">
+{%- liquid
+  assign section_id = 'stats-41-v2-' | append: section.id
+-%}
+
+<section
+  id="{{ section_id }}"
+  class="stats-41-v2 section section--full-width color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
   <div class="stats-41-v2__surface">
     <div class="stats-41-v2__inner">
       <p class="stats-41-v2__pill">{{ section.settings.label | escape }}</p>
+
       <div class="stats-41-v2__head">
         <div class="stats-41-v2__heading rte">{{ section.settings.heading }}</div>
         <div class="stats-41-v2__desc rte">{{ section.settings.description }}</div>
       </div>
+
+      <div class="stats-41-v2__grid">
+        <article class="stats-41-v2__card stats-41-v2__card--tall">
+          <h3 class="stats-41-v2__title">{{ section.settings.card_1_title | escape }}</h3>
+          <div class="stats-41-v2__bars">
+            {%- assign chart_values = section.settings.chart_values | split: ',' -%}
+            {%- assign chart_max = section.settings.chart_max | default: 500 | plus: 0 -%}
+            {%- for raw_value in chart_values -%}
+              {%- assign value = raw_value | strip | plus: 0 -%}
+              {%- assign height = value | times: 100.0 | divided_by: chart_max -%}
+              <div class="stats-41-v2__bar-col">
+                <span class="stats-41-v2__bar{% if forloop.index == section.settings.highlight_bar %} is-active{% endif %}" style="height: {{ height | at_most: 100 }}%;"></span>
+                <span class="stats-41-v2__bar-label">{{ forloop.index | plus: 18 }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+          <p class="stats-41-v2__metric">{{ section.settings.card_1_metric | escape }}</p>
+          <div class="stats-41-v2__line"></div>
+          <p class="stats-41-v2__copy">{{ section.settings.card_1_text | escape }}</p>
+        </article>
+
+        <article class="stats-41-v2__media-card">
+          {%- if section.settings.image_top != blank -%}
+            {{ section.settings.image_top | image_url: width: 1200 | image_tag: class: 'stats-41-v2__media', loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw' }}
+          {%- else -%}
+            <div class="stats-41-v2__media-placeholder"></div>
+          {%- endif -%}
+        </article>
+
+        <article class="stats-41-v2__card">
+          <h3 class="stats-41-v2__title">{{ section.settings.card_2_title | escape }}</h3>
+          <p class="stats-41-v2__eyebrow">{{ section.settings.card_2_range_label | escape }}</p>
+          <div class="stats-41-v2__spark-wrap">
+            <div class="stats-41-v2__spark">
+              {%- for i in (1..13) -%}
+                {%- assign distance = i | minus: 7 | abs -%}
+                {%- assign level = 8 | minus: distance -%}
+                {%- if level < 2 -%}{%- assign level = 2 -%}{%- endif -%}
+                <span style="height: {{ level | times: 6 }}px"></span>
+              {%- endfor -%}
+            </div>
+            <p class="stats-41-v2__metric">{{ section.settings.card_2_metric | escape }}</p>
+          </div>
+          <div class="stats-41-v2__scale">
+            <span>{{ section.settings.card_2_min | escape }}</span>
+            <span>{{ section.settings.card_2_max | escape }}</span>
+          </div>
+          <div class="stats-41-v2__line"></div>
+          <p class="stats-41-v2__copy">{{ section.settings.card_2_text | escape }}</p>
+        </article>
+
+        <article class="stats-41-v2__card">
+          <h3 class="stats-41-v2__title">{{ section.settings.card_3_title | escape }}</h3>
+          <p class="stats-41-v2__eyebrow">{{ section.settings.card_3_range_label | escape }}</p>
+          <div class="stats-41-v2__spark-wrap">
+            <div class="stats-41-v2__spark">
+              {%- for i in (1..13) -%}
+                {%- assign distance = i | minus: 7 | abs -%}
+                {%- assign level = 8 | minus: distance -%}
+                {%- if level < 2 -%}{%- assign level = 2 -%}{%- endif -%}
+                <span style="height: {{ level | times: 6 }}px"></span>
+              {%- endfor -%}
+            </div>
+            <p class="stats-41-v2__metric">{{ section.settings.card_3_metric | escape }}</p>
+          </div>
+          <div class="stats-41-v2__scale">
+            <span>{{ section.settings.card_3_min | escape }}</span>
+            <span>{{ section.settings.card_3_max | escape }}</span>
+          </div>
+          <div class="stats-41-v2__line"></div>
+          <p class="stats-41-v2__copy">{{ section.settings.card_3_text | escape }}</p>
+        </article>
+
+        <article class="stats-41-v2__media-card">
+          {%- if section.settings.image_bottom != blank -%}
+            {{ section.settings.image_bottom | image_url: width: 1200 | image_tag: class: 'stats-41-v2__media', loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw' }}
+          {%- else -%}
+            <div class="stats-41-v2__media-placeholder"></div>
+          {%- endif -%}
+        </article>
+      </div>
     </div>
   </div>
+
+  <style>
+    #{{ section_id }} .stats-41-v2__surface{background:#e9e8db;padding:clamp(32px,4vw,56px) var(--page-margin) clamp(42px,5vw,68px)}
+    #{{ section_id }} .stats-41-v2__inner{max-width:1440px;margin:0 auto}
+    #{{ section_id }} .stats-41-v2__pill{display:inline-flex;margin:0 0 18px;padding:6px 14px;border:1px solid rgb(0 0 0/.5);border-radius:999px;font-size:.9rem;line-height:1.1}
+    #{{ section_id }} .stats-41-v2__head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px);margin-bottom:clamp(24px,4vw,42px)}
+    #{{ section_id }} .stats-41-v2__heading{font-size:clamp(2rem,4vw,3.25rem);line-height:1.06;letter-spacing:-.02em}
+    #{{ section_id }} .stats-41-v2__heading p,#{{ section_id }} .stats-41-v2__desc p{margin:0}
+    #{{ section_id }} .stats-41-v2__desc{font-size:1.02rem;line-height:1.45;max-width:54ch}
+    #{{ section_id }} .stats-41-v2__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    #{{ section_id }} .stats-41-v2__card,#{{ section_id }} .stats-41-v2__media-card{border-radius:6px;overflow:hidden}
+    #{{ section_id }} .stats-41-v2__card{background:#1f7a62;color:#f3f5ef;padding:22px}
+    #{{ section_id }} .stats-41-v2__card--tall{grid-row:span 2;display:flex;flex-direction:column;min-height:560px}
+    #{{ section_id }} .stats-41-v2__title{margin:0 0 16px;font-size:1.9rem;font-weight:400;line-height:1.2}
+    #{{ section_id }} .stats-41-v2__bars{margin-top:auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+    #{{ section_id }} .stats-41-v2__bar-col{display:flex;flex-direction:column;align-items:center;gap:8px}
+    #{{ section_id }} .stats-41-v2__bar{display:block;width:min(34px,85%);min-height:8px;background:rgb(255 255 255/.68);border-radius:8px 8px 2px 2px}
+    #{{ section_id }} .stats-41-v2__bar.is-active{background:#fff}
+    #{{ section_id }} .stats-41-v2__bar-col{justify-content:flex-end}
+    #{{ section_id }} .stats-41-v2__bars .stats-41-v2__bar-col{height:154px}
+    #{{ section_id }} .stats-41-v2__bar-label{font-size:.72rem;opacity:.72}
+    #{{ section_id }} .stats-41-v2__metric{margin:16px 0 0;text-align:right;font-size:clamp(3rem,4.8vw,5.4rem);line-height:.9;font-style:italic}
+    #{{ section_id }} .stats-41-v2__line{height:1px;background:rgb(255 255 255/.7);margin:10px 0 12px}
+    #{{ section_id }} .stats-41-v2__copy{margin:0;font-size:1rem;line-height:1.4;text-align:right}
+    #{{ section_id }} .stats-41-v2__media-card{min-height:260px;background:rgb(0 0 0/.08)}
+    #{{ section_id }} .stats-41-v2__media,#{{ section_id }} .stats-41-v2__media-placeholder{display:block;width:100%;height:100%;object-fit:cover}
+    #{{ section_id }} .stats-41-v2__media-placeholder{background:linear-gradient(125deg,#a6a294,#8c8a7e)}
+    #{{ section_id }} .stats-41-v2__eyebrow{margin:0 0 8px;font-size:.76rem;opacity:.75}
+    #{{ section_id }} .stats-41-v2__spark-wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+    #{{ section_id }} .stats-41-v2__spark{display:flex;align-items:flex-end;gap:4px;min-height:58px}
+    #{{ section_id }} .stats-41-v2__spark span{display:block;width:5px;border-radius:2px;background:rgb(255 255 255/.85)}
+    #{{ section_id }} .stats-41-v2__scale{display:flex;justify-content:space-between;margin-top:6px;font-size:.66rem;opacity:.72}
+    @media (max-width:989px){#{{ section_id }} .stats-41-v2__head{grid-template-columns:1fr}#{{ section_id }} .stats-41-v2__grid{grid-template-columns:repeat(2,minmax(0,1fr))}#{{ section_id }} .stats-41-v2__card--tall{grid-column:1/-1;min-height:480px}}
+    @media (max-width:749px){#{{ section_id }} .stats-41-v2__grid{grid-template-columns:1fr;gap:14px}#{{ section_id }} .stats-41-v2__card--tall,#{{ section_id }} .stats-41-v2__card,#{{ section_id }} .stats-41-v2__media-card{min-height:240px;grid-row:auto}}
+  </style>
 </section>
 
 {% schema %}
@@ -18,6 +143,30 @@
     { "type": "text", "id": "label", "label": "t:settings.label", "default": "Shop by category" },
     { "type": "richtext", "id": "heading", "label": "t:settings.heading", "default": "<p>Medium length section <em>heading goes here</em></p>" },
     { "type": "richtext", "id": "description", "label": "t:settings.description", "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>" },
+    { "type": "header", "content": "Card 1" },
+    { "type": "text", "id": "card_1_title", "label": "t:settings.heading", "default": "Short heading goes here" },
+    { "type": "text", "id": "chart_values", "label": "Chart values (comma separated)", "default": "200,300,400,300,200,120" },
+    { "type": "range", "id": "chart_max", "label": "Chart max", "min": 100, "max": 1000, "step": 10, "default": 500 },
+    { "type": "range", "id": "highlight_bar", "label": "Highlighted bar", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "text", "id": "card_1_metric", "label": "Metric", "default": "30%" },
+    { "type": "text", "id": "card_1_text", "label": "t:settings.text", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    { "type": "header", "content": "Card 2" },
+    { "type": "text", "id": "card_2_title", "label": "t:settings.heading", "default": "Short heading goes here" },
+    { "type": "text", "id": "card_2_range_label", "label": "Range label", "default": "Price range" },
+    { "type": "text", "id": "card_2_min", "label": "Minimum value", "default": "$2000" },
+    { "type": "text", "id": "card_2_max", "label": "Maximum value", "default": "$3500" },
+    { "type": "text", "id": "card_2_metric", "label": "Metric", "default": "30%" },
+    { "type": "text", "id": "card_2_text", "label": "t:settings.text", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    { "type": "header", "content": "Card 3" },
+    { "type": "text", "id": "card_3_title", "label": "t:settings.heading", "default": "Short heading goes here" },
+    { "type": "text", "id": "card_3_range_label", "label": "Range label", "default": "Price range" },
+    { "type": "text", "id": "card_3_min", "label": "Minimum value", "default": "$2000" },
+    { "type": "text", "id": "card_3_max", "label": "Maximum value", "default": "$3500" },
+    { "type": "text", "id": "card_3_metric", "label": "Metric", "default": "30%" },
+    { "type": "text", "id": "card_3_text", "label": "t:settings.text", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    { "type": "header", "content": "Images" },
+    { "type": "image_picker", "id": "image_top", "label": "Top image" },
+    { "type": "image_picker", "id": "image_bottom", "label": "Bottom image" },
     { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 0 },
     { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 0 }
   ],
