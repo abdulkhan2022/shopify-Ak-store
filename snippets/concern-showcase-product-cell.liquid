@@ -1,0 +1,124 @@
+{%- doc -%}
+  Compact product cell for concern-tabs-showcase (2×2 grid).
+
+  @param {object} product - Product object (may be blank for placeholder)
+  @param {object} section - Parent section
+  @param {number} cell_index - 1–4 (first cell uses light CTA style)
+{%- enddoc -%}
+
+{% liquid
+  assign onboarding = false
+  if product == blank or product.id == empty
+    assign onboarding = true
+  endif
+
+  assign variant = product.selected_or_first_available_variant
+  if onboarding
+    assign can_add_to_cart = false
+  elsif variant.available
+    assign can_add_to_cart = true
+  else
+    assign can_add_to_cart = false
+  endif
+
+  assign add_label = 'actions.add_to_cart' | t
+  assign product_form_id = 'ConcernShowcase-Form-' | append: section.id | append: '-' | append: cell_index
+
+  assign rating = product.metafields.reviews.rating.value.rating
+  assign scale_max = product.metafields.reviews.rating.value.scale_max | default: 5
+  if rating == blank and onboarding
+    assign rating = 4.5
+    assign scale_max = 5
+  endif
+
+  assign cta_modifier = 'concern-tabs-showcase__product-cta--dark'
+  if cell_index == 1
+    assign cta_modifier = 'concern-tabs-showcase__product-cta--light'
+  endif
+%}
+
+<div class="concern-tabs-showcase__product-cell">
+  <div class="concern-tabs-showcase__product-media">
+    {% unless onboarding %}
+      <a class="concern-tabs-showcase__product-media-link" href="{{ variant.url }}" tabindex="-1" aria-hidden="true">
+        <span class="visually-hidden">{{ product.title }}</span>
+      </a>
+    {% endunless %}
+    {% if onboarding %}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'concern-tabs-showcase__product-placeholder' }}
+    {% elsif product.featured_media %}
+      {% liquid
+        assign cell_img_alt = product.featured_media.preview_image.alt | default: product.title
+      %}
+      {{
+        product.featured_media.preview_image
+        | image_url: width: 800
+        | image_tag:
+          loading: 'lazy',
+          class: 'concern-tabs-showcase__product-img',
+          widths: '200, 400, 600, 800',
+          sizes: '(min-width: 990px) 22vw, 45vw',
+          alt: cell_img_alt
+      }}
+    {% else %}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'concern-tabs-showcase__product-placeholder' }}
+    {% endif %}
+  </div>
+
+  <div class="concern-tabs-showcase__product-body">
+    <h3 class="concern-tabs-showcase__product-title">
+      {% if onboarding %}
+        Cordyceps mushroom tincture
+      {% else %}
+        <a class="concern-tabs-showcase__product-title-link" href="{{ variant.url }}">{{ product.title }}</a>
+      {% endif %}
+    </h3>
+
+    <div class="concern-tabs-showcase__product-meta">
+      {% unless onboarding %}
+        <span class="concern-tabs-showcase__product-price">
+          {% render 'price', product_resource: product, show_unit_price: false %}
+        </span>
+      {% else %}
+        <span class="concern-tabs-showcase__product-price">$55.00</span>
+      {% endunless %}
+
+      {% if rating != blank %}
+        <span class="concern-tabs-showcase__product-rating" aria-label="{{ 'accessibility.rating' | t: rating: rating }}">
+          <span aria-hidden="true">★</span>
+          {{ rating | round: 1 }}/{{ scale_max }}
+        </span>
+      {% endif %}
+    </div>
+
+    {% unless onboarding %}
+      <product-form-component
+        class="concern-tabs-showcase__product-form-wrap"
+        data-section-id="{{ section.id }}"
+        data-product-id="{{ product.id }}"
+        on:submit="/handleSubmit"
+      >
+        <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>
+        {% form 'product', product, id: product_form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' %}
+          <input type="hidden" name="id" value="{{ variant.id }}" ref="variantId">
+          <input
+            type="hidden"
+            name="quantity"
+            value="{% if variant.quantity_rule.min %}{{ variant.quantity_rule.min }}{% else %}1{% endif %}"
+          >
+          {% render 'add-to-cart-button',
+            add_to_cart_text: add_label,
+            class: 'button concern-tabs-showcase__product-cta ' | append: cta_modifier,
+            can_add_to_cart: can_add_to_cart,
+            icon_only_on_mobile: false,
+            product: product
+          %}
+        {% endform %}
+      </product-form-component>
+    {% else %}
+      <button type="button" class="button concern-tabs-showcase__product-cta {{ cta_modifier }}" disabled>
+        {{ add_label }}
+      </button>
+    {% endunless %}
+  </div>
+</div>

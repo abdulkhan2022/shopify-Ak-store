@@ -88,6 +88,105 @@
         "padding-block-end": 72
       }
     },
+    "concern_tabs_showcase_home": {
+      "type": "concern-tabs-showcase",
+      "blocks": {
+        "marquee_quote_1": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Exceeded my expectations – Emily R."
+          }
+        },
+        "marquee_quote_2": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Fast shipping – Jordan P."
+          }
+        },
+        "marquee_quote_3": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Beautiful packaging – Sam K."
+          }
+        },
+        "showcase_tab_1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 1",
+            "media_type": "image",
+            "heading_bold": "Medium length hero heading goes here",
+            "heading_italic": "Therra derma spotlight",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation.",
+            "button_label": "Shop collection",
+            "button_link": "shopify://collections/all"
+          }
+        },
+        "showcase_tab_2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 2",
+            "media_type": "image",
+            "heading_bold": "Second story headline",
+            "heading_italic": "Wellness ritual",
+            "description": "Pair products for morning and night routines tailored to your goals.",
+            "button_label": "Learn more",
+            "button_link": "shopify://collections/all"
+          }
+        },
+        "showcase_tab_3": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 3",
+            "media_type": "image",
+            "heading_bold": "Third spotlight",
+            "heading_italic": "Pure ingredients",
+            "description": "Transparent sourcing and small-batch quality you can trust.",
+            "button_label": "View ingredients",
+            "button_link": "shopify://collections/all"
+          }
+        },
+        "showcase_tab_4": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 4",
+            "media_type": "image",
+            "heading_bold": "Fourth spotlight",
+            "heading_italic": "Community picks",
+            "description": "Customer favorites refreshed weekly.",
+            "button_label": "See bestsellers",
+            "button_link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "marquee_quote_1",
+        "marquee_quote_2",
+        "marquee_quote_3",
+        "showcase_tab_1",
+        "showcase_tab_2",
+        "showcase_tab_3",
+        "showcase_tab_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "ticker_left_text": "5000+ Happy Customers",
+        "ticker_fallback": "Exceeded my expectations – Emily R.\nFast shipping – Jordan P.\nBeautiful packaging – Sam K.",
+        "ticker_aria_label": "Customer highlights",
+        "pill_label": "Shop by Concern",
+        "pill_link": "shopify://collections/all",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
+        "hero_radius": 16,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "tabs_aria_label": "Showcase tabs",
+        "empty_heading": "Add tab blocks to begin",
+        "empty_text": "This section displays a hero carousel controlled by tabs, with four featured products on the right.",
+        "padding-block-start": 0,
+        "padding-block-end": 0,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -285,6 +384,7 @@
   },
   "order": [
     "hero_jVaWmY",
+    "concern_tabs_showcase_home",
     "product_list_fa6P9H"
   ]
 }

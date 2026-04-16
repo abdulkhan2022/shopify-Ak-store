@@ -1,0 +1,1012 @@
+{% liquid
+  assign tab_count = 0
+  for block in section.blocks
+    if block.type == 'tab'
+      assign tab_count = tab_count | plus: 1
+    endif
+  endfor
+
+  assign marquee_count = 0
+  for block in section.blocks
+    if block.type == 'marquee_item'
+      assign marquee_count = marquee_count | plus: 1
+    endif
+  endfor
+%}
+
+{% if tab_count > 0 %}
+  <script src="{{ 'concern-tabs-showcase.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{% endif %}
+
+{% render 'buy-buttons-styles' %}
+
+<div
+  class="concern-tabs-showcase section spacing-style"
+  id="shopify-section-{{ section.id }}"
+  style="
+    {% render 'spacing-padding', settings: section.settings %}
+    --showcase-progress-duration: {{ section.settings.autoplay_speed }}s;
+  "
+>
+  <div class="concern-tabs-showcase__surface color-{{ section.settings.color_scheme }}">
+    <div class="concern-tabs-showcase__ticker" role="region" aria-label="{{ section.settings.ticker_aria_label | escape }}">
+      <span class="concern-tabs-showcase__ticker-left">
+        {{ section.settings.ticker_left_text | escape }}
+      </span>
+      <div class="concern-tabs-showcase__ticker-marquee" {% if marquee_count == 0 %}data-marquee-fallback{% endif %}>
+        <div class="concern-tabs-showcase__ticker-track">
+          {% if marquee_count > 0 %}
+            {% for block in section.blocks %}
+              {% if block.type == 'marquee_item' %}
+                <span class="concern-tabs-showcase__ticker-item" {{ block.shopify_attributes }}>
+                  {{ block.settings.text | escape }}
+                </span>
+              {% endif %}
+            {% endfor %}
+            {% for block in section.blocks %}
+              {% if block.type == 'marquee_item' %}
+                <span class="concern-tabs-showcase__ticker-item" aria-hidden="true">
+                  {{ block.settings.text | escape }}
+                </span>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% assign quotes = section.settings.ticker_fallback | split: '
+' %}
+            {% for line in quotes %}
+              {% assign q = line | strip %}
+              {% if q != blank %}
+                <span class="concern-tabs-showcase__ticker-item">{{ q | escape }}</span>
+              {% endif %}
+            {% endfor %}
+            {% for line in quotes %}
+              {% assign q = line | strip %}
+              {% if q != blank %}
+                <span class="concern-tabs-showcase__ticker-item" aria-hidden="true">{{ q | escape }}</span>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if section.settings.pill_label != blank %}
+      <div class="concern-tabs-showcase__pill-wrap">
+        {% if section.settings.pill_link != blank %}
+          <a class="concern-tabs-showcase__pill" href="{{ section.settings.pill_link }}">
+            {{ section.settings.pill_label | escape }}
+          </a>
+        {% else %}
+          <span class="concern-tabs-showcase__pill">{{ section.settings.pill_label | escape }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <div class="concern-tabs-showcase__heading rte">
+        {{ section.settings.heading }}
+      </div>
+    {% endif %}
+
+    <div class="concern-tabs-showcase__layout">
+      <concern-tabs-showcase
+        class="concern-tabs-showcase__hero-shell"
+        {% if tab_count > 1 and section.settings.autoplay %}
+          autoplay
+        {% endif %}
+        data-autoplay-ms="{{ section.settings.autoplay_speed | times: 1000 }}"
+        data-testid="concern-tabs-showcase"
+      >
+        <div class="concern-tabs-showcase__hero-viewport" style="--showcase-hero-radius: {{ section.settings.hero_radius }}px;">
+          {% if tab_count == 0 %}
+            <article class="concern-tabs-showcase__slide" data-showcase-slide data-active="true" aria-hidden="false">
+              <div class="concern-tabs-showcase__slide-media">
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'concern-tabs-showcase__slide-img concern-tabs-showcase__slide-img--placeholder' }}
+              </div>
+              <div class="concern-tabs-showcase__slide-overlay"></div>
+              <div class="concern-tabs-showcase__slide-content">
+                <h2 class="concern-tabs-showcase__slide-heading-bold">{{ section.settings.empty_heading | escape }}</h2>
+                <p class="concern-tabs-showcase__slide-desc">{{ section.settings.empty_text | escape }}</p>
+              </div>
+            </article>
+          {% else %}
+            {% assign tab_index = 0 %}
+            {% for block in section.blocks %}
+              {% if block.type != 'tab' %}
+                {% continue %}
+              {% endif %}
+              {% liquid
+                assign is_active = false
+                if tab_index == 0
+                  assign is_active = true
+                endif
+              %}
+              <article
+                class="concern-tabs-showcase__slide"
+                id="concern-showcase-panel-{{ section.id }}-{{ tab_index }}"
+                data-showcase-slide
+                {% if is_active %}
+                  data-active="true"
+                  aria-hidden="false"
+                {% else %}
+                  data-active="false"
+                  aria-hidden="true"
+                {% endif %}
+                {{ block.shopify_attributes }}
+              >
+                <div class="concern-tabs-showcase__slide-media">
+                  {% if block.settings.media_type == 'video' and block.settings.background_video != blank %}
+                    {{
+                      block.settings.background_video
+                      | video_tag:
+                        class: 'concern-tabs-showcase__slide-video',
+                        muted: true,
+                        loop: true,
+                        controls: false,
+                        playsinline: true,
+                        preload: 'metadata'
+                    }}
+                    <button
+                      type="button"
+                      class="concern-tabs-showcase__play"
+                      data-hero-video-play
+                      aria-label="Play video"
+                    >
+                      <span class="svg-wrapper">
+                        {{- 'icon-play.svg' | inline_asset_content -}}
+                      </span>
+                    </button>
+                  {% elsif block.settings.background_image != blank %}
+                    {{
+                      block.settings.background_image
+                      | image_url: width: 1600
+                      | image_tag:
+                        widths: '400, 700, 1000, 1400, 1600',
+                        sizes: '(min-width: 990px) 55vw, 100vw',
+                        class: 'concern-tabs-showcase__slide-img',
+                        loading: 'lazy',
+                        alt: block.settings.background_image.alt
+                    }}
+                  {% else %}
+                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'concern-tabs-showcase__slide-img concern-tabs-showcase__slide-img--placeholder' }}
+                  {% endif %}
+                </div>
+                <div class="concern-tabs-showcase__slide-overlay"></div>
+                <div class="concern-tabs-showcase__slide-content">
+                  {% if block.settings.heading_bold != blank %}
+                    <h2 class="concern-tabs-showcase__slide-heading-bold">{{ block.settings.heading_bold }}</h2>
+                  {% endif %}
+                  {% if block.settings.heading_italic != blank %}
+                    <p class="concern-tabs-showcase__slide-heading-italic">{{ block.settings.heading_italic }}</p>
+                  {% endif %}
+                  {% if block.settings.description != blank %}
+                    <p class="concern-tabs-showcase__slide-desc">{{ block.settings.description }}</p>
+                  {% endif %}
+                  {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+                    <a class="concern-tabs-showcase__slide-cta" href="{{ block.settings.button_link }}">
+                      <span>{{ block.settings.button_label }}</span>
+                      <span class="svg-wrapper" aria-hidden="true">
+                        {{ 'icon-arrow.svg' | inline_asset_content }}
+                      </span>
+                    </a>
+                  {% endif %}
+                </div>
+              </article>
+              {% assign tab_index = tab_index | plus: 1 %}
+            {% endfor %}
+          {% endif %}
+
+          {% if tab_count > 1 %}
+            <div class="concern-tabs-showcase__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
+              {% assign tab_index = 0 %}
+              {% for block in section.blocks %}
+                {% if block.type != 'tab' %}
+                  {% continue %}
+                {% endif %}
+                <button
+                  type="button"
+                  class="concern-tabs-showcase__tab"
+                  data-showcase-tab
+                  data-index="{{ tab_index }}"
+                  role="tab"
+                  aria-selected="{% if tab_index == 0 %}true{% else %}false{% endif %}"
+                  aria-controls="concern-showcase-panel-{{ section.id }}-{{ tab_index }}"
+                  id="concern-showcase-tab-{{ section.id }}-{{ tab_index }}"
+                >
+                  <span class="concern-tabs-showcase__tab-label">
+                    {{ block.settings.tab_label | default: block.settings.heading_bold | strip_html | truncate: 28 }}
+                  </span>
+                  <span class="concern-tabs-showcase__tab-progress" aria-hidden="true">
+                    <span class="concern-tabs-showcase__tab-progress-fill" data-showcase-progress></span>
+                  </span>
+                </button>
+                {% assign tab_index = tab_index | plus: 1 %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </concern-tabs-showcase>
+
+      <div class="concern-tabs-showcase__products">
+        {% render 'concern-showcase-product-cell',
+          product: section.settings.product_1,
+          section: section,
+          cell_index: 1
+        %}
+        {% render 'concern-showcase-product-cell',
+          product: section.settings.product_2,
+          section: section,
+          cell_index: 2
+        %}
+        {% render 'concern-showcase-product-cell',
+          product: section.settings.product_3,
+          section: section,
+          cell_index: 3
+        %}
+        {% render 'concern-showcase-product-cell',
+          product: section.settings.product_4,
+          section: section,
+          cell_index: 4
+        %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .concern-tabs-showcase {
+    max-width: 1376px;
+    margin-block: 30px;
+    margin-inline: auto;
+  }
+
+  .concern-tabs-showcase__surface {
+    border-radius: 16px;
+    padding: clamp(16px, 3vw, 28px);
+    background: linear-gradient(100deg, #b8e986 0%, #2d6a4f 55%, #1b4332 100%);
+    color: #fff;
+    box-shadow: 0 12px 40px rgb(0 0 0 / 12%);
+  }
+
+  .concern-tabs-showcase__ticker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-block-end: 16px;
+    margin-block-end: 12px;
+    border-bottom: 1px solid rgb(255 255 255 / 25%);
+    font-size: 0.8125rem;
+  }
+
+  .concern-tabs-showcase__ticker-left {
+    flex: 0 0 auto;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .concern-tabs-showcase__ticker-marquee {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .concern-tabs-showcase__ticker-track {
+    display: flex;
+    width: max-content;
+    gap: 2rem;
+    animation: concern-showcase-ticker 32s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .concern-tabs-showcase__ticker-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+      white-space: normal;
+    }
+  }
+
+  @keyframes concern-showcase-ticker {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .concern-tabs-showcase__ticker-item {
+    white-space: nowrap;
+    opacity: 0.95;
+  }
+
+  .concern-tabs-showcase__pill-wrap {
+    display: flex;
+    justify-content: center;
+    margin-block-end: 16px;
+  }
+
+  .concern-tabs-showcase__pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 85%);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .concern-tabs-showcase__pill:hover {
+    background: rgb(255 255 255 / 12%);
+  }
+
+  .concern-tabs-showcase__heading {
+    text-align: center;
+    max-width: 56rem;
+    margin-inline: auto;
+    margin-block-end: clamp(20px, 4vw, 36px);
+    font-size: clamp(1.25rem, 2.4vw, 2rem);
+    line-height: 1.25;
+    color: #fff;
+  }
+
+  .concern-tabs-showcase__heading em,
+  .concern-tabs-showcase__heading i {
+    font-family: var(--font-accent--family, var(--font-heading--family));
+    font-style: italic;
+  }
+
+  .concern-tabs-showcase__layout {
+    display: grid;
+    gap: clamp(16px, 3vw, 28px);
+    align-items: stretch;
+  }
+
+  @media screen and (min-width: 990px) {
+    .concern-tabs-showcase__layout {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+  }
+
+  .concern-tabs-showcase__hero-shell {
+    display: block;
+    min-height: 0;
+  }
+
+  .concern-tabs-showcase__hero-viewport {
+    position: relative;
+    min-height: clamp(320px, 52vw, 520px);
+    border-radius: var(--showcase-hero-radius, 16px);
+    overflow: hidden;
+    background: rgb(0 0 0 / 25%);
+  }
+
+  .concern-tabs-showcase__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 360ms ease;
+  }
+
+  .concern-tabs-showcase__slide[data-active='true'] {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .concern-tabs-showcase__slide-media,
+  .concern-tabs-showcase__slide-img,
+  .concern-tabs-showcase__slide-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .concern-tabs-showcase__slide-img,
+  .concern-tabs-showcase__slide-video {
+    object-fit: cover;
+  }
+
+  .concern-tabs-showcase__slide-img--placeholder {
+    opacity: 0.35;
+  }
+
+  .concern-tabs-showcase__play {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 0;
+    display: grid;
+    place-items: center;
+    background: rgb(255 255 255 / 95%);
+    color: #111;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 18%);
+  }
+
+  .concern-tabs-showcase__play .svg-wrapper {
+    width: 22px;
+    height: 22px;
+    display: flex;
+  }
+
+  .concern-tabs-showcase__slide-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, rgb(0 0 0 / 15%) 0%, rgb(0 0 0 / 55%) 100%);
+    pointer-events: none;
+  }
+
+  .concern-tabs-showcase__slide-content {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 10px;
+    padding: clamp(20px, 4vw, 36px);
+    color: #fff;
+  }
+
+  .concern-tabs-showcase__slide-heading-bold {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.35rem, 2.5vw, 2.25rem);
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  .concern-tabs-showcase__slide-heading-italic {
+    margin: 0;
+    font-family: var(--font-accent--family, var(--font-heading--family));
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.65rem);
+    line-height: 1.2;
+    color: rgb(255 255 255 / 95%);
+  }
+
+  .concern-tabs-showcase__slide-desc {
+    margin: 0;
+    max-width: 42ch;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgb(255 255 255 / 88%);
+  }
+
+  .concern-tabs-showcase__slide-cta {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: var(--minimum-touch-target, 44px);
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .concern-tabs-showcase__slide-cta:hover {
+    background: rgb(255 255 255 / 92%);
+  }
+
+  .concern-tabs-showcase__slide-cta .svg-wrapper {
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+  }
+
+  .concern-tabs-showcase__tabs {
+    position: absolute;
+    left: 32px;
+    bottom: 80px;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-md, 16px);
+  }
+
+  .concern-tabs-showcase__tab {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    display: grid;
+    gap: 6px;
+    min-width: 88px;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .concern-tabs-showcase__tab-label {
+    font-size: 0.9375rem;
+    line-height: 1.35;
+  }
+
+  .concern-tabs-showcase__tab-progress {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: rgb(255 255 255 / 28%);
+    overflow: hidden;
+  }
+
+  .concern-tabs-showcase__tab-progress-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: currentColor;
+  }
+
+  concern-tabs-showcase[autoplay] .concern-tabs-showcase__tab[aria-selected='true'] .concern-tabs-showcase__tab-progress-fill {
+    animation: concern-showcase-progress var(--showcase-progress-duration, 5s) linear forwards;
+  }
+
+  @keyframes concern-showcase-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .concern-tabs-showcase__tabs {
+      left: 20px;
+      bottom: 24px;
+      gap: 12px;
+    }
+
+    .concern-tabs-showcase__hero-viewport {
+      min-height: min(68vh, 480px);
+    }
+  }
+
+  .concern-tabs-showcase__products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 18px);
+    align-content: start;
+  }
+
+  .concern-tabs-showcase__product-cell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 96%);
+    color: #111;
+    overflow: hidden;
+    min-height: 100%;
+  }
+
+  .concern-tabs-showcase__product-media {
+    position: relative;
+    aspect-ratio: 1;
+    background: #e8e6e0;
+  }
+
+  .concern-tabs-showcase__product-media-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .concern-tabs-showcase__product-img,
+  .concern-tabs-showcase__product-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .concern-tabs-showcase__product-body {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px 14px;
+    flex: 1 1 auto;
+  }
+
+  .concern-tabs-showcase__product-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+
+  .concern-tabs-showcase__product-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .concern-tabs-showcase__product-title-link:hover {
+    text-decoration: underline;
+  }
+
+  .concern-tabs-showcase__product-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    font-size: 0.875rem;
+  }
+
+  .concern-tabs-showcase__product-rating {
+    color: #1b4332;
+    font-weight: 600;
+    font-size: 0.8125rem;
+  }
+
+  .concern-tabs-showcase__product-form-wrap {
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .concern-tabs-showcase__product-cta {
+    width: 100%;
+    justify-content: center;
+    border-radius: 999px;
+    font-weight: 600;
+    min-height: 40px;
+  }
+
+  .concern-tabs-showcase__product-cta--light {
+    background: #fff !important;
+    color: #111 !important;
+    border: 1px solid #111 !important;
+  }
+
+  .concern-tabs-showcase__product-cta--dark {
+    background: #1b4332 !important;
+    color: #fff !important;
+    border: 1px solid rgb(255 255 255 / 85%) !important;
+  }
+
+  .concern-tabs-showcase__product-cta--dark .add-to-cart-icon svg {
+    color: #fff;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.concern_tabs_showcase",
+  "tag": "section",
+  "class": "concern-tabs-showcase-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 24,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "info": "Used for nested components; section uses a gradient surface.",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Ticker"
+    },
+    {
+      "type": "text",
+      "id": "ticker_left_text",
+      "label": "Left label",
+      "default": "5000+ Happy Customers"
+    },
+    {
+      "type": "textarea",
+      "id": "ticker_fallback",
+      "label": "Marquee lines (fallback)",
+      "default": "Exceeded my expectations – Emily R.\nFast shipping – Jordan P.\nBeautiful packaging – Sam K.",
+      "info": "One line per row when no Ticker quote blocks are added."
+    },
+    {
+      "type": "text",
+      "id": "ticker_aria_label",
+      "label": "Ticker region label",
+      "default": "Customer highlights"
+    },
+    {
+      "type": "header",
+      "content": "Pill link"
+    },
+    {
+      "type": "text",
+      "id": "pill_label",
+      "label": "Label",
+      "default": "Shop by Concern"
+    },
+    {
+      "type": "url",
+      "id": "pill_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "range",
+      "id": "hero_radius",
+      "label": "Hero corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate tabs",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Tab duration",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "tabs_aria_label",
+      "label": "Tabs accessibility label",
+      "default": "Showcase tabs"
+    },
+    {
+      "type": "text",
+      "id": "empty_heading",
+      "label": "Empty state heading",
+      "default": "Add tab blocks to begin"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_text",
+      "label": "Empty state text",
+      "default": "This section displays a hero carousel controlled by tabs, with four featured products on the right."
+    },
+    {
+      "type": "header",
+      "content": "Products (2×2)"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product top left (light button)"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product top right"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product bottom left"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product bottom right"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "marquee_item",
+      "name": "Ticker quote",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Exceeded my expectations – Emily R."
+        }
+      ]
+    },
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Tab 1"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Image",
+          "visible_if": "{{ block.settings.media_type == 'image' }}"
+        },
+        {
+          "type": "video",
+          "id": "background_video",
+          "label": "Video",
+          "visible_if": "{{ block.settings.media_type == 'video' }}"
+        },
+        {
+          "type": "text",
+          "id": "heading_bold",
+          "label": "Heading (bold)",
+          "default": "Medium length hero heading goes here"
+        },
+        {
+          "type": "text",
+          "id": "heading_italic",
+          "label": "Subheading (italic)",
+          "default": "Supporting line goes here"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.concern_tabs_showcase",
+      "category": "t:categories.storytelling",
+      "blocks": [
+        {
+          "type": "marquee_item",
+          "settings": { "text": "Exceeded my expectations – Emily R." }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "Fast shipping – Jordan P." }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "Beautiful packaging – Sam K." }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 1",
+            "media_type": "image",
+            "heading_bold": "Medium length hero heading goes here",
+            "heading_italic": "Therra derma spotlight",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation.",
+            "button_label": "Shop collection"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 2",
+            "media_type": "image",
+            "heading_bold": "Second story headline",
+            "heading_italic": "Wellness ritual",
+            "description": "Pair products for morning and night routines tailored to your goals.",
+            "button_label": "Learn more"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 3",
+            "media_type": "image",
+            "heading_bold": "Third spotlight",
+            "heading_italic": "Pure ingredients",
+            "description": "Transparent sourcing and small-batch quality you can trust.",
+            "button_label": "View ingredients"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 4",
+            "media_type": "image",
+            "heading_bold": "Fourth spotlight",
+            "heading_italic": "Community picks",
+            "description": "Customer favorites refreshed weekly.",
+            "button_label": "See bestsellers"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
