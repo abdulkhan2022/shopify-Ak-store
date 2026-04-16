@@ -2,6 +2,8 @@
   class="feature-accordion-image section section--full-width spacing-style"
   style="
     {% render 'spacing-padding', settings: section.settings %}
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
     --feature-bg: {{ section.settings.background_color }};
     --feature-text: {{ section.settings.text_color }};
     --feature-card-bg: {{ section.settings.card_color }};
@@ -60,8 +62,8 @@
 
 {% stylesheet %}
   .feature-accordion-image {
-    background: var(--feature-bg);
-    color: var(--feature-text);
+    background: var(--feature-bg) !important;
+    color: var(--feature-text) !important;
   }
 
   .feature-accordion-image__inner {
