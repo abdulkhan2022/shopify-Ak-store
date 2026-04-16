@@ -66,15 +66,14 @@
   </div>
 
   <div class="concern-tabs-showcase__product-body">
-    <h3 class="concern-tabs-showcase__product-title">
-      {% if onboarding %}
-        Cordyceps mushroom tincture
-      {% else %}
-        <a class="concern-tabs-showcase__product-title-link" href="{{ variant.url }}">{{ product.title }}</a>
-      {% endif %}
-    </h3>
-
-    <div class="concern-tabs-showcase__product-meta">
+    <div class="concern-tabs-showcase__product-heading">
+      <h3 class="concern-tabs-showcase__product-title">
+        {% if onboarding %}
+          Cordyceps mushroom tincture
+        {% else %}
+          <a class="concern-tabs-showcase__product-title-link" href="{{ variant.url }}">{{ product.title }}</a>
+        {% endif %}
+      </h3>
       {% unless onboarding %}
         <span class="concern-tabs-showcase__product-price">
           {% render 'price', product_resource: product, show_unit_price: false %}
@@ -82,7 +81,9 @@
       {% else %}
         <span class="concern-tabs-showcase__product-price">$55.00</span>
       {% endunless %}
+    </div>
 
+    <div class="concern-tabs-showcase__product-meta">
       {% if rating != blank %}
         <span class="concern-tabs-showcase__product-rating" aria-label="{{ 'accessibility.rating' | t: rating: rating }}">
           <span aria-hidden="true">★</span>
