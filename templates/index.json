@@ -611,11 +611,46 @@
         "label": "Shop by category",
         "heading": "<p><strong>Printing and</strong> <em>typesetting industry.</em></p>",
         "table_label": "Product comparison",
-        "column_1_heading": "Relume",
-        "column_2_heading": "Relume",
-        "column_3_heading": "Relume",
         "padding-block-start": 90,
         "padding-block-end": 90
+      }
+    },
+    "gradient_feature_product_yK3MKL": {
+      "type": "gradient-feature-product",
+      "blocks": {
+        "product_slide_Qfcpkj": {
+          "type": "product_slide",
+          "settings": {
+            "product": "",
+            "product_title": "Cordycep Mushroom Tincture",
+            "product_price": "$55",
+            "rating_text": "4.5/5",
+            "button_label": "Add to cart",
+            "button_link": ""
+          }
+        },
+        "product_slide_YcNHmD": {
+          "type": "product_slide",
+          "settings": {
+            "product": "",
+            "product_title": "Cordycep Mushroom Tincture",
+            "product_price": "$55",
+            "rating_text": "4.5/5",
+            "button_label": "Add to cart",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_slide_Qfcpkj",
+        "product_slide_YcNHmD"
+      ],
+      "name": "Gradient feature product",
+      "settings": {
+        "color_scheme": "",
+        "label": "Shop by category",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>.</p>",
+        "background_overlay_opacity": 45
       }
     }
   },
@@ -627,6 +662,7 @@
     "group_6_media_grid_home",
     "product_list_fa6P9H",
     "feature_accordion_image_Uqxyi4",
-    "product_comparison_table_8jC998"
+    "product_comparison_table_8jC998",
+    "gradient_feature_product_yK3MKL"
   ]
 }
