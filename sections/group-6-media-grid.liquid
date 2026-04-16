@@ -1,0 +1,186 @@
+<section class="group-6-media-grid section section--full-width color-{{ section.settings.color_scheme }}" style="{% render 'spacing-padding', settings: section.settings %}">
+  <div class="group-6-media-grid__surface">
+    <div class="group-6-media-grid__inner">
+      {%- if section.settings.pill_label != blank -%}
+        <p class="group-6-media-grid__pill">{{ section.settings.pill_label | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <div class="group-6-media-grid__heading rte">
+          {{ section.settings.heading }}
+        </div>
+      {%- endif -%}
+
+      <div class="group-6-media-grid__tiles">
+        {%- for block in section.blocks -%}
+          <article class="group-6-media-grid__tile" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}
+              <a class="group-6-media-grid__link" href="{{ block.settings.link }}">
+            {%- else -%}
+              <div class="group-6-media-grid__link">
+            {%- endif -%}
+
+            <div class="group-6-media-grid__media-wrap">
+              {%- if block.settings.media_type == 'video' and block.settings.video != blank -%}
+                {{
+                  block.settings.video
+                  | video_tag:
+                    autoplay: true,
+                    loop: true,
+                    controls: false,
+                    muted: true,
+                    playsinline: true,
+                    class: 'group-6-media-grid__media'
+                }}
+              {%- elsif block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1000
+                  | image_tag:
+                    class: 'group-6-media-grid__media',
+                    loading: 'lazy',
+                    sizes: '(min-width: 990px) 25vw, 90vw',
+                    widths: '320, 520, 720, 1000',
+                    alt: block.settings.image.alt
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'group-6-media-grid__media group-6-media-grid__media--placeholder' }}
+              {%- endif -%}
+            </div>
+
+            <span class="group-6-media-grid__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="10" height="10" focusable="false">
+                <path d="M8 6.5v11l8.5-5.5z" fill="currentColor"></path>
+              </svg>
+            </span>
+
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .group-6-media-grid__surface{
+      background:#ecebe0;
+      border-radius:16px 16px 0 0;
+      padding:clamp(36px,4vw,64px) var(--page-margin) clamp(28px,4vw,50px);
+    }
+    .group-6-media-grid__inner{max-width:1440px;margin:0 auto}
+    .group-6-media-grid__pill{
+      margin:0 auto 16px;
+      width:max-content;
+      border:1px solid rgb(17 17 17 / 45%);
+      border-radius:999px;
+      padding:6px 14px;
+      font-size:.875rem;
+      line-height:1;
+      color:#111;
+    }
+    .group-6-media-grid__heading{
+      margin:0 auto;
+      max-width:920px;
+      text-align:center;
+      color:#111;
+      font-size:clamp(2rem,4.6vw,3.55rem);
+      line-height:1.1;
+      letter-spacing:-.02em;
+    }
+    .group-6-media-grid__heading p{margin:0}
+    .group-6-media-grid__heading em{font-style:italic}
+    .group-6-media-grid__tiles{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+    }
+    .group-6-media-grid__tile{position:relative}
+    .group-6-media-grid__link{display:block;position:relative}
+    .group-6-media-grid__media-wrap{
+      border-radius:12px;
+      overflow:hidden;
+      background:rgb(0 0 0 / 8%);
+      aspect-ratio:.74;
+    }
+    .group-6-media-grid__media{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .group-6-media-grid__play{
+      position:absolute;
+      top:8px;
+      right:8px;
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      background:#fff;
+      color:#666;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 1px 2px rgb(0 0 0 / 12%);
+      pointer-events:none;
+    }
+    @media (max-width:989px){
+      .group-6-media-grid__tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width:749px){
+      .group-6-media-grid__surface{border-radius:12px 12px 0 0}
+      .group-6-media-grid__tiles{grid-template-columns:1fr}
+      .group-6-media-grid__heading{font-size:clamp(2rem,8.5vw,2.6rem)}
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Group 6 media grid",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" },
+    { "type": "text", "id": "pill_label", "label": "Pill label", "default": "Shop by category" },
+    { "type": "richtext", "id": "heading", "label": "t:settings.heading", "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>" },
+    { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 24 },
+    { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "media_tile",
+      "name": "Media tile",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
+        },
+        { "type": "image_picker", "id": "image", "label": "t:settings.image" },
+        { "type": "video", "id": "video", "label": "t:settings.video" },
+        { "type": "url", "id": "link", "label": "t:settings.link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Group 6 media grid",
+      "blocks": [
+        { "type": "media_tile" },
+        { "type": "media_tile" },
+        { "type": "media_tile" },
+        { "type": "media_tile" }
+      ]
+    }
+  ]
+}
+{% endschema %}

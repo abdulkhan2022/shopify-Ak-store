@@ -230,6 +230,48 @@
         "padding-block-end": 0
       }
     },
+    "group_6_media_grid_home": {
+      "type": "group-6-media-grid",
+      "blocks": {
+        "group_6_media_1": {
+          "type": "media_tile",
+          "settings": {
+            "media_type": "image"
+          }
+        },
+        "group_6_media_2": {
+          "type": "media_tile",
+          "settings": {
+            "media_type": "image"
+          }
+        },
+        "group_6_media_3": {
+          "type": "media_tile",
+          "settings": {
+            "media_type": "image"
+          }
+        },
+        "group_6_media_4": {
+          "type": "media_tile",
+          "settings": {
+            "media_type": "image"
+          }
+        }
+      },
+      "block_order": [
+        "group_6_media_1",
+        "group_6_media_2",
+        "group_6_media_3",
+        "group_6_media_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "pill_label": "Shop by category",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
+        "padding-block-start": 24,
+        "padding-block-end": 0
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -430,6 +472,7 @@
     "concern_tabs_showcase_home",
     "stats_41_home",
     "group_6_products_home",
+    "group_6_media_grid_home",
     "product_list_fa6P9H"
   ]
 }
