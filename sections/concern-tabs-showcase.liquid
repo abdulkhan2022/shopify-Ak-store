@@ -295,7 +295,8 @@
   .concern-tabs-showcase__ticker {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: clamp(24px, 6vw, 120px);
     padding-block-end: 16px;
     margin-block-end: 12px;
     border-bottom: 1px solid rgb(255 255 255 / 25%);
@@ -304,12 +305,14 @@
 
   .concern-tabs-showcase__ticker-left {
     flex: 0 0 auto;
+    white-space: nowrap;
     font-weight: 600;
     letter-spacing: 0.02em;
   }
 
   .concern-tabs-showcase__ticker-marquee {
-    flex: 1 1 auto;
+    flex: 0 1 min(70%, 920px);
+    margin-left: auto;
     min-width: 0;
     overflow: hidden;
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
