@@ -1,0 +1,26 @@
+<section class="stats-41-v2 section section--full-width color-{{ section.settings.color_scheme }}" style="{% render 'spacing-padding', settings: section.settings %}">
+  <div class="stats-41-v2__surface">
+    <div class="stats-41-v2__inner">
+      <p class="stats-41-v2__pill">{{ section.settings.label | escape }}</p>
+      <div class="stats-41-v2__head">
+        <div class="stats-41-v2__heading rte">{{ section.settings.heading }}</div>
+        <div class="stats-41-v2__desc rte">{{ section.settings.description }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stats 41",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-6" },
+    { "type": "text", "id": "label", "label": "t:settings.label", "default": "Shop by category" },
+    { "type": "richtext", "id": "heading", "label": "t:settings.heading", "default": "<p>Medium length section <em>heading goes here</em></p>" },
+    { "type": "richtext", "id": "description", "label": "t:settings.description", "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>" },
+    { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 0 }
+  ],
+  "presets": [{ "name": "Stats 41" }]
+}
+{% endschema %}

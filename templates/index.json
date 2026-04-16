@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_jVaWmY": {
       "type": "hero",
@@ -184,6 +185,17 @@
         "padding-block-end": 0,
         "padding-inline-start": 0,
         "padding-inline-end": 0
+      }
+    },
+    "stats_41_home": {
+      "type": "stats-41-v2",
+      "settings": {
+        "color_scheme": "scheme-6",
+        "label": "Shop by category",
+        "heading": "<p>Medium length section <em>heading goes here</em></p>",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "product_list_fa6P9H": {
@@ -384,6 +396,7 @@
   "order": [
     "hero_jVaWmY",
     "concern_tabs_showcase_home",
+    "stats_41_home",
     "product_list_fa6P9H"
   ]
 }
