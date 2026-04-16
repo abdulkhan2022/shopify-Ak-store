@@ -23,13 +23,37 @@
             <tr>
               <th scope="col">{{ section.settings.table_label | escape }}</th>
               <th scope="col">
-                <span class="product-comparison-table__brand">{{ section.settings.column_1_heading | escape }}</span>
+                {%- if section.settings.column_1_image != blank -%}
+                  {{
+                    section.settings.column_1_image
+                    | image_url: width: 320
+                    | image_tag: class: 'product-comparison-table__brand-image', loading: 'lazy', alt: section.settings.column_1_heading
+                  }}
+                {%- else -%}
+                  <span class="product-comparison-table__brand">{{ section.settings.column_1_heading | escape }}</span>
+                {%- endif -%}
               </th>
               <th scope="col">
-                <span class="product-comparison-table__brand">{{ section.settings.column_2_heading | escape }}</span>
+                {%- if section.settings.column_2_image != blank -%}
+                  {{
+                    section.settings.column_2_image
+                    | image_url: width: 320
+                    | image_tag: class: 'product-comparison-table__brand-image', loading: 'lazy', alt: section.settings.column_2_heading
+                  }}
+                {%- else -%}
+                  <span class="product-comparison-table__brand">{{ section.settings.column_2_heading | escape }}</span>
+                {%- endif -%}
               </th>
               <th scope="col">
-                <span class="product-comparison-table__brand">{{ section.settings.column_3_heading | escape }}</span>
+                {%- if section.settings.column_3_image != blank -%}
+                  {{
+                    section.settings.column_3_image
+                    | image_url: width: 320
+                    | image_tag: class: 'product-comparison-table__brand-image', loading: 'lazy', alt: section.settings.column_3_heading
+                  }}
+                {%- else -%}
+                  <span class="product-comparison-table__brand">{{ section.settings.column_3_heading | escape }}</span>
+                {%- endif -%}
               </th>
             </tr>
           </thead>
@@ -51,6 +75,9 @@
   <style>
     #{{ section_id }}.product-comparison-table {
       background: #dbdad0;
+      border-radius: 24px 24px 0 0;
+      margin-top: -10px;
+      overflow: hidden;
     }
 
     #{{ section_id }} .product-comparison-table__inner {
@@ -165,6 +192,15 @@
       opacity: 0.9;
     }
 
+    #{{ section_id }} .product-comparison-table__brand-image {
+      display: block;
+      max-height: 34px;
+      width: auto;
+      max-width: 100%;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+
     @media (max-width: 989px) {
       #{{ section_id }} .product-comparison-table__heading {
         margin-bottom: 24px;
@@ -190,10 +226,13 @@
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p><strong>Printing and</strong> <em>typesetting industry.</em></p>" },
     { "type": "text", "id": "table_label", "label": "Table label", "default": "Product comparison" },
     { "type": "text", "id": "column_1_heading", "label": "Column 1 heading", "default": "Relume" },
+    { "type": "image_picker", "id": "column_1_image", "label": "Column 1 image" },
     { "type": "text", "id": "column_2_heading", "label": "Column 2 heading", "default": "Relume" },
+    { "type": "image_picker", "id": "column_2_image", "label": "Column 2 image" },
     { "type": "text", "id": "column_3_heading", "label": "Column 3 heading", "default": "Relume" },
-    { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 64 },
-    { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 64 }
+    { "type": "image_picker", "id": "column_3_image", "label": "Column 3 image" },
+    { "type": "range", "id": "padding-block-start", "min": 0, "max": 160, "step": 2, "unit": "px", "label": "t:settings.top_padding", "default": 90 },
+    { "type": "range", "id": "padding-block-end", "min": 0, "max": 160, "step": 2, "unit": "px", "label": "t:settings.bottom_padding", "default": 90 }
   ],
   "blocks": [
     {
