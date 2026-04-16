@@ -21,7 +21,7 @@
 {% render 'buy-buttons-styles' %}
 
 <div
-  class="concern-tabs-showcase section spacing-style"
+  class="concern-tabs-showcase section section--full-width spacing-style"
   id="shopify-section-{{ section.id }}"
   style="
     {% render 'spacing-padding', settings: section.settings %}
@@ -72,13 +72,7 @@
 
     {% if section.settings.pill_label != blank %}
       <div class="concern-tabs-showcase__pill-wrap">
-        {% if section.settings.pill_link != blank %}
-          <a class="concern-tabs-showcase__pill" href="{{ section.settings.pill_link }}">
-            {{ section.settings.pill_label | escape }}
-          </a>
-        {% else %}
-          <span class="concern-tabs-showcase__pill">{{ section.settings.pill_label | escape }}</span>
-        {% endif %}
+        <span class="concern-tabs-showcase__pill">{{ section.settings.pill_label | escape }}</span>
       </div>
     {% endif %}
 
@@ -88,28 +82,50 @@
       </div>
     {% endif %}
 
-    <div class="concern-tabs-showcase__layout">
+    {% if tab_count > 0 %}
       <concern-tabs-showcase
-        class="concern-tabs-showcase__hero-shell"
+        class="concern-tabs-showcase__shell"
         {% if tab_count > 1 and section.settings.autoplay %}
           autoplay
         {% endif %}
         data-autoplay-ms="{{ section.settings.autoplay_speed | times: 1000 }}"
         data-testid="concern-tabs-showcase"
       >
-        <div class="concern-tabs-showcase__hero-viewport" style="--showcase-hero-radius: {{ section.settings.hero_radius }}px;">
-          {% if tab_count == 0 %}
-            <article class="concern-tabs-showcase__slide" data-showcase-slide data-active="true" aria-hidden="false">
-              <div class="concern-tabs-showcase__slide-media">
-                {{ 'hero-apparel-1' | placeholder_svg_tag: 'concern-tabs-showcase__slide-img concern-tabs-showcase__slide-img--placeholder' }}
-              </div>
-              <div class="concern-tabs-showcase__slide-overlay"></div>
-              <div class="concern-tabs-showcase__slide-content">
-                <h2 class="concern-tabs-showcase__slide-heading-bold">{{ section.settings.empty_heading | escape }}</h2>
-                <p class="concern-tabs-showcase__slide-desc">{{ section.settings.empty_text | escape }}</p>
-              </div>
-            </article>
-          {% else %}
+        {% if tab_count > 1 %}
+          <div
+            class="concern-tabs-showcase__tabs concern-tabs-showcase__tabs--center"
+            role="tablist"
+            aria-label="{{ section.settings.tabs_aria_label | escape }}"
+          >
+            {% assign tab_index = 0 %}
+            {% for block in section.blocks %}
+              {% if block.type != 'tab' %}
+                {% continue %}
+              {% endif %}
+              <button
+                type="button"
+                class="concern-tabs-showcase__tab"
+                data-showcase-tab
+                data-index="{{ tab_index }}"
+                role="tab"
+                aria-selected="{% if tab_index == 0 %}true{% else %}false{% endif %}"
+                aria-controls="concern-showcase-panel-{{ section.id }}-{{ tab_index }}"
+                id="concern-showcase-tab-{{ section.id }}-{{ tab_index }}"
+              >
+                <span class="concern-tabs-showcase__tab-label">
+                  {{ block.settings.tab_label | default: block.settings.heading_bold | strip_html | truncate: 28 }}
+                </span>
+              </button>
+              {% assign tab_index = tab_index | plus: 1 %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="concern-tabs-showcase__layout">
+          <div
+            class="concern-tabs-showcase__hero-viewport"
+            style="--showcase-hero-radius: {{ section.settings.hero_radius }}px;"
+          >
             {% assign tab_index = 0 %}
             {% for block in section.blocks %}
               {% if block.type != 'tab' %}
@@ -194,78 +210,86 @@
               </article>
               {% assign tab_index = tab_index | plus: 1 %}
             {% endfor %}
-          {% endif %}
+          </div>
 
-          {% if tab_count > 1 %}
-            <div class="concern-tabs-showcase__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
-              {% assign tab_index = 0 %}
-              {% for block in section.blocks %}
-                {% if block.type != 'tab' %}
-                  {% continue %}
-                {% endif %}
-                <button
-                  type="button"
-                  class="concern-tabs-showcase__tab"
-                  data-showcase-tab
-                  data-index="{{ tab_index }}"
-                  role="tab"
-                  aria-selected="{% if tab_index == 0 %}true{% else %}false{% endif %}"
-                  aria-controls="concern-showcase-panel-{{ section.id }}-{{ tab_index }}"
-                  id="concern-showcase-tab-{{ section.id }}-{{ tab_index }}"
-                >
-                  <span class="concern-tabs-showcase__tab-label">
-                    {{ block.settings.tab_label | default: block.settings.heading_bold | strip_html | truncate: 28 }}
-                  </span>
-                  <span class="concern-tabs-showcase__tab-progress" aria-hidden="true">
-                    <span class="concern-tabs-showcase__tab-progress-fill" data-showcase-progress></span>
-                  </span>
-                </button>
-                {% assign tab_index = tab_index | plus: 1 %}
-              {% endfor %}
-            </div>
-          {% endif %}
+          <div class="concern-tabs-showcase__products">
+            {% render 'concern-showcase-product-cell',
+              product: section.settings.product_1,
+              section: section,
+              cell_index: 1
+            %}
+            {% render 'concern-showcase-product-cell',
+              product: section.settings.product_2,
+              section: section,
+              cell_index: 2
+            %}
+            {% render 'concern-showcase-product-cell',
+              product: section.settings.product_3,
+              section: section,
+              cell_index: 3
+            %}
+            {% render 'concern-showcase-product-cell',
+              product: section.settings.product_4,
+              section: section,
+              cell_index: 4
+            %}
+          </div>
         </div>
       </concern-tabs-showcase>
-
-      <div class="concern-tabs-showcase__products">
-        {% render 'concern-showcase-product-cell',
-          product: section.settings.product_1,
-          section: section,
-          cell_index: 1
-        %}
-        {% render 'concern-showcase-product-cell',
-          product: section.settings.product_2,
-          section: section,
-          cell_index: 2
-        %}
-        {% render 'concern-showcase-product-cell',
-          product: section.settings.product_3,
-          section: section,
-          cell_index: 3
-        %}
-        {% render 'concern-showcase-product-cell',
-          product: section.settings.product_4,
-          section: section,
-          cell_index: 4
-        %}
+    {% else %}
+      <div class="concern-tabs-showcase__layout concern-tabs-showcase__layout--empty">
+        <div class="concern-tabs-showcase__hero-viewport" style="--showcase-hero-radius: {{ section.settings.hero_radius }}px;">
+          <article class="concern-tabs-showcase__slide" data-showcase-slide data-active="true" aria-hidden="false">
+            <div class="concern-tabs-showcase__slide-media">
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'concern-tabs-showcase__slide-img concern-tabs-showcase__slide-img--placeholder' }}
+            </div>
+            <div class="concern-tabs-showcase__slide-overlay"></div>
+            <div class="concern-tabs-showcase__slide-content">
+              <h2 class="concern-tabs-showcase__slide-heading-bold">{{ section.settings.empty_heading | escape }}</h2>
+              <p class="concern-tabs-showcase__slide-desc">{{ section.settings.empty_text | escape }}</p>
+            </div>
+          </article>
+        </div>
+        <div class="concern-tabs-showcase__products">
+          {% render 'concern-showcase-product-cell',
+            product: section.settings.product_1,
+            section: section,
+            cell_index: 1
+          %}
+          {% render 'concern-showcase-product-cell',
+            product: section.settings.product_2,
+            section: section,
+            cell_index: 2
+          %}
+          {% render 'concern-showcase-product-cell',
+            product: section.settings.product_3,
+            section: section,
+            cell_index: 3
+          %}
+          {% render 'concern-showcase-product-cell',
+            product: section.settings.product_4,
+            section: section,
+            cell_index: 4
+          %}
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 </div>
 
 {% stylesheet %}
   .concern-tabs-showcase {
-    max-width: 1376px;
-    margin-block: 30px;
-    margin-inline: auto;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
   }
 
   .concern-tabs-showcase__surface {
-    border-radius: 16px;
-    padding: clamp(16px, 3vw, 28px);
-    background: linear-gradient(100deg, #b8e986 0%, #2d6a4f 55%, #1b4332 100%);
+    border-radius: 0;
+    padding-block: clamp(20px, 4vw, 40px);
+    padding-inline: max(var(--page-margin, 1.25rem), 1.25rem);
+    background: linear-gradient(180deg, #1b4332 0%, #2d6a4f 42%, #6bbf59 88%, #b8e986 100%);
     color: #fff;
-    box-shadow: 0 12px 40px rgb(0 0 0 / 12%);
   }
 
   .concern-tabs-showcase__ticker {
@@ -331,20 +355,16 @@
     border-radius: 999px;
     border: 1px solid rgb(255 255 255 / 85%);
     color: #fff;
-    text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
-  }
-
-  .concern-tabs-showcase__pill:hover {
-    background: rgb(255 255 255 / 12%);
+    letter-spacing: 0.02em;
   }
 
   .concern-tabs-showcase__heading {
     text-align: center;
     max-width: 56rem;
     margin-inline: auto;
-    margin-block-end: clamp(20px, 4vw, 36px);
+    margin-block-end: clamp(12px, 2.5vw, 20px);
     font-size: clamp(1.25rem, 2.4vw, 2rem);
     line-height: 1.25;
     color: #fff;
@@ -356,10 +376,19 @@
     font-style: italic;
   }
 
+  .concern-tabs-showcase__shell {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 2vw, 16px);
+    width: 100%;
+    min-height: 0;
+  }
+
   .concern-tabs-showcase__layout {
     display: grid;
     gap: clamp(16px, 3vw, 28px);
     align-items: stretch;
+    width: 100%;
   }
 
   @media screen and (min-width: 990px) {
@@ -368,9 +397,8 @@
     }
   }
 
-  .concern-tabs-showcase__hero-shell {
-    display: block;
-    min-height: 0;
+  .concern-tabs-showcase__layout--empty {
+    margin-top: clamp(8px, 2vw, 16px);
   }
 
   .concern-tabs-showcase__hero-viewport {
@@ -506,72 +534,55 @@
     display: inline-flex;
   }
 
-  .concern-tabs-showcase__tabs {
-    position: absolute;
-    left: 32px;
-    bottom: 80px;
-    z-index: 2;
+  .concern-tabs-showcase__tabs--center {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gap-md, 16px);
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(1.25rem, 4vw, 2.75rem);
+    margin-block: 0 clamp(16px, 3vw, 28px);
+    padding-block-start: 4px;
   }
 
-  .concern-tabs-showcase__tab {
+  .concern-tabs-showcase__tabs--center .concern-tabs-showcase__tab {
     appearance: none;
+    margin: 0;
+    padding: 0.4rem 0.15rem 0.65rem;
     border: 0;
+    border-bottom: 2px solid rgb(255 255 255 / 38%);
+    border-radius: 0;
     background: transparent;
     color: #fff;
-    display: grid;
-    gap: 6px;
-    min-width: 88px;
-    padding: 0;
-    text-align: left;
     cursor: pointer;
+    font: inherit;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 3.5rem;
+    text-align: center;
+    transition:
+      border-color 180ms ease,
+      border-width 180ms ease,
+      opacity 180ms ease;
   }
 
-  .concern-tabs-showcase__tab-label {
-    font-size: 0.9375rem;
-    line-height: 1.35;
+  .concern-tabs-showcase__tabs--center .concern-tabs-showcase__tab:hover {
+    border-bottom-color: rgb(255 255 255 / 65%);
   }
 
-  .concern-tabs-showcase__tab-progress {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: rgb(255 255 255 / 28%);
-    overflow: hidden;
+  .concern-tabs-showcase__tabs--center .concern-tabs-showcase__tab[aria-selected='true'] {
+    border-bottom-width: 3px;
+    border-bottom-color: #fff;
+    opacity: 1;
   }
 
-  .concern-tabs-showcase__tab-progress-fill {
-    display: block;
-    width: 100%;
-    height: 100%;
-    transform: scaleX(0);
-    transform-origin: left;
-    background: currentColor;
-  }
-
-  concern-tabs-showcase[autoplay] .concern-tabs-showcase__tab[aria-selected='true'] .concern-tabs-showcase__tab-progress-fill {
-    animation: concern-showcase-progress var(--showcase-progress-duration, 5s) linear forwards;
-  }
-
-  @keyframes concern-showcase-progress {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
+  .concern-tabs-showcase__tabs--center .concern-tabs-showcase__tab-label {
+    font-size: clamp(0.9375rem, 1.6vw, 1.0625rem);
+    line-height: 1.3;
+    white-space: nowrap;
   }
 
   @media screen and (max-width: 989px) {
-    .concern-tabs-showcase__tabs {
-      left: 20px;
-      bottom: 24px;
-      gap: 12px;
-    }
-
     .concern-tabs-showcase__hero-viewport {
       min-height: min(68vh, 480px);
     }
@@ -727,18 +738,14 @@
     },
     {
       "type": "header",
-      "content": "Pill link"
+      "content": "Pill label"
     },
     {
       "type": "text",
       "id": "pill_label",
-      "label": "Label",
-      "default": "Shop by Concern"
-    },
-    {
-      "type": "url",
-      "id": "pill_link",
-      "label": "Link"
+      "label": "Text",
+      "default": "Shop by Concern",
+      "info": "Displayed as a static label (not a link or button)."
     },
     {
       "type": "header",

@@ -173,7 +173,6 @@
         "ticker_fallback": "Exceeded my expectations – Emily R.\nFast shipping – Jordan P.\nBeautiful packaging – Sam K.",
         "ticker_aria_label": "Customer highlights",
         "pill_label": "Shop by Concern",
-        "pill_link": "shopify://collections/all",
         "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
         "hero_radius": 16,
         "autoplay": true,
