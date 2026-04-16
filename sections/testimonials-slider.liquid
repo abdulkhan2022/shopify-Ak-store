@@ -12,7 +12,6 @@
     --testimonials-gap: {{ section.settings.card_gap }}px;
     --testimonials-radius: {{ section.settings.card_radius }}px;
     --testimonials-columns: {{ section.settings.cards_per_view }};
-    {% render 'spacing-padding', settings: section.settings %}
   "
 >
   <div class="testimonials-slider__inner">
@@ -91,7 +90,10 @@
 {% stylesheet %}
   .testimonials-slider {
     background: var(--testimonials-bg);
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
+    margin-top: -10px;
+    padding-top: 90px;
+    padding-bottom: 90px;
   }
 
   .testimonials-slider__inner {
@@ -200,6 +202,7 @@
     display: flex;
     align-items: center;
     gap: 0.45rem;
+    min-height: 0.6rem;
   }
 
   .testimonials-slider__dot {
@@ -264,14 +267,6 @@
   (() => {
     const SELECTOR = '.testimonials-slider'
 
-    const getStep = (viewport) => {
-      const firstCard = viewport.querySelector('.testimonials-slider__card')
-      if (!firstCard) return viewport.clientWidth
-      const styles = window.getComputedStyle(viewport.querySelector('.testimonials-slider__track'))
-      const gap = parseFloat(styles.columnGap || styles.gap || 0)
-      return firstCard.getBoundingClientRect().width + gap
-    }
-
     const init = (section) => {
       const viewport = section.querySelector('[data-viewport]')
       const prev = section.querySelector('[data-prev]')
@@ -280,10 +275,9 @@
       if (!viewport || !prev || !next || !dotsContainer) return
 
       const refresh = () => {
-        const step = getStep(viewport)
-        const slidesCount = viewport.querySelectorAll('.testimonials-slider__card').length
-        const pages = Math.max(1, Math.ceil((step * slidesCount) / viewport.clientWidth))
-        const activeIndex = Math.round(viewport.scrollLeft / viewport.clientWidth)
+        const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth)
+        const pages = Math.max(1, Math.round(maxScroll / viewport.clientWidth) + 1)
+        const activeIndex = Math.min(pages - 1, Math.round(viewport.scrollLeft / viewport.clientWidth))
 
         dotsContainer.innerHTML = ''
         for (let i = 0; i < pages; i += 1) {
@@ -428,7 +422,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 92
     },
     {
       "type": "range",
@@ -438,7 +432,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 92
     }
   ],
   "blocks": [
