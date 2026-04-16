@@ -695,14 +695,68 @@
         "heading_plain": "Customer testimonials",
         "section_width": "full-width",
         "color_scheme": "",
-        "background_color": "#F7F6EF",
-        "border_color": "#A8BDA7",
-        "accent_color": "#2A7B63",
+        "background_color": "#f7f6ef",
+        "border_color": "#a8bda7",
+        "accent_color": "#2a7b63",
         "cards_per_view": 2,
         "card_gap": 20,
         "card_radius": 8,
         "padding-block-start": 120,
         "padding-block-end": 92
+      }
+    },
+    "faq_3_DEDNpL": {
+      "type": "faq-3",
+      "blocks": {
+        "faq_item_76LpJy": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          }
+        },
+        "faq_item_Ez6tG7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p></p>"
+          }
+        },
+        "faq_item_NDTmVi": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p></p>"
+          }
+        },
+        "faq_item_xT3VmR": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_76LpJy",
+        "faq_item_Ez6tG7",
+        "faq_item_NDTmVi",
+        "faq_item_xT3VmR"
+      ],
+      "name": "FAQ 3",
+      "settings": {
+        "heading": "Frequently asked",
+        "subheading": "questions",
+        "description": "<p>Frequently asked questions ordered by popularity. Remember that if the visitor has not committed to the call to action, they may still have questions (doubts) that can be answered.</p>",
+        "button_label": "Contact",
+        "button_link": "",
+        "background_start": "#1f8f8e",
+        "background_middle": "#0f6335",
+        "background_end": "#1f7ea2",
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
       }
     }
   },
@@ -716,6 +770,7 @@
     "feature_accordion_image_Uqxyi4",
     "product_comparison_table_8jC998",
     "gradient_feature_product_yK3MKL",
-    "testimonials_slider_YhQqKH"
+    "testimonials_slider_YhQqKH",
+    "faq_3_DEDNpL"
   ]
 }
