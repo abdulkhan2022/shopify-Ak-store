@@ -1,0 +1,313 @@
+<section
+  class="feature-accordion-image section section--full-width spacing-style"
+  style="
+    {% render 'spacing-padding', settings: section.settings %}
+    --feature-bg: {{ section.settings.background_color }};
+    --feature-text: {{ section.settings.text_color }};
+    --feature-card-bg: {{ section.settings.card_color }};
+    --feature-border: {{ section.settings.border_color }};
+  "
+>
+  <div class="feature-accordion-image__inner">
+    <div class="feature-accordion-image__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="feature-accordion-image__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      <div class="feature-accordion-image__accordion-list">
+        {% for block in section.blocks %}
+          <details
+            class="feature-accordion-image__item"
+            {% if forloop.first %}
+              open
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <summary class="feature-accordion-image__summary">
+              <span class="feature-accordion-image__summary-text">{{ block.settings.title | escape }}</span>
+              <span class="feature-accordion-image__icon" aria-hidden="true"></span>
+            </summary>
+            {% if block.settings.content != blank %}
+              <div class="feature-accordion-image__body rte">
+                {{ block.settings.content }}
+              </div>
+            {% endif %}
+          </details>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="feature-accordion-image__media">
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag:
+            widths: '480, 720, 960, 1200, 1600',
+            sizes: '(min-width: 990px) 46vw, 100vw',
+            loading: 'lazy',
+            class: 'feature-accordion-image__image',
+            alt: section.settings.image.alt
+        }}
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'feature-accordion-image__image feature-accordion-image__image--placeholder' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .feature-accordion-image {
+    background: var(--feature-bg);
+    color: var(--feature-text);
+  }
+
+  .feature-accordion-image__inner {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 40px);
+    display: grid;
+    gap: clamp(20px, 2.4vw, 36px);
+    grid-template-columns: 1fr;
+  }
+
+  @media screen and (min-width: 990px) {
+    .feature-accordion-image__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      align-items: stretch;
+    }
+  }
+
+  .feature-accordion-image__content {
+    background: var(--feature-card-bg);
+    border-radius: 24px;
+    padding: clamp(20px, 3vw, 34px);
+    min-height: 100%;
+  }
+
+  .feature-accordion-image__heading {
+    margin: 0 0 20px;
+    font-size: clamp(1.85rem, 3.2vw, 3rem);
+    line-height: 1.06;
+    color: inherit;
+  }
+
+  .feature-accordion-image__accordion-list {
+    border-top: 1px solid var(--feature-border);
+  }
+
+  .feature-accordion-image__item {
+    border-bottom: 1px solid var(--feature-border);
+  }
+
+  .feature-accordion-image__summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .feature-accordion-image__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .feature-accordion-image__summary-text {
+    font-size: clamp(1.2rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    color: inherit;
+  }
+
+  .feature-accordion-image__icon {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+  }
+
+  .feature-accordion-image__icon::before,
+  .feature-accordion-image__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1.5px;
+    background: currentcolor;
+    transform: translate(-50%, -50%);
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .feature-accordion-image__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .feature-accordion-image__item[open] .feature-accordion-image__icon::after {
+    opacity: 0;
+  }
+
+  .feature-accordion-image__body {
+    margin: 0 0 18px;
+    padding-right: min(8%, 44px);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--feature-text) 84%, black);
+  }
+
+  .feature-accordion-image__body p {
+    margin: 0;
+  }
+
+  .feature-accordion-image__media {
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 100%;
+  }
+
+  .feature-accordion-image__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: clamp(280px, 48vw, 560px);
+    object-fit: cover;
+  }
+
+  .feature-accordion-image__image--placeholder {
+    background: #d8d9d3;
+    color: #7c7c75;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Feature accordion",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Long heading is what you see here in this <em>feature section</em></p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#267E66"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Accordion card color",
+      "default": "#EBEAE0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Accordion divider color",
+      "default": "#CFCDBF"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_item",
+      "name": "Accordion item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Short heading goes here"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Feature accordion",
+      "category": "Storytelling",
+      "blocks": [
+        {
+          "type": "accordion_item"
+        },
+        {
+          "type": "accordion_item"
+        },
+        {
+          "type": "accordion_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
