@@ -652,6 +652,58 @@
         "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>.</p>",
         "background_overlay_opacity": 45
       }
+    },
+    "testimonials_slider_YhQqKH": {
+      "type": "testimonials-slider",
+      "blocks": {
+        "testimonial_GydJw9": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "author_name": "Name surname",
+            "author_meta": "Position, Company name"
+          }
+        },
+        "testimonial_zz7dCt": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "author_name": "Name surname",
+            "author_meta": "Position, Company name"
+          }
+        },
+        "testimonial_P7x3L6": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "author_name": "Name surname",
+            "author_meta": "Position, Company name"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_GydJw9",
+        "testimonial_zz7dCt",
+        "testimonial_P7x3L6"
+      ],
+      "name": "Testimonials slider",
+      "settings": {
+        "heading": "<p>What our <em>customers</em> say about us</p>",
+        "heading_plain": "Customer testimonials",
+        "section_width": "full-width",
+        "color_scheme": "",
+        "background_color": "#F7F6EF",
+        "border_color": "#A8BDA7",
+        "accent_color": "#2A7B63",
+        "cards_per_view": 2,
+        "card_gap": 20,
+        "card_radius": 8,
+        "padding-block-start": 120,
+        "padding-block-end": 92
+      }
     }
   },
   "order": [
@@ -663,6 +715,7 @@
     "product_list_fa6P9H",
     "feature_accordion_image_Uqxyi4",
     "product_comparison_table_8jC998",
-    "gradient_feature_product_yK3MKL"
+    "gradient_feature_product_yK3MKL",
+    "testimonials_slider_YhQqKH"
   ]
 }
