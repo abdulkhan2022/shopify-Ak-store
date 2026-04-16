@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
     "hero_jVaWmY": {
       "type": "hero",
@@ -194,7 +193,40 @@
         "label": "Shop by category",
         "heading": "<p>Medium length section <em>heading goes here</em></p>",
         "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+        "card_1_title": "Short heading goes here",
+        "chart_values": "200,300,400,300,200,120",
+        "chart_max": 500,
+        "highlight_bar": 3,
+        "card_1_metric": "30%",
+        "card_1_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "card_2_title": "Short heading goes here",
+        "card_2_range_label": "Price range",
+        "card_2_min": "$2000",
+        "card_2_max": "$3500",
+        "card_2_metric": "30%",
+        "card_2_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "card_3_title": "Short heading goes here",
+        "card_3_range_label": "Price range",
+        "card_3_min": "$2000",
+        "card_3_max": "$3500",
+        "card_3_metric": "30%",
+        "card_3_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "group_6_products_home": {
+      "type": "group-6-products",
+      "settings": {
+        "color_scheme": "scheme-6",
+        "pill_label": "Shop by category",
+        "heading": "Products",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
+        "button_label": "Shop Powders",
+        "button_link": "shopify://collections/all",
+        "collection": "all",
+        "products_to_show": 8,
+        "padding-block-start": 24,
         "padding-block-end": 0
       }
     },
@@ -397,6 +429,7 @@
     "hero_jVaWmY",
     "concern_tabs_showcase_home",
     "stats_41_home",
+    "group_6_products_home",
     "product_list_fa6P9H"
   ]
 }
