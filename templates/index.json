@@ -509,14 +509,113 @@
       "name": "Feature accordion",
       "settings": {
         "heading": "<p>Long heading is what you see here in this <em>feature section</em></p>",
-        "background_color": "#267E66",
-        "card_color": "#EBEAE0",
+        "background_color": "#267e66",
+        "card_color": "#ebeae0",
         "text_color": "#111111",
-        "border_color": "#CFCDBF",
+        "border_color": "#cfcdbf",
         "padding-block-start": 0,
         "padding-block-end": 0,
         "padding-inline-start": 0,
         "padding-inline-end": 0
+      }
+    },
+    "product_comparison_table_8jC998": {
+      "type": "product-comparison-table",
+      "blocks": {
+        "row_H49Xdc": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "Unlimited",
+            "column_2_value": "25",
+            "column_3_value": "10"
+          }
+        },
+        "row_7MaTyQ": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✓",
+            "column_3_value": "✓"
+          }
+        },
+        "row_9herMY": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✓",
+            "column_3_value": "✓"
+          }
+        },
+        "row_qQTMKq": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✓",
+            "column_3_value": "✕"
+          }
+        },
+        "row_pUMQqQ": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✓",
+            "column_3_value": "✕"
+          }
+        },
+        "row_DLT6YF": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✓",
+            "column_3_value": "✕"
+          }
+        },
+        "row_gnynCg": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✓",
+            "column_3_value": "✕"
+          }
+        },
+        "row_Rqm4Nw": {
+          "type": "row",
+          "settings": {
+            "feature": "Feature text goes here",
+            "column_1_value": "✓",
+            "column_2_value": "✕",
+            "column_3_value": "✕"
+          }
+        }
+      },
+      "block_order": [
+        "row_H49Xdc",
+        "row_7MaTyQ",
+        "row_9herMY",
+        "row_qQTMKq",
+        "row_pUMQqQ",
+        "row_DLT6YF",
+        "row_gnynCg",
+        "row_Rqm4Nw"
+      ],
+      "name": "Product comparison table",
+      "settings": {
+        "color_scheme": "",
+        "label": "Shop by category",
+        "heading": "<p><strong>Printing and</strong> <em>typesetting industry.</em></p>",
+        "table_label": "Product comparison",
+        "column_1_heading": "Relume",
+        "column_2_heading": "Relume",
+        "column_3_heading": "Relume",
+        "padding-block-start": 90,
+        "padding-block-end": 90
       }
     }
   },
@@ -527,6 +626,7 @@
     "group_6_products_home",
     "group_6_media_grid_home",
     "product_list_fa6P9H",
-    "feature_accordion_image_Uqxyi4"
+    "feature_accordion_image_Uqxyi4",
+    "product_comparison_table_8jC998"
   ]
 }
