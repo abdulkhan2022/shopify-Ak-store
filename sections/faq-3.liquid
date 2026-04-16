@@ -1,0 +1,381 @@
+<section
+  class="faq-3 section section--full-width spacing-style"
+  style="
+    {% render 'spacing-padding', settings: section.settings %}
+    --faq3-bg-start: {{ section.settings.background_start }};
+    --faq3-bg-middle: {{ section.settings.background_middle }};
+    --faq3-bg-end: {{ section.settings.background_end }};
+  "
+>
+  <div class="faq-3__inner">
+    <div class="faq-3__intro">
+      {% if section.settings.heading != blank %}
+        <h2 class="faq-3__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="faq-3__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="faq-3__description rte">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a class="faq-3__button" href="{{ section.settings.button_link }}">
+          <span>{{ section.settings.button_label | escape }}</span>
+          <span class="faq-3__button-arrow" aria-hidden="true">+</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="faq-3__accordion">
+      {% for block in section.blocks %}
+        <details
+          class="faq-3__item"
+          {% if forloop.first %}
+            open
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <summary class="faq-3__summary">
+            <span class="faq-3__question">{{ block.settings.question | escape }}</span>
+            <span class="faq-3__icon" aria-hidden="true"></span>
+          </summary>
+          {% if block.settings.answer != blank %}
+            <div class="faq-3__answer rte">
+              {{ block.settings.answer }}
+            </div>
+          {% endif %}
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .faq-3 {
+    position: relative;
+    isolation: isolate;
+    color: #fff;
+  }
+
+  .faq-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      115deg,
+      var(--faq3-bg-start) 0%,
+      var(--faq3-bg-middle) 55%,
+      var(--faq3-bg-end) 100%
+    );
+    z-index: -1;
+  }
+
+  .faq-3__inner {
+    width: min(1400px, 100%);
+    margin: 0 auto;
+    padding: clamp(24px, 3vw, 44px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(22px, 3vw, 54px);
+  }
+
+  @media screen and (min-width: 990px) {
+    .faq-3__inner {
+      grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+      align-items: start;
+    }
+  }
+
+  .faq-3__heading {
+    margin: 0 0 10px;
+    font-family: var(--font-heading--family);
+    font-size: clamp(2rem, 3.2vw, 3.2rem);
+    line-height: 1.02;
+    color: #fff;
+  }
+
+  .faq-3__subheading {
+    margin: 0 0 16px;
+    font-family: var(--font-accent--family, var(--font-heading--family));
+    font-style: italic;
+    font-size: clamp(1.55rem, 2.2vw, 2.3rem);
+    line-height: 1.02;
+    color: rgb(255 255 255 / 95%);
+  }
+
+  .faq-3__description {
+    margin: 0;
+    max-width: 36ch;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgb(255 255 255 / 90%);
+  }
+
+  .faq-3__description p {
+    margin: 0;
+  }
+
+  .faq-3__button {
+    margin-top: clamp(16px, 2.5vw, 28px);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: var(--minimum-touch-target, 44px);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 90%);
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+
+  .faq-3__button:hover {
+    background: rgb(255 255 255 / 90%);
+  }
+
+  .faq-3__button-arrow {
+    line-height: 1;
+    font-size: 0.95rem;
+  }
+
+  .faq-3__accordion {
+    border-top: 1px solid rgb(255 255 255 / 62%);
+  }
+
+  .faq-3__item {
+    border-bottom: 1px solid rgb(255 255 255 / 62%);
+  }
+
+  .faq-3__summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    min-height: 3.25rem;
+    padding: 0.8rem 0;
+  }
+
+  .faq-3__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-3__question {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #fff;
+  }
+
+  .faq-3__icon {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+  }
+
+  .faq-3__icon::before,
+  .faq-3__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.7rem;
+    height: 1px;
+    background: currentcolor;
+    transform: translate(-50%, -50%);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .faq-3__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .faq-3__item[open] .faq-3__icon::after {
+    opacity: 0;
+  }
+
+  .faq-3__answer {
+    margin: 0;
+    padding: 0 2.2rem 1rem 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgb(255 255 255 / 88%);
+  }
+
+  .faq-3__answer p {
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ 3",
+  "tag": "section",
+  "class": "faq-3-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently asked"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "questions"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Frequently asked questions ordered by popularity. Remember that if the visitor has not committed to the call to action, they may still have questions (doubts) that can be answered.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_start",
+      "label": "Gradient start",
+      "default": "#1f8f8e"
+    },
+    {
+      "type": "color",
+      "id": "background_middle",
+      "label": "Gradient middle",
+      "default": "#0f6335"
+    },
+    {
+      "type": "color",
+      "id": "background_end",
+      "label": "Gradient end",
+      "default": "#1f7ea2"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question text goes here"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "FAQ 3",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p></p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p></p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Question text goes here",
+            "answer": "<p></p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
