@@ -29,6 +29,7 @@
   "
 >
   <div class="concern-tabs-showcase__surface color-{{ section.settings.color_scheme }}">
+    <div class="concern-tabs-showcase__inner">
     <div class="concern-tabs-showcase__ticker" role="region" aria-label="{{ section.settings.ticker_aria_label | escape }}">
       <span class="concern-tabs-showcase__ticker-left">
         {{ section.settings.ticker_left_text | escape }}
@@ -274,6 +275,7 @@
         </div>
       </div>
     {% endif %}
+    </div>
   </div>
 </div>
 
@@ -290,6 +292,12 @@
     padding-inline: max(var(--page-margin, 1.25rem), 1.25rem);
     background: linear-gradient(180deg, #1b4332 0%, #2d6a4f 42%, #6bbf59 88%, #b8e986 100%);
     color: #fff;
+  }
+
+  .concern-tabs-showcase__inner {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
   }
 
   .concern-tabs-showcase__ticker {
