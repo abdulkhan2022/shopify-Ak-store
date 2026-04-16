@@ -1,12 +1,11 @@
 {%- liquid
   assign section_id = 'gradient-feature-product-' | append: section.id
-  assign selected_product = section.settings.product
 -%}
 
 <section
   id="{{ section_id }}"
   class="gradient-feature-product section section--full-width color-{{ section.settings.color_scheme }}"
-  style="{% render 'spacing-padding', settings: section.settings %}"
+  style="padding-top: 90px; padding-bottom: 90px;"
 >
   <div class="gradient-feature-product__inner">
     {%- if section.settings.label != blank -%}
@@ -33,62 +32,83 @@
         {%- endif -%}
       </div>
 
-      <div class="gradient-feature-product__card-wrap">
-        <button type="button" class="gradient-feature-product__nav" aria-label="Previous slide">&larr;</button>
+      <div class="gradient-feature-product__card-wrap" data-carousel-wrap>
+        <button type="button" class="gradient-feature-product__nav" aria-label="Previous slide" data-carousel-prev>&larr;</button>
 
-        <article class="gradient-feature-product__card">
-          <div class="gradient-feature-product__card-media">
-            {%- if selected_product != blank and selected_product.featured_image != blank -%}
-              {{
-                selected_product.featured_image
-                | image_url: width: 700
-                | image_tag:
-                  class: 'gradient-feature-product__product-image',
-                  loading: 'lazy',
-                  sizes: '(min-width: 990px) 20vw, 70vw'
-              }}
-            {%- elsif section.settings.product_image != blank -%}
-              {{
-                section.settings.product_image
-                | image_url: width: 700
-                | image_tag:
-                  class: 'gradient-feature-product__product-image',
-                  loading: 'lazy',
-                  sizes: '(min-width: 990px) 20vw, 70vw'
-              }}
+        <div class="gradient-feature-product__viewport">
+          <div class="gradient-feature-product__track" data-carousel-track>
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                {%- assign block_product = block.settings.product -%}
+                <article class="gradient-feature-product__card" {{ block.shopify_attributes }}>
+                  <div class="gradient-feature-product__card-media">
+                    {%- if block_product != blank and block_product.featured_image != blank -%}
+                      {{
+                        block_product.featured_image
+                        | image_url: width: 700
+                        | image_tag:
+                          class: 'gradient-feature-product__product-image',
+                          loading: 'lazy',
+                          sizes: '(min-width: 990px) 20vw, 70vw'
+                      }}
+                    {%- elsif block.settings.product_image != blank -%}
+                      {{
+                        block.settings.product_image
+                        | image_url: width: 700
+                        | image_tag:
+                          class: 'gradient-feature-product__product-image',
+                          loading: 'lazy',
+                          sizes: '(min-width: 990px) 20vw, 70vw'
+                      }}
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'gradient-feature-product__product-image gradient-feature-product__product-image--placeholder' }}
+                    {%- endif -%}
+                  </div>
+
+                  <div class="gradient-feature-product__card-row">
+                    <h3 class="gradient-feature-product__product-title">
+                      {%- if block_product != blank -%}
+                        {{ block_product.title | escape }}
+                      {%- else -%}
+                        {{ block.settings.product_title | escape }}
+                      {%- endif -%}
+                    </h3>
+                    <p class="gradient-feature-product__price">
+                      {%- if block_product != blank -%}
+                        {{ block_product.price | money }}
+                      {%- else -%}
+                        {{ block.settings.product_price | escape }}
+                      {%- endif -%}
+                    </p>
+                  </div>
+
+                  <p class="gradient-feature-product__rating">★ {{ block.settings.rating_text | escape }}</p>
+
+                  <a
+                    class="gradient-feature-product__button"
+                    href="{% if block_product != blank %}{{ block_product.url }}{% elsif block.settings.button_link != blank %}{{ block.settings.button_link }}{% else %}#{% endif %}"
+                  >
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                </article>
+              {%- endfor -%}
             {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'gradient-feature-product__product-image gradient-feature-product__product-image--placeholder' }}
+              <article class="gradient-feature-product__card">
+                <div class="gradient-feature-product__card-media">
+                  {{ 'product-1' | placeholder_svg_tag: 'gradient-feature-product__product-image gradient-feature-product__product-image--placeholder' }}
+                </div>
+                <div class="gradient-feature-product__card-row">
+                  <h3 class="gradient-feature-product__product-title">Sample product</h3>
+                  <p class="gradient-feature-product__price">$55</p>
+                </div>
+                <p class="gradient-feature-product__rating">★ 4.5/5</p>
+                <a class="gradient-feature-product__button" href="#">Add to cart</a>
+              </article>
             {%- endif -%}
           </div>
+        </div>
 
-          <div class="gradient-feature-product__card-row">
-            <h3 class="gradient-feature-product__product-title">
-              {%- if selected_product != blank -%}
-                {{ selected_product.title | escape }}
-              {%- else -%}
-                {{ section.settings.product_title | escape }}
-              {%- endif -%}
-            </h3>
-            <p class="gradient-feature-product__price">
-              {%- if selected_product != blank -%}
-                {{ selected_product.price | money }}
-              {%- else -%}
-                {{ section.settings.product_price | escape }}
-              {%- endif -%}
-            </p>
-          </div>
-
-          <p class="gradient-feature-product__rating">★ {{ section.settings.rating_text | escape }}</p>
-
-          <a
-            class="gradient-feature-product__button"
-            href="{% if selected_product != blank %}{{ selected_product.url }}{% elsif section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}#{% endif %}"
-          >
-            {{ section.settings.button_label | escape }}
-          </a>
-        </article>
-
-        <button type="button" class="gradient-feature-product__nav" aria-label="Next slide">&rarr;</button>
+        <button type="button" class="gradient-feature-product__nav" aria-label="Next slide" data-carousel-next>&rarr;</button>
       </div>
     </div>
   </div>
@@ -98,17 +118,35 @@
       margin-top: -10px;
       border-radius: 24px 24px 0 0;
       overflow: hidden;
+      position: relative;
+      color: #f7f7f7;
       background:
         radial-gradient(70% 60% at 30% 2%, rgb(255 255 255 / 35%), transparent 70%),
         radial-gradient(60% 70% at 95% 58%, rgb(255 133 199 / 55%), transparent 70%),
         linear-gradient(135deg, #4b4da1 0%, #486cb0 45%, #b883c8 100%);
-      color: #f7f7f7;
+    }
+
+    #{{ section_id }}.gradient-feature-product::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');
+      background-size: cover;
+      background-position: center;
+      opacity: {{ section.settings.background_overlay_opacity | divided_by: 100.0 }};
+      {% if section.settings.background_image == blank %}
+        display: none;
+      {% endif %}
     }
 
     #{{ section_id }} .gradient-feature-product__inner {
       width: min(1320px, calc(100% - (var(--page-margin, 24px) * 2)));
       margin: 0 auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     #{{ section_id }} .gradient-feature-product__pill {
@@ -165,6 +203,17 @@
       padding-bottom: 34px;
     }
 
+    #{{ section_id }} .gradient-feature-product__viewport {
+      width: min(250px, 100%);
+      overflow: hidden;
+    }
+
+    #{{ section_id }} .gradient-feature-product__track {
+      display: flex;
+      transition: transform 0.35s ease;
+      will-change: transform;
+    }
+
     #{{ section_id }} .gradient-feature-product__nav {
       display: inline-flex;
       align-items: center;
@@ -176,11 +225,17 @@
       background: #f6f3e7;
       color: #1b1b1b;
       font-size: 1.2rem;
-      cursor: default;
+      cursor: pointer;
+    }
+
+    #{{ section_id }} .gradient-feature-product__nav[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     #{{ section_id }} .gradient-feature-product__card {
-      width: min(250px, 100%);
+      width: 100%;
+      min-width: 100%;
       background: #f3f0e6;
       color: #161616;
       border-radius: 16px;
@@ -260,6 +315,44 @@
       }
     }
   </style>
+
+  <script>
+    (() => {
+      const section = document.getElementById('{{ section_id }}');
+      if (!section) return;
+
+      const track = section.querySelector('[data-carousel-track]');
+      const prev = section.querySelector('[data-carousel-prev]');
+      const next = section.querySelector('[data-carousel-next]');
+      if (!track || !prev || !next) return;
+
+      const slides = Array.from(track.children);
+      let index = 0;
+
+      const update = () => {
+        track.style.transform = `translateX(-${index * 100}%)`;
+        const isSingle = slides.length <= 1;
+        prev.disabled = isSingle || index === 0;
+        next.disabled = isSingle || index === slides.length - 1;
+      };
+
+      prev.addEventListener('click', () => {
+        if (index > 0) {
+          index -= 1;
+          update();
+        }
+      });
+
+      next.addEventListener('click', () => {
+        if (index < slides.length - 1) {
+          index += 1;
+          update();
+        }
+      });
+
+      update();
+    })();
+  </script>
 </section>
 
 {% schema %}
@@ -269,20 +362,33 @@
     { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-6" },
     { "type": "text", "id": "label", "label": "Top label", "default": "Shop by category" },
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>.</p>" },
-    { "type": "image_picker", "id": "left_image", "label": "Left image" },
-    { "type": "product", "id": "product", "label": "Product" },
-    { "type": "image_picker", "id": "product_image", "label": "Fallback product image" },
-    { "type": "text", "id": "product_title", "label": "Fallback product title", "default": "Cordycep Mushroom Tincture" },
-    { "type": "text", "id": "product_price", "label": "Fallback price", "default": "$55" },
-    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.5/5" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to cart" },
-    { "type": "url", "id": "button_link", "label": "Fallback button link" },
-    { "type": "range", "id": "padding-block-start", "min": 0, "max": 160, "step": 2, "unit": "px", "label": "t:settings.top_padding", "default": 90 },
-    { "type": "range", "id": "padding-block-end", "min": 0, "max": 160, "step": 2, "unit": "px", "label": "t:settings.bottom_padding", "default": 90 }
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "range", "id": "background_overlay_opacity", "label": "Background image opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 45 },
+    { "type": "image_picker", "id": "left_image", "label": "Left image" }
   ],
+  "blocks": [
+    {
+      "type": "product_slide",
+      "name": "Product slide",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "product_image", "label": "Fallback product image" },
+        { "type": "text", "id": "product_title", "label": "Fallback product title", "default": "Cordycep Mushroom Tincture" },
+        { "type": "text", "id": "product_price", "label": "Fallback price", "default": "$55" },
+        { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.5/5" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to cart" },
+        { "type": "url", "id": "button_link", "label": "Fallback button link" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
   "presets": [
     {
-      "name": "Gradient feature product"
+      "name": "Gradient feature product",
+      "blocks": [
+        { "type": "product_slide" },
+        { "type": "product_slide" }
+      ]
     }
   ]
 }
