@@ -62,8 +62,21 @@
 
 {% stylesheet %}
   .feature-accordion-image {
-    background: var(--feature-bg) !important;
+    position: relative;
+    isolation: isolate;
     color: var(--feature-text) !important;
+  }
+
+  .feature-accordion-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: var(--feature-bg);
+    z-index: -1;
   }
 
   .feature-accordion-image__inner {
