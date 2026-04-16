@@ -1,0 +1,227 @@
+{%- liquid
+  assign section_id = 'product-comparison-table-' | append: section.id
+-%}
+
+<section
+  id="{{ section_id }}"
+  class="product-comparison-table section section--full-width color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <div class="product-comparison-table__inner">
+    {%- if section.settings.label != blank -%}
+      <p class="product-comparison-table__pill">{{ section.settings.label | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <div class="product-comparison-table__heading rte">{{ section.settings.heading }}</div>
+    {%- endif -%}
+
+    <div class="product-comparison-table__frame">
+      <div class="product-comparison-table__table-wrap">
+        <table class="product-comparison-table__table" role="table">
+          <thead>
+            <tr>
+              <th scope="col">{{ section.settings.table_label | escape }}</th>
+              <th scope="col">
+                <span class="product-comparison-table__brand">{{ section.settings.column_1_heading | escape }}</span>
+              </th>
+              <th scope="col">
+                <span class="product-comparison-table__brand">{{ section.settings.column_2_heading | escape }}</span>
+              </th>
+              <th scope="col">
+                <span class="product-comparison-table__brand">{{ section.settings.column_3_heading | escape }}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.feature | escape }}</th>
+                <td>{{ block.settings.column_1_value | escape }}</td>
+                <td>{{ block.settings.column_2_value | escape }}</td>
+                <td>{{ block.settings.column_3_value | escape }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #{{ section_id }}.product-comparison-table {
+      background: #dbdad0;
+    }
+
+    #{{ section_id }} .product-comparison-table__inner {
+      width: min(1320px, calc(100% - (var(--page-margin, 24px) * 2)));
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    #{{ section_id }} .product-comparison-table__pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 18px;
+      padding: 6px 16px;
+      border: 1px solid rgb(0 0 0 / 45%);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      line-height: 1;
+      color: #111;
+      background: #efeee7;
+    }
+
+    #{{ section_id }} .product-comparison-table__heading {
+      margin: 0 auto 30px;
+      max-width: 950px;
+      font-size: clamp(2rem, 4vw, 3.9rem);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      color: #111;
+    }
+
+    #{{ section_id }} .product-comparison-table__heading p {
+      margin: 0;
+    }
+
+    #{{ section_id }} .product-comparison-table__frame {
+      border: 1px solid rgb(0 0 0 / 45%);
+      border-radius: 20px;
+      background: #dbdad0;
+      overflow: hidden;
+    }
+
+    #{{ section_id }} .product-comparison-table__table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #{{ section_id }} .product-comparison-table__table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      text-align: left;
+      color: #161616;
+      font-size: 1rem;
+    }
+
+    #{{ section_id }} .product-comparison-table__table th,
+    #{{ section_id }} .product-comparison-table__table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgb(0 0 0 / 45%);
+    }
+
+    #{{ section_id }} .product-comparison-table__table thead th {
+      font-size: 1.65rem;
+      font-weight: 500;
+      line-height: 1.15;
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    #{{ section_id }} .product-comparison-table__table thead th:first-child {
+      text-align: left;
+      font-size: 2rem;
+      font-weight: 400;
+      min-width: 290px;
+    }
+
+    #{{ section_id }} .product-comparison-table__table tbody tr:last-child th,
+    #{{ section_id }} .product-comparison-table__table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    #{{ section_id }} .product-comparison-table__table tbody th {
+      font-size: 0.95rem;
+      font-weight: 400;
+      width: 36%;
+    }
+
+    #{{ section_id }} .product-comparison-table__table tbody td {
+      text-align: center;
+      width: 21.333%;
+      font-size: 1.1rem;
+    }
+
+    #{{ section_id }} .product-comparison-table__brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    #{{ section_id }} .product-comparison-table__brand::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-radius: 2px;
+      transform: rotate(45deg);
+      opacity: 0.9;
+    }
+
+    @media (max-width: 989px) {
+      #{{ section_id }} .product-comparison-table__heading {
+        margin-bottom: 24px;
+      }
+
+      #{{ section_id }} .product-comparison-table__table thead th {
+        font-size: 1.35rem;
+      }
+
+      #{{ section_id }} .product-comparison-table__table thead th:first-child {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Product comparison table",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-6" },
+    { "type": "text", "id": "label", "label": "Top label", "default": "Shop by category" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p><strong>Printing and</strong> <em>typesetting industry.</em></p>" },
+    { "type": "text", "id": "table_label", "label": "Table label", "default": "Product comparison" },
+    { "type": "text", "id": "column_1_heading", "label": "Column 1 heading", "default": "Relume" },
+    { "type": "text", "id": "column_2_heading", "label": "Column 2 heading", "default": "Relume" },
+    { "type": "text", "id": "column_3_heading", "label": "Column 3 heading", "default": "Relume" },
+    { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 64 },
+    { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "feature", "label": "Feature", "default": "Feature text goes here" },
+        { "type": "text", "id": "column_1_value", "label": "Column 1 value", "default": "Unlimited" },
+        { "type": "text", "id": "column_2_value", "label": "Column 2 value", "default": "25" },
+        { "type": "text", "id": "column_3_value", "label": "Column 3 value", "default": "10" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Product comparison table",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "Unlimited", "column_2_value": "25", "column_3_value": "10" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✓", "column_3_value": "✓" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✓", "column_3_value": "✓" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✓", "column_3_value": "✕" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✓", "column_3_value": "✕" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✓", "column_3_value": "✕" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✓", "column_3_value": "✕" } },
+        { "type": "row", "settings": { "feature": "Feature text goes here", "column_1_value": "✓", "column_2_value": "✕", "column_3_value": "✕" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
