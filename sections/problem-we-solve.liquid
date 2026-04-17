@@ -1,0 +1,246 @@
+<div class="problem-we-solve">
+  <div class="problem-we-solve__inner page-width-content">
+    {% if section.settings.badge_text != blank %}
+      <p class="problem-we-solve__badge">{{ section.settings.badge_text | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <div class="problem-we-solve__heading rte">{{ section.settings.heading }}</div>
+    {% endif %}
+
+    <div class="problem-we-solve__grid">
+      <div class="problem-we-solve__media">
+        {% if section.settings.feature_image != blank %}
+          {% liquid
+            assign pws_alt = section.settings.feature_image.alt | default: section.settings.badge_text
+          %}
+          {{
+            section.settings.feature_image
+            | image_url: width: 1600
+            | image_tag:
+              class: 'problem-we-solve__image',
+              loading: 'lazy',
+              sizes: '(min-width: 750px) 45vw, 100vw',
+              alt: pws_alt
+          }}
+        {% else %}
+          <div class="problem-we-solve__image-placeholder" aria-hidden="true"></div>
+        {% endif %}
+      </div>
+
+      <div class="problem-we-solve__items">
+        {% for block in section.blocks %}
+          <div class="problem-we-solve__item" {{ block.shopify_attributes }}>
+            {% if block.settings.title != blank %}
+              <h3 class="problem-we-solve__item-title">{{ block.settings.title | escape }}</h3>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <div class="problem-we-solve__item-body rte">{{ block.settings.text }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .problem-we-solve {
+    --pws-bg: #fdfbf0;
+    background-color: var(--pws-bg);
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+    padding-inline: var(--page-margin, 1.5rem);
+  }
+
+  .problem-we-solve__inner {
+    margin-inline: auto;
+  }
+
+  .problem-we-solve__badge {
+    margin: 0 auto clamp(1.25rem, 3vw, 1.75rem);
+    display: table;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.35);
+    border-radius: 999px;
+    font-family: var(--font-body--family);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+    text-align: center;
+  }
+
+  .problem-we-solve__heading {
+    max-width: 52rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 2.8vw, 2.25rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .problem-we-solve__heading :first-child {
+    margin-top: 0;
+  }
+
+  .problem-we-solve__heading :last-child {
+    margin-bottom: 0;
+  }
+
+  .problem-we-solve__heading em,
+  .problem-we-solve__heading i {
+    font-family: var(--font-subheading--family);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .problem-we-solve__grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media screen and (min-width: 750px) {
+    .problem-we-solve__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(2rem, 4vw, 4rem);
+    }
+  }
+
+  .problem-we-solve__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+
+  .problem-we-solve__image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #e5e0d8 0%, #f0ebe5 100%);
+  }
+
+  .problem-we-solve__items {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .problem-we-solve__item {
+    padding-left: 0;
+  }
+
+  .problem-we-solve__item:first-child {
+    padding-left: 1.25rem;
+    border-left: 2px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.55);
+  }
+
+  .problem-we-solve__item-title {
+    margin: 0 0 0.65em;
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .problem-we-solve__item-body {
+    font-family: var(--font-body--family);
+    font-size: clamp(0.875rem, 0.95vw, 0.9375rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .problem-we-solve__item-body p {
+    margin: 0 0 0.75em;
+  }
+
+  .problem-we-solve__item-body p:last-child {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "The problem we solve",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Pill label",
+      "default": "The Problem We Solve"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Centered heading",
+      "info": "Italicize phrases in the editor for serif emphasis.",
+      "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Left image (square)",
+      "info": "Displayed as a square with rounded corners."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Text block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Higher Bioavailability"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Not all supplements are created equal, and it starts with extraction. Therra's proprietary botanical extraction technology unlocks bioactive compounds at their peak potency while preserving molecular integrity. The result? Superior absorption, faster results, and formulations that actually work.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "The problem we solve",
+      "blocks": [
+        {
+          "type": "point",
+          "settings": {
+            "title": "Higher Bioavailability",
+            "text": "<p>Not all supplements are created equal, and it starts with extraction. Therra's proprietary botanical extraction technology unlocks bioactive compounds at their peak potency while preserving molecular integrity. The result? Superior absorption, faster results, and formulations that actually work.</p>"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "title": "Standardized Potency",
+            "text": "<p>With standardized potency, every batch delivers the exact same therapeutic dose. No guesswork, just precise nutrition designed to support your body's daily needs reliably.</p>"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "title": "Preserved Efficacy",
+            "text": "<p>Our cold-press extraction method ensures that heat-sensitive phytonutrients remain intact. This preservation of efficacy means you get the full spectrum of benefits nature intended.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

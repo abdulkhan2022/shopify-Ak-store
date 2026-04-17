@@ -17,6 +17,41 @@
       "type": "founder-word",
       "settings": {}
     },
+    "problem-we-solve": {
+      "type": "problem-we-solve",
+      "blocks": {
+        "pwspoint1": {
+          "type": "point",
+          "settings": {
+            "title": "Higher Bioavailability",
+            "text": "<p>Not all supplements are created equal, and it starts with extraction. Therra's proprietary botanical extraction technology unlocks bioactive compounds at their peak potency while preserving molecular integrity. The result? Superior absorption, faster results, and formulations that actually work.</p>"
+          }
+        },
+        "pwspoint2": {
+          "type": "point",
+          "settings": {
+            "title": "Standardized Potency",
+            "text": "<p>With standardized potency, every batch delivers the exact same therapeutic dose. No guesswork, just precise nutrition designed to support your body's daily needs reliably.</p>"
+          }
+        },
+        "pwspoint3": {
+          "type": "point",
+          "settings": {
+            "title": "Preserved Efficacy",
+            "text": "<p>Our cold-press extraction method ensures that heat-sensitive phytonutrients remain intact. This preservation of efficacy means you get the full spectrum of benefits nature intended.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "pwspoint1",
+        "pwspoint2",
+        "pwspoint3"
+      ],
+      "settings": {
+        "badge_text": "The Problem We Solve",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>"
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {}
@@ -25,6 +60,7 @@
   "order": [
     "medium-length-hero",
     "founder-word",
+    "problem-we-solve",
     "main"
   ]
 }
