@@ -41,37 +41,42 @@
         "padding-block-end": 15
       }
     },
-    "header_tabs_hero_XcB29m": {
+    "header_tabs_hero_JcXTDj": {
       "type": "header-tabs-hero",
       "blocks": {
-        "tab_4Cn2kA": {
+        "tab_FFNrDp": {
           "type": "tab",
           "settings": {
             "tab_label": "Tab 1",
+            "media_type": "image",
             "heading_bold": "Meet the Therra",
             "heading_italic": "Organic Powders",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
             "button_label": "Shop Powders",
-            "button_link": "shopify://collections/all"
+            "button_link": ""
           }
         },
-        "tab_hQ8mZu": {
+        "tab_B3rUcM": {
           "type": "tab",
           "settings": {
             "tab_label": "Tab 2",
+            "media_type": "image",
             "heading_bold": "Pure ingredients",
             "heading_italic": "Daily wellness",
+            "description": "Choose your blend and explore products designed for your routine.",
             "button_label": "Explore",
-            "button_link": "shopify://collections/all"
+            "button_link": ""
           }
         }
       },
       "block_order": [
-        "tab_4Cn2kA",
-        "tab_hQ8mZu"
+        "tab_FFNrDp",
+        "tab_B3rUcM"
       ],
+      "name": "Header tabs hero",
       "settings": {
         "section_width": "page-width",
-        "color_scheme": "scheme-1",
+        "color_scheme": "",
         "section_height": 620,
         "corner_radius": 12,
         "autoplay": true,
@@ -152,57 +157,11 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
-    },
-    "header_tabs_hero_JcXTDj": {
-      "type": "header-tabs-hero",
-      "blocks": {
-        "tab_FFNrDp": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Tab 1",
-            "media_type": "image",
-            "heading_bold": "Meet the Therra",
-            "heading_italic": "Organic Powders",
-            "description": "High quality organic powders crafted for daily wellness.",
-            "button_label": "Shop Powders",
-            "button_link": ""
-          }
-        },
-        "tab_B3rUcM": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Tab 2",
-            "media_type": "image",
-            "heading_bold": "Pure ingredients",
-            "heading_italic": "Daily wellness",
-            "description": "Choose your blend and explore products designed for your routine.",
-            "button_label": "Explore",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "tab_FFNrDp",
-        "tab_B3rUcM"
-      ],
-      "name": "Header tabs hero",
-      "settings": {
-        "section_width": "page-width",
-        "color_scheme": "",
-        "section_height": 620,
-        "corner_radius": 12,
-        "autoplay": true,
-        "autoplay_speed": 5,
-        "tabs_aria_label": "Header hero tabs",
-        "padding-block-start": 16,
-        "padding-block-end": 16
-      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
-    "header_tabs_hero_XcB29m",
-    "header_tabs_hero_JcXTDj",
-    "header_section"
+    "header_section",
+    "header_tabs_hero_JcXTDj"
   ]
 }
