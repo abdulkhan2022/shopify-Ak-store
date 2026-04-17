@@ -11,8 +11,8 @@
       {%- if heading_before != blank or heading_italic != blank or heading_after != blank -%}
         <h2 class="group-6-media-grid__heading group-6-media-grid__heading--split">
           {%- if heading_before != blank -%}<span>{{ heading_before | escape }}</span>{%- endif -%}
-          {%- if heading_italic != blank -%}<span class="group-6-media-grid__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
-          {%- if heading_after != blank -%}<span>{{ heading_after | escape }}</span>{%- endif -%}
+          {%- if heading_italic != blank -%} <span class="group-6-media-grid__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
+          {%- if heading_after != blank -%} <span>{{ heading_after | escape }}</span>{%- endif -%}
         </h2>
       {%- elsif section.settings.heading != blank -%}
         <div class="group-6-media-grid__heading rte">
@@ -115,10 +115,7 @@
       font-weight:400;
     }
     .group-6-media-grid__heading--split{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:.22em;
+      display:block;
     }
     .group-6-media-grid__heading-italic{
       font-family:'Instrument Serif',serif;
