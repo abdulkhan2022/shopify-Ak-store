@@ -6,57 +6,31 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "main-page",
-      "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "Title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "page-content": {
-          "type": "page-content",
-          "settings": {},
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "heading",
-        "page-content"
-      ],
       "settings": {
         "content_direction": "column",
         "gap": 32,
         "color_scheme": "",
         "padding-block-start": 40,
-        "padding-block-end": 80
+        "padding-block-end": 0
+      }
+    },
+    "founder_word_TLyeJB": {
+      "type": "founder-word",
+      "name": "Word by founder",
+      "settings": {
+        "badge_text": "Word by founder",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
+        "body": "<p>I never set out to build a supplement brand. I set out to understand performance.</p><p>As a trader, trading S&P 500 e-mini futures, performance wasn't optional – focus, energy, and clarity determined outcomes every day. At the same time, being a certified diver taught me the importance of calm, control, and what it truly means to operate under pressure.</p><p>That led me to a simple question: What actually supports performance from within?</p><p>The more I explored nutrition and supplementation, the clearer it became – most products don't fail because of ingredients, but because of how they're processed.</p><p>Therra was built to fix that.</p><p>We focus on preserving bioactive compounds through better sourcing and extraction – so what you take actually works.</p>"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "founder_word_TLyeJB"
   ]
 }
