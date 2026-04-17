@@ -190,23 +190,25 @@
                 </div>
                 <div class="concern-tabs-showcase__slide-overlay"></div>
                 <div class="concern-tabs-showcase__slide-content">
-                  {% if block.settings.heading_bold != blank %}
-                    <h2 class="concern-tabs-showcase__slide-heading-bold">{{ block.settings.heading_bold }}</h2>
-                  {% endif %}
-                  {% if block.settings.heading_italic != blank %}
-                    <p class="concern-tabs-showcase__slide-heading-italic">{{ block.settings.heading_italic }}</p>
-                  {% endif %}
-                  {% if block.settings.description != blank %}
-                    <p class="concern-tabs-showcase__slide-desc">{{ block.settings.description }}</p>
-                  {% endif %}
-                  {% if block.settings.button_label != blank and block.settings.button_link != blank %}
-                    <a class="concern-tabs-showcase__slide-cta" href="{{ block.settings.button_link }}">
-                      <span>{{ block.settings.button_label }}</span>
-                      <span class="svg-wrapper" aria-hidden="true">
-                        {{ 'icon-arrow.svg' | inline_asset_content }}
-                      </span>
-                    </a>
-                  {% endif %}
+                  <div class="concern-tabs-showcase__slide-copy">
+                    {% if block.settings.heading_bold != blank %}
+                      <h2 class="concern-tabs-showcase__slide-heading-bold">{{ block.settings.heading_bold }}</h2>
+                    {% endif %}
+                    {% if block.settings.heading_italic != blank %}
+                      <p class="concern-tabs-showcase__slide-heading-italic">{{ block.settings.heading_italic }}</p>
+                    {% endif %}
+                    {% if block.settings.description != blank %}
+                      <p class="concern-tabs-showcase__slide-desc">{{ block.settings.description }}</p>
+                    {% endif %}
+                    {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+                      <a class="concern-tabs-showcase__slide-cta" href="{{ block.settings.button_link }}">
+                        <span>{{ block.settings.button_label }}</span>
+                        <span class="svg-wrapper" aria-hidden="true">
+                          {{ 'icon-arrow.svg' | inline_asset_content }}
+                        </span>
+                      </a>
+                    {% endif %}
+                  </div>
                 </div>
               </article>
               {% assign tab_index = tab_index | plus: 1 %}
@@ -491,9 +493,20 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    gap: 10px;
     padding: clamp(20px, 4vw, 36px);
     color: #fff;
+  }
+
+  .concern-tabs-showcase__slide-copy {
+    width: min(100%, 42rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: clamp(14px, 2vw, 18px) clamp(14px, 2vw, 20px);
+    border-radius: 16px;
+    background: rgb(8 11 16 / 38%);
+    backdrop-filter: blur(2px);
   }
 
   .concern-tabs-showcase__slide-heading-bold {
