@@ -1,7 +1,7 @@
 
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div class="section page-width-content color-{{ section.settings.color_scheme }}">
+<div class="section page-width-content main-page color-{{ section.settings.color_scheme }}">
   <div
     class="
       spacing-style
@@ -18,6 +18,13 @@
     {% content_for 'blocks' %}
   </div>
 </div>
+
+{% stylesheet %}
+  /* Default .page-width-content is ~42rem (prose); use layout width (e.g. 1440px from theme tokens). */
+  .main-page.page-width-content {
+    --page-content-width: var(--narrow-page-width);
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
