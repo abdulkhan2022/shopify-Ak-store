@@ -16,15 +16,17 @@
     {%- assign heading_before = section.settings.heading_before | strip -%}
     {%- assign heading_italic = section.settings.heading_italic | strip -%}
     {%- assign heading_after = section.settings.heading_after | strip -%}
-    {%- if heading_before != blank or heading_italic != blank or heading_after != blank -%}
-      <h2 class="testimonials-slider__heading testimonials-slider__heading--split">
-        {%- if heading_before != blank -%}<span class="testimonials-slider__heading-normal">{{ heading_before | escape }}</span>{%- endif -%}
-        {%- if heading_italic != blank -%}<span class="testimonials-slider__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
-        {%- if heading_after != blank -%}<span class="testimonials-slider__heading-normal">{{ heading_after | escape }}</span>{%- endif -%}
-      </h2>
-    {%- else -%}
-      <h2 class="testimonials-slider__heading rte">{{ section.settings.heading }}</h2>
-    {%- endif -%}
+    <div class="testimonials-slider__heading-wrap">
+      {%- if heading_before != blank or heading_italic != blank or heading_after != blank -%}
+        <h2 class="testimonials-slider__heading testimonials-slider__heading--split">
+          {%- if heading_before != blank -%}<span class="testimonials-slider__heading-normal">{{ heading_before | escape }}</span>{%- endif -%}
+          {%- if heading_italic != blank -%}<span class="testimonials-slider__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
+          {%- if heading_after != blank -%}<span class="testimonials-slider__heading-normal">{{ heading_after | escape }}</span>{%- endif -%}
+        </h2>
+      {%- else -%}
+        <h2 class="testimonials-slider__heading rte">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
 
     <div class="testimonials-slider__viewport-wrap">
       <div class="testimonials-slider__viewport" data-viewport tabindex="0" aria-label="{{ section.settings.heading_plain | escape }}">
@@ -132,6 +134,12 @@
     font-weight: 600;
   }
 
+  .testimonials-slider__heading-wrap {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
   .testimonials-slider__heading em {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
@@ -173,10 +181,10 @@
   }
 
   .testimonials-slider__track {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(600px, 600px));
+    display: flex;
+    flex-wrap: nowrap;
     gap: var(--testimonials-gap);
-    justify-content: start;
+    width: max-content;
   }
 
   .testimonials-slider__card {
@@ -189,6 +197,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    flex: 0 0 600px;
   }
 
   .testimonials-slider__stars {
@@ -303,12 +312,7 @@
   }
 
   @media screen and (max-width: 989px) {
-    .testimonials-slider__track {
-      grid-template-columns: 1fr;
-    }
-
     .testimonials-slider__card {
-      width: 100%;
       height: auto;
       min-height: 259.888916015625px;
     }
