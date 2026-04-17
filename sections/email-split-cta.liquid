@@ -1,0 +1,571 @@
+<div
+  class="email-split-cta section section--{{ section.settings.section_width }} spacing-style"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <div
+    class="email-split-cta__card {% if section.settings.mobile_image == 'top' %}email-split-cta__card--media-first{% endif %}"
+    style="
+      --email-split-cta-bg: {{ section.settings.background_color }};
+      --email-split-cta-fg: {{ section.settings.text_color }};
+      --email-split-cta-radius: {{ section.settings.corner_radius }}px;
+      --email-split-cta-min-height: {{ section.settings.min_height }}px;
+    "
+  >
+    <div class="email-split-cta__content">
+      {% if section.settings.heading_primary != blank or section.settings.heading_accent != blank %}
+        <h2 class="email-split-cta__heading">
+          {% if section.settings.heading_primary != blank %}
+            <span class="email-split-cta__heading-primary">{{ section.settings.heading_primary | escape }}</span>
+          {% endif %}
+          {% if section.settings.heading_accent != blank %}
+            <span class="email-split-cta__heading-accent">{{ section.settings.heading_accent | escape }}</span>
+          {% endif %}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="email-split-cta__description rte">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {%- form 'customer', class: 'email-split-cta__form' -%}
+        {% if section.settings.customer_tags != blank %}
+          <input type="hidden" name="contact[tags]" value="{{ section.settings.customer_tags | escape }}">
+        {% endif %}
+
+        <div class="email-split-cta__field-row">
+          <label class="visually-hidden" for="EmailSplitCta-{{ section.id }}">
+            {{ 'blocks.email_signup.label' | t }}
+          </label>
+          <input
+            id="EmailSplitCta-{{ section.id }}"
+            class="email-split-cta__input"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email }}"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="{{ section.settings.email_placeholder | escape }}"
+            required
+            {% if form.errors and form.id == blank %}
+              autofocus
+              aria-invalid="true"
+              aria-describedby="EmailSplitCta-error-{{ section.id }}"
+            {% elsif form.posted_successfully? and form.id == blank %}
+              aria-describedby="EmailSplitCta-success-{{ section.id }}"
+            {% endif %}
+          >
+          <button type="submit" class="email-split-cta__submit">
+            <span>{{ section.settings.submit_label | escape }}</span>
+            <span class="email-split-cta__submit-icon svg-wrapper" aria-hidden="true">
+              {{ 'icon-arrow.svg' | inline_asset_content }}
+            </span>
+          </button>
+        </div>
+
+        {%- if form.errors and form.id == blank -%}
+          <div id="EmailSplitCta-error-{{ section.id }}" class="email-split-cta__form-message" tabindex="-1">
+            {{ form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email }}
+          </div>
+        {%- endif -%}
+
+        {%- if form.posted_successfully? and form.id == blank -%}
+          <div id="EmailSplitCta-success-{{ section.id }}" class="email-split-cta__form-message" tabindex="-1">
+            <span class="svg-wrapper icon-success" aria-hidden="true">
+              {{ 'icon-checkmark.svg' | inline_asset_content }}
+            </span>
+            <p class="email-split-cta__form-success-text">{{ 'blocks.email_signup.success' | t }}</p>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+
+      {% if section.settings.disclaimer != blank %}
+        <div class="email-split-cta__disclaimer rte">
+          {{ section.settings.disclaimer }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="email-split-cta__media">
+      {% liquid
+        assign split_cta_image_alt = section.settings.image.alt | default: section.settings.image_alt
+      %}
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag:
+            widths: '400, 600, 800, 1000, 1200, 1600',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            class: 'email-split-cta__image',
+            loading: 'lazy',
+            alt: split_cta_image_alt
+        }}
+      {% else %}
+        {{ 'detailed-apparel-1' | placeholder_svg_tag: 'email-split-cta__image email-split-cta__image--placeholder' }}
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_avatar and section.settings.avatar != blank %}
+      <div class="email-split-cta__avatar" aria-hidden="true">
+        {{
+          section.settings.avatar
+          | image_url: width: 200
+          | image_tag:
+            widths: '80, 120, 160, 200',
+            sizes: '80px',
+            class: 'email-split-cta__avatar-img',
+            loading: 'lazy',
+            alt: ''
+        }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .email-split-cta__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    overflow: hidden;
+    border-radius: var(--email-split-cta-radius);
+    background-color: var(--email-split-cta-bg);
+    color: var(--email-split-cta-fg);
+    min-height: var(--email-split-cta-min-height);
+  }
+
+  @media screen and (min-width: 990px) {
+    .email-split-cta__card {
+      grid-template-columns: minmax(280px, 1.05fr) minmax(220px, 0.95fr);
+      align-items: stretch;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .email-split-cta__card--media-first .email-split-cta__media {
+      order: -1;
+    }
+  }
+
+  .email-split-cta__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: clamp(1.75rem, 4vw, 3.25rem) clamp(1.5rem, 4vw, 3.5rem);
+    padding-block-end: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  @media screen and (min-width: 990px) {
+    .email-split-cta__content {
+      padding-block-end: clamp(1.75rem, 4vw, 3.25rem);
+    }
+  }
+
+  .email-split-cta__heading {
+    margin: 0;
+    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.75rem);
+    line-height: 1.1;
+    color: inherit;
+  }
+
+  .email-split-cta__heading-primary {
+    display: block;
+    font-family: var(--font-h2--family);
+    font-style: var(--font-h2--style);
+    font-weight: 700;
+    letter-spacing: var(--font-h2--letter-spacing, normal);
+  }
+
+  .email-split-cta__heading-accent {
+    display: block;
+    margin-top: 0.15em;
+    font-family: ui-serif, Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .email-split-cta__description {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 36rem;
+    opacity: 0.95;
+  }
+
+  .email-split-cta__description.rte a {
+    color: inherit;
+  }
+
+  .email-split-cta__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .email-split-cta__field-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.55);
+    max-width: 32rem;
+  }
+
+  .email-split-cta__input {
+    flex: 1 1 12rem;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    outline: none;
+  }
+
+  .email-split-cta__input::placeholder {
+    color: rgb(255 255 255 / 0.65);
+  }
+
+  .email-split-cta__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    padding: 0.55rem 1.15rem 0.55rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.85);
+    background: transparent;
+    color: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .email-split-cta__submit:hover {
+    background-color: rgb(255 255 255 / 0.12);
+  }
+
+  .email-split-cta__submit-icon {
+    display: flex;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .email-split-cta__submit-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .email-split-cta__form-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    max-width: 32rem;
+  }
+
+  .email-split-cta__form-success-text {
+    margin: 0;
+  }
+
+  .email-split-cta__disclaimer {
+    margin: 0;
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    line-height: 1.45;
+    max-width: 36rem;
+    opacity: 0.85;
+  }
+
+  .email-split-cta__disclaimer.rte p {
+    margin: 0;
+  }
+
+  .email-split-cta__disclaimer.rte a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .email-split-cta__media {
+    position: relative;
+    min-height: 220px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .email-split-cta__media {
+      min-height: 100%;
+    }
+  }
+
+  .email-split-cta__image {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media screen and (min-width: 990px) {
+    .email-split-cta__image {
+      min-height: var(--email-split-cta-min-height);
+    }
+  }
+
+  .email-split-cta__image--placeholder {
+    object-fit: cover;
+    opacity: 0.35;
+  }
+
+  .email-split-cta__avatar {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    translate: -50% 40%;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    border: 3px solid rgb(255 255 255 / 0.95);
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.2);
+    z-index: 2;
+    background: var(--email-split-cta-bg);
+  }
+
+  @media screen and (min-width: 990px) {
+    .email-split-cta__avatar {
+      translate: -50% 50%;
+    }
+  }
+
+  .email-split-cta__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.email_split_cta",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.email_signups_create_customer_profiles"
+    },
+    {
+      "type": "header",
+      "content": "t:content.heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_primary",
+      "label": "t:settings.heading",
+      "default": "Medium length heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "t:names.email_split_cta_accent_line",
+      "default": "goes here"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:settings.text",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:names.image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:settings.image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "t:settings.video_alt_text",
+      "info": "t:info.video_alt_text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_avatar",
+      "label": "t:names.email_split_cta_show_avatar",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar",
+      "label": "t:names.email_split_cta_avatar"
+    },
+    {
+      "type": "header",
+      "content": "t:names.email_signup"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "t:settings.email_placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "t:settings.label",
+      "default": "t:text_defaults.submit_button_label"
+    },
+    {
+      "type": "text",
+      "id": "customer_tags",
+      "label": "t:names.email_split_cta_customer_tags",
+      "default": "newsletter",
+      "info": "t:names.email_split_cta_customer_tags_info"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "t:names.email_split_cta_disclaimer",
+      "default": "<p>By clicking Sign Up you're confirming that you agree with our <a href=\"/policies/terms-of-service\" title=\"Terms and Conditions\">Terms and Conditions</a>.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:content.colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background",
+      "default": "#2d6a4f"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:settings.text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "t:content.section_layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image",
+      "label": "t:names.email_split_cta_mobile_image",
+      "options": [
+        {
+          "value": "bottom",
+          "label": "t:names.email_split_cta_mobile_image_bottom"
+        },
+        {
+          "value": "top",
+          "label": "t:names.email_split_cta_mobile_image_top"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "t:settings.border_radius",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "t:names.email_split_cta_min_height",
+      "min": 260,
+      "max": 520,
+      "step": 10,
+      "unit": "px",
+      "default": 340
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.email_split_cta",
+      "category": "t:categories.forms"
+    }
+  ]
+}
+{% endschema %}
