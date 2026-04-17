@@ -112,21 +112,10 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
-    },
-    "medium_length_hero_9mK3ze": {
-      "type": "medium-length-hero",
-      "name": "Medium Length Hero",
-      "settings": {
-        "heading_line_1": "Medium length hero",
-        "subheading_italic": "heading goes",
-        "subheading_suffix": "here",
-        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
-      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
-    "header_section",
-    "medium_length_hero_9mK3ze"
+    "header_section"
   ]
 }
