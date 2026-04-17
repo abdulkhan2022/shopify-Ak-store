@@ -120,6 +120,22 @@
 </header-tabs-hero>
 
 {% stylesheet %}
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+  @font-face {
+    font-family: 'Area Normal Header Tabs Hero';
+    src: url('{{ "AreaNormalTrial-Semibold-BF65ea75c6b547e.otf" | asset_url }}') format('opentype');
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Area Regular Header Tabs Hero';
+    src: url('{{ "Area-regular.otf" | asset_url }}') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
   .header-tabs-hero {
     display: block;
     max-width: 1376px;
@@ -184,7 +200,7 @@
 
   .header-tabs-hero__heading-bold {
     margin: 0;
-    font-family: var(--font-heading--family);
+    font-family: 'Area Normal Header Tabs Hero', sans-serif;
     font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1;
     letter-spacing: 0;
@@ -193,16 +209,21 @@
 
   .header-tabs-hero__heading-italic {
     margin: 0;
-    font-family: var(--font-accent--family);
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
     font-style: italic;
-    font-size: clamp(1.5rem, 4vw, 3.25rem);
-    line-height: 1.1;
+    font-size: 82px;
+    leading-trim: cap-height;
+    line-height: 100%;
+    letter-spacing: -0.03em;
     color: #fff;
   }
 
   .header-tabs-hero__description {
     margin: 0;
     max-width: 40ch;
+    font-family: 'Area Regular Header Tabs Hero', sans-serif;
+    font-weight: 400;
     font-size: 1rem;
     line-height: 1.5;
     color: rgb(255 255 255 / 90%);
