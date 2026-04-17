@@ -82,6 +82,18 @@
       </div>
     </div>
 
+    <div class="testimonials-slider__footer">
+      <div class="testimonials-slider__dots" data-dots></div>
+      <div class="testimonials-slider__arrows">
+        <button type="button" class="testimonials-slider__arrow" data-prev aria-label="Previous testimonials">
+          <span aria-hidden="true">←</span>
+        </button>
+        <button type="button" class="testimonials-slider__arrow" data-next aria-label="Next testimonials">
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -151,7 +163,13 @@
   }
 
   .testimonials-slider__viewport {
-    overflow: visible;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .testimonials-slider__viewport::-webkit-scrollbar {
+    display: none;
   }
 
   .testimonials-slider__track {
@@ -228,6 +246,62 @@
     color: rgb(var(--color-foreground-rgb) / 0.7);
   }
 
+  .testimonials-slider__footer {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .testimonials-slider__dots {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 0.6rem;
+  }
+
+  .testimonials-slider__dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    border: 0;
+    padding: 0;
+    background: rgb(var(--color-foreground-rgb) / 0.25);
+    cursor: pointer;
+  }
+
+  .testimonials-slider__dot.is-active {
+    width: 0.55rem;
+    height: 0.55rem;
+    background: var(--testimonials-accent);
+  }
+
+  .testimonials-slider__arrows {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .testimonials-slider__arrow {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    border: 0;
+    background: var(--testimonials-accent);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .testimonials-slider__arrow[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
   @media screen and (max-width: 989px) {
     .testimonials-slider__track {
       grid-template-columns: 1fr;
@@ -251,6 +325,68 @@
     }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const SELECTOR = '.testimonials-slider'
+
+    const init = (section) => {
+      const viewport = section.querySelector('[data-viewport]')
+      const prev = section.querySelector('[data-prev]')
+      const next = section.querySelector('[data-next]')
+      const dotsContainer = section.querySelector('[data-dots]')
+      if (!viewport || !prev || !next || !dotsContainer) return
+
+      const refresh = () => {
+        const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth)
+        const pages = Math.max(1, Math.round(maxScroll / viewport.clientWidth) + 1)
+        const activeIndex = Math.min(pages - 1, Math.round(viewport.scrollLeft / viewport.clientWidth))
+
+        dotsContainer.innerHTML = ''
+        for (let i = 0; i < pages; i += 1) {
+          const dot = document.createElement('button')
+          dot.type = 'button'
+          dot.className = `testimonials-slider__dot${i === activeIndex ? ' is-active' : ''}`
+          dot.setAttribute('aria-label', `Go to testimonials page ${i + 1}`)
+          dot.addEventListener('click', () => {
+            viewport.scrollTo({ left: i * viewport.clientWidth, behavior: 'smooth' })
+          })
+          dotsContainer.appendChild(dot)
+        }
+
+        prev.disabled = viewport.scrollLeft <= 2
+        next.disabled = viewport.scrollLeft + viewport.clientWidth >= viewport.scrollWidth - 2
+      }
+
+      prev.addEventListener('click', () => {
+        viewport.scrollBy({ left: -viewport.clientWidth, behavior: 'smooth' })
+      })
+
+      next.addEventListener('click', () => {
+        viewport.scrollBy({ left: viewport.clientWidth, behavior: 'smooth' })
+      })
+
+      viewport.addEventListener('scroll', () => window.requestAnimationFrame(refresh), { passive: true })
+      window.addEventListener('resize', refresh)
+      refresh()
+    }
+
+    const initializeAll = () => {
+      document.querySelectorAll(SELECTOR).forEach((section) => init(section))
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeAll)
+    } else {
+      initializeAll()
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      const section = event.target.closest(SELECTOR)
+      if (section) init(section)
+    })
+  })()
+{% endjavascript %}
 
 {% schema %}
 {
