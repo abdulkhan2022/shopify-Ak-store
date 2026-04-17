@@ -9,13 +9,13 @@
  */
 {
   "sections": {
+    "medium-length-hero": {
+      "type": "medium-length-hero",
+      "settings": {}
+    },
     "founder-word": {
       "type": "founder-word",
-      "settings": {
-        "badge_text": "Word by founder",
-        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
-        "body": "<p>I never set out to build a supplement brand. I set out to understand performance.</p><p>As a trader, trading S&amp;P 500 e-mini futures, performance wasn't optional – focus, energy, and clarity determined outcomes every day. At the same time, being a certified diver taught me the importance of calm, control, and what it truly means to operate under pressure.</p><p>That led me to a simple question: What actually supports performance from within?</p><p>The more I explored nutrition and supplementation, the clearer it became – most products don't fail because of ingredients, but because of how they're processed.</p><p>Therra was built to fix that.</p><p>We focus on preserving bioactive compounds through better sourcing and extraction – so what you take actually works.</p>"
-      }
+      "settings": {}
     },
     "problem-we-solve": {
       "type": "problem-we-solve",
@@ -52,96 +52,23 @@
         "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>"
       }
     },
-    "stats_41_v2_d4DVGD": {
-      "type": "stats-41-v2",
-      "name": "Stats 41",
+    "vertical-video-statement": {
+      "type": "vertical-video-statement",
       "settings": {
-        "color_scheme": "",
-        "label": "Shop by category",
-        "heading": "<p>Medium length section <em>heading goes here</em></p>",
-        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-        "card_1_title": "Short heading goes here",
-        "chart_values": "200,300,400,300,200,120",
-        "chart_max": 500,
-        "highlight_bar": 3,
-        "card_1_metric": "30%",
-        "card_1_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "card_2_title": "Short heading goes here",
-        "card_2_range_label": "Price range",
-        "card_2_min": "$2000",
-        "card_2_max": "$3500",
-        "card_2_metric": "30%",
-        "card_2_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "card_3_title": "Short heading goes here",
-        "card_3_range_label": "Price range",
-        "card_3_min": "$2000",
-        "card_3_max": "$3500",
-        "card_3_metric": "30%",
-        "card_3_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "blog_editorial_grid_94edTW": {
-      "type": "blog-editorial-grid",
-      "name": "t:names.blog_editorial_grid",
-      "settings": {
-        "blog": "",
-        "post_limit": 3,
-        "eyebrow": "Shop by category",
-        "heading": "<p>Medium length section <em>heading goes</em> here</p>",
-        "view_all_label": "View all",
-        "view_all_url": "",
-        "category_fallback": "Category",
-        "read_more_label": "Read more",
-        "section_width": "page-width",
-        "color_scheme": "",
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "email_split_cta_XEwKk4": {
-      "type": "email-split-cta",
-      "name": "t:names.email_split_cta",
-      "settings": {
-        "heading_primary": "Medium length heading",
-        "heading_accent": "goes here",
-        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-        "image_alt": "",
-        "show_avatar": true,
-        "email_placeholder": "Enter your email",
-        "submit_label": "Submit",
-        "customer_tags": "newsletter",
-        "disclaimer": "<p>By clicking Sign Up you're confirming that you agree with our <a href=\"/policies/terms-of-service\" title=\"Terms and Conditions\">Terms and Conditions</a>.</p>",
-        "background_color": "#2d6a4f",
-        "text_color": "#ffffff",
-        "section_width": "page-width",
-        "mobile_image": "bottom",
-        "corner_radius": 28,
-        "min_height": 340,
-        "padding-block-start": 36,
-        "padding-block-end": 36,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry.</em></p>",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
       }
     },
     "main": {
       "type": "main-page",
-      "settings": {
-        "content_direction": "column",
-        "gap": 12,
-        "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
+      "settings": {}
     }
   },
   "order": [
+    "medium-length-hero",
     "founder-word",
     "problem-we-solve",
-    "stats_41_v2_d4DVGD",
-    "blog_editorial_grid_94edTW",
-    "email_split_cta_XEwKk4",
+    "vertical-video-statement",
     "main"
   ]
 }

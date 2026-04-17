@@ -1,0 +1,272 @@
+<div class="vertical-video-statement">
+  <div class="vertical-video-statement__inner page-width-content">
+    <div class="vertical-video-statement__media">
+      <div class="vertical-video-statement__frame">
+        {% if section.settings.video != blank %}
+          {{
+            section.settings.video
+            | video_tag:
+              class: 'vertical-video-statement__video-el',
+              controls: true,
+              playsinline: true,
+              muted: false,
+              loop: false
+          }}
+        {% elsif section.settings.cover_image != blank %}
+          {% liquid
+            assign vvs_alt = section.settings.cover_image.alt | default: 'Video'
+          %}
+          {{
+            section.settings.cover_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'vertical-video-statement__cover',
+              loading: 'lazy',
+              sizes: '400px',
+              widths: '400, 600, 800, 1200',
+              alt: vvs_alt
+          }}
+
+          {% if section.settings.video_url != blank %}
+            <a
+              class="vertical-video-statement__play"
+              href="{{ section.settings.video_url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="{{ 'accessibility.play_video' | t }}"
+            >
+              <span class="vertical-video-statement__play-circle">
+                <svg class="vertical-video-statement__play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <polygon points="9,7 9,17 17,12" fill="currentColor"/>
+                </svg>
+              </span>
+            </a>
+          {% else %}
+            <span class="vertical-video-statement__play" role="presentation">
+              <span class="vertical-video-statement__play-circle">
+                <svg class="vertical-video-statement__play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <polygon points="9,7 9,17 17,12" fill="currentColor"/>
+                </svg>
+              </span>
+            </span>
+          {% endif %}
+        {% else %}
+          <div class="vertical-video-statement__placeholder" aria-hidden="true"></div>
+          {% if section.settings.video_url != blank %}
+            <a
+              class="vertical-video-statement__play"
+              href="{{ section.settings.video_url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="{{ 'accessibility.play_video' | t }}"
+            >
+              <span class="vertical-video-statement__play-circle">
+                <svg class="vertical-video-statement__play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <polygon points="9,7 9,17 17,12" fill="currentColor"/>
+                </svg>
+              </span>
+            </a>
+          {% else %}
+            <span class="vertical-video-statement__play" role="presentation">
+              <span class="vertical-video-statement__play-circle">
+                <svg class="vertical-video-statement__play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <polygon points="9,7 9,17 17,12" fill="currentColor"/>
+                </svg>
+              </span>
+            </span>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.settings.heading != blank or section.settings.text != blank %}
+      <div class="vertical-video-statement__copy">
+        {% if section.settings.heading != blank %}
+          <div class="vertical-video-statement__heading rte">{{ section.settings.heading }}</div>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div class="vertical-video-statement__text rte">{{ section.settings.text }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .vertical-video-statement {
+    --vvs-cream: #fdfbf0;
+    background-color: var(--vvs-cream);
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+    padding-inline: var(--page-margin, 1.5rem);
+  }
+
+  .vertical-video-statement__inner {
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  .vertical-video-statement__media {
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .vertical-video-statement__frame {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #3d3d3d;
+    box-shadow: 0 12px 40px rgb(var(--color-foreground-rgb, 0 0 0) / 0.1);
+  }
+
+  .vertical-video-statement__video-el {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vertical-video-statement__cover,
+  .vertical-video-statement__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vertical-video-statement__placeholder {
+    background: linear-gradient(160deg, #2f2f2f 0%, #4a4a4a 100%);
+  }
+
+  .vertical-video-statement__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .vertical-video-statement__play-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #111;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  a.vertical-video-statement__play:hover .vertical-video-statement__play-circle,
+  a.vertical-video-statement__play:focus-visible .vertical-video-statement__play-circle {
+    transform: scale(1.06);
+  }
+
+  .vertical-video-statement__play-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.15rem;
+  }
+
+  .vertical-video-statement__copy {
+    max-width: 1000px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .vertical-video-statement__heading {
+    margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 2.8vw, 2.25rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .vertical-video-statement__heading :first-child {
+    margin-top: 0;
+  }
+
+  .vertical-video-statement__heading :last-child {
+    margin-bottom: 0;
+  }
+
+  .vertical-video-statement__heading em,
+  .vertical-video-statement__heading i {
+    font-family: var(--font-subheading--family);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .vertical-video-statement__text {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: clamp(0.875rem, 1vw, 1rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .vertical-video-statement__text p {
+    margin: 0 0 1em;
+  }
+
+  .vertical-video-statement__text p:last-child {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vertical video statement",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Optional. Upload a vertical video, or use cover image and external link below."
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover image",
+      "info": "Shown when no Shopify video is set, or as a static poster with play button."
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video link",
+      "info": "e.g. YouTube or hosted file — opens in a new tab when play is clicked (cover / placeholder only)."
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry.</em></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical video statement"
+    }
+  ]
+}
+{% endschema %}
