@@ -11,6 +11,71 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "footer_mega_card_a7Kp2m": {
+      "type": "footer-mega-card",
+      "blocks": {
+        "fmc_col_1": {
+          "type": "column",
+          "settings": {
+            "heading": "Column one"
+          }
+        },
+        "fmc_col_2": {
+          "type": "column",
+          "settings": {
+            "heading": "Column two"
+          }
+        },
+        "fmc_col_3": {
+          "type": "column",
+          "settings": {
+            "heading": "Column three"
+          }
+        },
+        "fmc_col_4": {
+          "type": "column",
+          "settings": {
+            "heading": "Column four"
+          }
+        },
+        "fmc_col_5": {
+          "type": "column",
+          "settings": {
+            "heading": "Column five"
+          }
+        }
+      },
+      "block_order": [
+        "fmc_col_1",
+        "fmc_col_2",
+        "fmc_col_3",
+        "fmc_col_4",
+        "fmc_col_5"
+      ],
+      "name": "Mega card footer",
+      "settings": {
+        "section_width": "page-width",
+        "page_background": "#0d9488",
+        "gradient_color_end": "#0369a1",
+        "card_background": "#f7f3ea",
+        "card_border_radius": 24,
+        "card_padding": 40,
+        "column_gap": 24,
+        "divider_color": "#1a1a1a",
+        "privacy_label": "Privacy Policy",
+        "terms_label": "Terms of Service",
+        "cookies_label": "Cookies Settings",
+        "facebook_url": "https://www.facebook.com/shopify",
+        "instagram_url": "https://www.instagram.com/shopify/",
+        "twitter_url": "https://x.com/shopify",
+        "linkedin_url": "https://www.linkedin.com/company/shopify",
+        "youtube_url": "https://www.youtube.com/user/shopify",
+        "padding-block-start": 36,
+        "padding-block-end": 36,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+      }
+    },
     "footer_m9NzUG": {
       "type": "footer",
       "blocks": {
@@ -205,6 +270,7 @@
     }
   },
   "order": [
+    "footer_mega_card_a7Kp2m",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"
   ]
