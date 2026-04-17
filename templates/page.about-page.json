@@ -9,16 +9,6 @@
  */
 {
   "sections": {
-    "medium-length-hero": {
-      "type": "medium-length-hero",
-      "settings": {
-        "heading_line_1": "Medium length hero",
-        "subheading_italic": "heading goes",
-        "subheading_suffix": "here",
-        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
-        "video_url": ""
-      }
-    },
     "founder-word": {
       "type": "founder-word",
       "settings": {
@@ -147,7 +137,6 @@
     }
   },
   "order": [
-    "medium-length-hero",
     "founder-word",
     "problem-we-solve",
     "stats_41_v2_d4DVGD",
