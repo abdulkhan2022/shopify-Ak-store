@@ -776,6 +776,31 @@
         "padding-block-start": 56,
         "padding-block-end": 56
       }
+    },
+    "email_split_cta_tb4J6B": {
+      "type": "email-split-cta",
+      "name": "t:names.email_split_cta",
+      "settings": {
+        "heading_primary": "Medium length heading",
+        "heading_accent": "goes here",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+        "image_alt": "",
+        "show_avatar": true,
+        "email_placeholder": "Enter your email",
+        "submit_label": "Submit",
+        "customer_tags": "newsletter",
+        "disclaimer": "<p>By clicking Sign Up you're confirming that you agree with our <a href=\"/policies/terms-of-service\" title=\"Terms and Conditions\">Terms and Conditions</a>.</p>",
+        "background_color": "#2d6a4f",
+        "text_color": "#ffffff",
+        "section_width": "page-width",
+        "mobile_image": "bottom",
+        "corner_radius": 28,
+        "min_height": 340,
+        "padding-block-start": 36,
+        "padding-block-end": 36,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+      }
     }
   },
   "order": [
@@ -790,6 +815,7 @@
     "gradient_feature_product_yK3MKL",
     "testimonials_slider_YhQqKH",
     "faq_3_DEDNpL",
-    "blog_editorial_grid_RbUUmX"
+    "blog_editorial_grid_RbUUmX",
+    "email_split_cta_tb4J6B"
   ]
 }
