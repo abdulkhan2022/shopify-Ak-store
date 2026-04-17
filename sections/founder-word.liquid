@@ -1,0 +1,179 @@
+<div class="founder-word">
+  <div class="founder-word__inner page-width-content">
+    {% if section.settings.badge_text != blank %}
+      <p class="founder-word__badge">{{ section.settings.badge_text | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <div class="founder-word__heading rte">{{ section.settings.heading }}</div>
+    {% endif %}
+
+    <div class="founder-word__grid">
+      <div class="founder-word__media">
+        {% if section.settings.portrait_image != blank %}
+          {% liquid
+            assign fw_alt = section.settings.portrait_image.alt | default: section.settings.badge_text
+          %}
+          {{
+            section.settings.portrait_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'founder-word__image',
+              loading: 'lazy',
+              sizes: '(min-width: 750px) 42vw, 100vw',
+              alt: fw_alt
+          }}
+        {% else %}
+          <div class="founder-word__image-placeholder" aria-hidden="true"></div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.body != blank %}
+        <div class="founder-word__body rte">{{ section.settings.body }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .founder-word {
+    --founder-word-bg: #fdfbf0;
+    background-color: var(--founder-word-bg);
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+    padding-inline: var(--page-margin, 1.5rem);
+  }
+
+  .founder-word__inner {
+    margin-inline: auto;
+  }
+
+  .founder-word__badge {
+    margin: 0 auto clamp(1.25rem, 3vw, 1.75rem);
+    display: table;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.35);
+    border-radius: 999px;
+    font-family: var(--font-body--family);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+    text-align: center;
+  }
+
+  .founder-word__heading {
+    max-width: 52rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 2.8vw, 2.25rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .founder-word__heading :first-child {
+    margin-top: 0;
+  }
+
+  .founder-word__heading :last-child {
+    margin-bottom: 0;
+  }
+
+  .founder-word__heading em,
+  .founder-word__heading i {
+    font-family: var(--font-subheading--family);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .founder-word__grid {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+  }
+
+  @media screen and (min-width: 750px) {
+    .founder-word__grid {
+      grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+  }
+
+  .founder-word__media {
+    width: 100%;
+  }
+
+  .founder-word__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+    aspect-ratio: 3 / 4;
+  }
+
+  .founder-word__image-placeholder {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #e8e4df 0%, #f2ede6 100%);
+  }
+
+  .founder-word__body {
+    font-family: var(--font-body--family);
+    font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .founder-word__body p {
+    margin: 0 0 1.1em;
+  }
+
+  .founder-word__body p:last-child {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Word by founder",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Pill label",
+      "default": "Word by founder"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Centered heading",
+      "info": "Use italic in the editor for phrases that should appear in serif (e.g. “typesetting industry”).",
+      "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "portrait_image",
+      "label": "Left column image"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Right column text",
+      "default": "<p>I never set out to build a supplement brand. I set out to understand performance.</p><p>As a trader, trading S&amp;P 500 e-mini futures, performance wasn't optional – focus, energy, and clarity determined outcomes every day. At the same time, being a certified diver taught me the importance of calm, control, and what it truly means to operate under pressure.</p><p>That led me to a simple question: What actually supports performance from within?</p><p>The more I explored nutrition and supplementation, the clearer it became – most products don't fail because of ingredients, but because of how they're processed.</p><p>Therra was built to fix that.</p><p>We focus on preserving bioactive compounds through better sourcing and extraction – so what you take actually works.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Word by founder"
+    }
+  ]
+}
+{% endschema %}

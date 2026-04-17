@@ -13,6 +13,10 @@
       "type": "medium-length-hero",
       "settings": {}
     },
+    "founder-word": {
+      "type": "founder-word",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {}
@@ -20,6 +24,7 @@
   },
   "order": [
     "medium-length-hero",
+    "founder-word",
     "main"
   ]
 }
