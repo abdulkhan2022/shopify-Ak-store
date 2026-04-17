@@ -758,6 +758,24 @@
         "padding-inline-start": 0,
         "padding-inline-end": 0
       }
+    },
+    "blog_editorial_grid_RbUUmX": {
+      "type": "blog-editorial-grid",
+      "name": "t:names.blog_editorial_grid",
+      "settings": {
+        "blog": "",
+        "post_limit": 3,
+        "eyebrow": "Shop by category",
+        "heading": "<p>Medium length section <em>heading goes</em> here</p>",
+        "view_all_label": "View all",
+        "view_all_url": "",
+        "category_fallback": "Category",
+        "read_more_label": "Read more",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
     }
   },
   "order": [
@@ -771,6 +789,7 @@
     "product_comparison_table_8jC998",
     "gradient_feature_product_yK3MKL",
     "testimonials_slider_YhQqKH",
-    "faq_3_DEDNpL"
+    "faq_3_DEDNpL",
+    "blog_editorial_grid_RbUUmX"
   ]
 }
