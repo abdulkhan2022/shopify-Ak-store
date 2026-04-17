@@ -672,6 +672,13 @@
     }
   }
 
+  /* Force header text/icons color across row color-scheme states */
+  #header-component .header__row,
+  #header-component .header__navigation-bar-row {
+    --color-foreground: 255 255 255 !important;
+    --color-foreground-rgb: 255 255 255 !important;
+  }
+
   .header__row--top:not(.divider--page-width),
   .header__row--top.divider--page-width .header__columns,
   .header__row--bottom {
