@@ -1,6 +1,4 @@
-
-
-{% if section.blocks.size > 1 %}
+ {% if section.blocks.size > 1 %}
   <script
     src="{{ 'announcement-bar.js' | asset_url }}"
     type="module"
@@ -8,7 +6,7 @@
   ></script>
 {% endif %}
 
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="section-background" style="background: #000000;"></div>
 <aside
   class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
   style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;"
@@ -40,7 +38,20 @@
 
 {% stylesheet %}
   .announcement-bar {
+    background: #000;
+    color: #fff;
+    --color-foreground: 255, 255, 255;
+    --color-foreground-rgb: 255, 255, 255;
     border-block-end: var(--border-bottom-width) solid var(--color-border);
+  }
+
+  .announcement-bar .announcement-bar__text,
+  .announcement-bar .announcement-bar__text * {
+    color: #fff;
+  }
+
+  .announcement-bar a {
+    color: #fff;
   }
 
   .announcement-bar__slider {
@@ -82,7 +93,7 @@
   }
 
   .announcement-bar__slider slideshow-arrows .slideshow-control {
-    color: var(--color-foreground);
+    color: #fff;
   }
 
   .announcement-bar__slider .slideshow-control {
