@@ -149,10 +149,11 @@
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
         "button_label": "Shop Powders",
         "button_link": "shopify://collections/all",
+        "background_image": "",
         "collection": "all",
         "products_to_show": 8,
-        "padding-block-start": 24,
-        "padding-block-end": 0
+        "padding-block-start": 90,
+        "padding-block-end": 90
       }
     },
     "group_6_media_grid_home": {
