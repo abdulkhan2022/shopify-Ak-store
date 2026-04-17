@@ -48,6 +48,7 @@
             autocapitalize="off"
             autocomplete="email"
             placeholder="{{ section.settings.email_placeholder | escape }}"
+            style="background: transparent !important; background-color: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; appearance: none; -webkit-appearance: none;"
             required
             {% if form.errors and form.id == blank %}
               autofocus
@@ -125,6 +126,35 @@
     {% endif %}
   </div>
 </div>
+
+{% style %}
+  #EmailSplitCta-{{ section.id }},
+  #EmailSplitCta-{{ section.id }}:hover,
+  #EmailSplitCta-{{ section.id }}:focus,
+  #EmailSplitCta-{{ section.id }}:focus-visible,
+  #EmailSplitCta-{{ section.id }}:active {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #EmailSplitCta-{{ section.id }}:-webkit-autofill,
+  #EmailSplitCta-{{ section.id }}:-webkit-autofill:hover,
+  #EmailSplitCta-{{ section.id }}:-webkit-autofill:focus,
+  #EmailSplitCta-{{ section.id }}:-webkit-autofill:focus-visible {
+    -webkit-text-fill-color: var(--email-split-cta-fg) !important;
+    caret-color: var(--email-split-cta-fg);
+    box-shadow: 0 0 0 1000px var(--email-split-cta-bg) inset !important;
+    transition: background-color 99999s ease-out;
+  }
+
+  #EmailSplitCta-{{ section.id }}:autofill {
+    box-shadow: 0 0 0 1000px var(--email-split-cta-bg) inset !important;
+  }
+{% endstyle %}
 
 {% stylesheet %}
   .email-split-cta__card {
@@ -218,20 +248,46 @@
     padding-bottom: 0.35rem;
     border-bottom: 1px solid rgb(255 255 255 / 0.55);
     max-width: 32rem;
+    background-color: transparent;
   }
 
-  .email-split-cta__input {
+  /* Beat base.css `input:not([type='checkbox'], [type='radio'])` + global input border-radius */
+  .email-split-cta .email-split-cta__input {
     flex: 1 1 12rem;
     min-width: 0;
+    margin: 0;
     border: none;
-    background: transparent;
+    border-color: transparent;
+    background: transparent !important;
+    background-color: transparent !important;
     color: inherit;
     font-size: 1rem;
     padding: 0.5rem 0;
     outline: none;
+    box-shadow: none !important;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
   }
 
-  .email-split-cta__input::placeholder {
+  .email-split-cta .email-split-cta__input:hover,
+  .email-split-cta .email-split-cta__input:focus,
+  .email-split-cta .email-split-cta__input:focus-visible,
+  .email-split-cta .email-split-cta__input:active {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-color: transparent;
+    box-shadow: none !important;
+  }
+
+  .email-split-cta .email-split-cta__input:is(:-webkit-autofill, :autofill) {
+    -webkit-text-fill-color: var(--email-split-cta-fg);
+    caret-color: var(--email-split-cta-fg);
+    box-shadow: 0 0 0 1000px var(--email-split-cta-bg) inset !important;
+    transition: background-color 99999s ease-out;
+  }
+
+  .email-split-cta .email-split-cta__input::placeholder {
     color: rgb(255 255 255 / 0.65);
   }
 

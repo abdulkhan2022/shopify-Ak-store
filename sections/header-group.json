@@ -41,6 +41,46 @@
         "padding-block-end": 15
       }
     },
+    "header_tabs_hero_XcB29m": {
+      "type": "header-tabs-hero",
+      "blocks": {
+        "tab_4Cn2kA": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 1",
+            "heading_bold": "Meet the Therra",
+            "heading_italic": "Organic Powders",
+            "button_label": "Shop Powders",
+            "button_link": "shopify://collections/all"
+          }
+        },
+        "tab_hQ8mZu": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Tab 2",
+            "heading_bold": "Pure ingredients",
+            "heading_italic": "Daily wellness",
+            "button_label": "Explore",
+            "button_link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "tab_4Cn2kA",
+        "tab_hQ8mZu"
+      ],
+      "settings": {
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "section_height": 620,
+        "corner_radius": 12,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "tabs_aria_label": "Header hero tabs",
+        "padding-block-start": 16,
+        "padding-block-end": 16
+      }
+    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -81,7 +121,6 @@
         "logo_position": "left",
         "menu_position": "left",
         "menu_row": "top",
-        "customer_account_menu": "customer-account-main-menu",
         "show_search": true,
         "search_position": "right",
         "search_row": "top",
@@ -98,10 +137,6 @@
         "divider_width": 0,
         "divider_size": "page-width",
         "border_width": 0,
-        "actions_display_style": "icon",
-        "actions_font_size": "0.875rem",
-        "actions_font": "body",
-        "actions_text_case": "none",
         "color_scheme_top": "scheme-1",
         "color_scheme_bottom": "",
         "color_scheme_transparent": "scheme-6",
@@ -112,55 +147,11 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
-    },
-    "header_tabs_hero_XcB29m": {
-      "type": "header-tabs-hero",
-      "blocks": {
-        "tab_4Cn2kA": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Tab 1",
-            "media_type": "image",
-            "heading_bold": "Meet the Therra",
-            "heading_italic": "Organic Powders",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "button_label": "Shop Powders",
-            "button_link": "shopify://collections/all"
-          }
-        },
-        "tab_hQ8mZu": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Tab 2",
-            "media_type": "image",
-            "heading_bold": "Pure ingredients",
-            "heading_italic": "Daily wellness",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "button_label": "Explore",
-            "button_link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": [
-        "tab_4Cn2kA",
-        "tab_hQ8mZu"
-      ],
-      "settings": {
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "section_height": 620,
-        "corner_radius": 12,
-        "autoplay": true,
-        "autoplay_speed": 5,
-        "tabs_aria_label": "Header hero tabs",
-        "padding-block-start": 16,
-        "padding-block-end": 16
-      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
-    "header_section",
-    "header_tabs_hero_XcB29m"
+    "header_tabs_hero_XcB29m",
+    "header_section"
   ]
 }

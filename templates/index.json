@@ -6,9 +6,88 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
+    "hero_jVaWmY": {
+      "type": "hero",
+      "blocks": {
+        "text_YLPk4p": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>Browse our latest products</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground-heading)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_H9gpTf": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop all",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button-secondary",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_YLPk4p",
+        "button_H9gpTf"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "space-between",
+        "vertical_alignment": "flex-end",
+        "align_baseline": true,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-end",
+        "gap": 24,
+        "section_width": "page-width",
+        "section_height": "medium",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "toggle_overlay": true,
+        "overlay_color": "#12121266",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 100,
+        "padding-block-end": 72
+      }
+    },
     "concern_tabs_showcase_home": {
       "type": "concern-tabs-showcase",
       "blocks": {
@@ -101,10 +180,6 @@
         "tabs_aria_label": "Showcase tabs",
         "empty_heading": "Add tab blocks to begin",
         "empty_text": "This section displays a hero carousel controlled by tabs, with four featured products on the right.",
-        "product_1": "",
-        "product_2": "",
-        "product_3": "",
-        "product_4": "",
         "padding-block-start": 0,
         "padding-block-end": 0,
         "padding-inline-start": 0,
@@ -161,29 +236,25 @@
         "group_6_media_1": {
           "type": "media_tile",
           "settings": {
-            "media_type": "image",
-            "link": ""
+            "media_type": "image"
           }
         },
         "group_6_media_2": {
           "type": "media_tile",
           "settings": {
-            "media_type": "image",
-            "link": ""
+            "media_type": "image"
           }
         },
         "group_6_media_3": {
           "type": "media_tile",
           "settings": {
-            "media_type": "image",
-            "link": ""
+            "media_type": "image"
           }
         },
         "group_6_media_4": {
           "type": "media_tile",
           "settings": {
-            "media_type": "image",
-            "link": ""
+            "media_type": "image"
           }
         }
       },
@@ -394,346 +465,14 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "feature_accordion_image_Uqxyi4": {
-      "type": "feature-accordion-image",
-      "blocks": {
-        "accordion_item_GxD4hh": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Short heading goes here",
-            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
-          }
-        },
-        "accordion_item_NfwAhA": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Short heading goes here",
-            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
-          }
-        },
-        "accordion_item_pDkJAY": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Short heading goes here",
-            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "accordion_item_GxD4hh",
-        "accordion_item_NfwAhA",
-        "accordion_item_pDkJAY"
-      ],
-      "name": "Feature accordion",
-      "settings": {
-        "heading": "<p>Long heading is what you see here in this <em>feature section</em></p>",
-        "background_color": "#267e66",
-        "card_color": "#ebeae0",
-        "text_color": "#111111",
-        "border_color": "#cfcdbf",
-        "padding-block-start": 0,
-        "padding-block-end": 0,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0
-      }
-    },
-    "product_comparison_table_8jC998": {
-      "type": "product-comparison-table",
-      "blocks": {
-        "row_H49Xdc": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "Unlimited",
-            "column_2_value": "25",
-            "column_3_value": "10"
-          }
-        },
-        "row_7MaTyQ": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✓"
-          }
-        },
-        "row_9herMY": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✓"
-          }
-        },
-        "row_qQTMKq": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
-          }
-        },
-        "row_pUMQqQ": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
-          }
-        },
-        "row_DLT6YF": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
-          }
-        },
-        "row_gnynCg": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
-          }
-        },
-        "row_Rqm4Nw": {
-          "type": "row",
-          "settings": {
-            "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✕",
-            "column_3_value": "✕"
-          }
-        }
-      },
-      "block_order": [
-        "row_H49Xdc",
-        "row_7MaTyQ",
-        "row_9herMY",
-        "row_qQTMKq",
-        "row_pUMQqQ",
-        "row_DLT6YF",
-        "row_gnynCg",
-        "row_Rqm4Nw"
-      ],
-      "name": "Product comparison table",
-      "settings": {
-        "color_scheme": "",
-        "label": "Shop by category",
-        "heading": "<p><strong>Printing and</strong> <em>typesetting industry.</em></p>",
-        "table_label": "Product comparison",
-        "padding-block-start": 90,
-        "padding-block-end": 90
-      }
-    },
-    "gradient_feature_product_yK3MKL": {
-      "type": "gradient-feature-product",
-      "blocks": {
-        "product_slide_Qfcpkj": {
-          "type": "product_slide",
-          "settings": {
-            "product": "",
-            "product_title": "Cordycep Mushroom Tincture",
-            "product_price": "$55",
-            "rating_text": "4.5/5",
-            "button_label": "Add to cart",
-            "button_link": ""
-          }
-        },
-        "product_slide_YcNHmD": {
-          "type": "product_slide",
-          "settings": {
-            "product": "",
-            "product_title": "Cordycep Mushroom Tincture",
-            "product_price": "$55",
-            "rating_text": "4.5/5",
-            "button_label": "Add to cart",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_slide_Qfcpkj",
-        "product_slide_YcNHmD"
-      ],
-      "name": "Gradient feature product",
-      "settings": {
-        "color_scheme": "",
-        "label": "Shop by category",
-        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>.</p>",
-        "background_overlay_opacity": 45
-      }
-    },
-    "testimonials_slider_YhQqKH": {
-      "type": "testimonials-slider",
-      "blocks": {
-        "testimonial_GydJw9": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-            "author_name": "Name surname",
-            "author_meta": "Position, Company name"
-          }
-        },
-        "testimonial_zz7dCt": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-            "author_name": "Name surname",
-            "author_meta": "Position, Company name"
-          }
-        },
-        "testimonial_P7x3L6": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-            "author_name": "Name surname",
-            "author_meta": "Position, Company name"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_GydJw9",
-        "testimonial_zz7dCt",
-        "testimonial_P7x3L6"
-      ],
-      "name": "Testimonials slider",
-      "settings": {
-        "heading": "<p>What our <em>customers</em> say about us</p>",
-        "heading_plain": "Customer testimonials",
-        "section_width": "full-width",
-        "color_scheme": "",
-        "background_color": "#f7f6ef",
-        "border_color": "#a8bda7",
-        "accent_color": "#2a7b63",
-        "cards_per_view": 2,
-        "card_gap": 20,
-        "card_radius": 8,
-        "padding-block-start": 120,
-        "padding-block-end": 92
-      }
-    },
-    "faq_3_DEDNpL": {
-      "type": "faq-3",
-      "blocks": {
-        "faq_item_76LpJy": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Question text goes here",
-            "answer": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
-          }
-        },
-        "faq_item_Ez6tG7": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Question text goes here",
-            "answer": "<p></p>"
-          }
-        },
-        "faq_item_NDTmVi": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Question text goes here",
-            "answer": "<p></p>"
-          }
-        },
-        "faq_item_xT3VmR": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Question text goes here",
-            "answer": "<p></p>"
-          }
-        }
-      },
-      "block_order": [
-        "faq_item_76LpJy",
-        "faq_item_Ez6tG7",
-        "faq_item_NDTmVi",
-        "faq_item_xT3VmR"
-      ],
-      "name": "FAQ 3",
-      "settings": {
-        "heading": "Frequently asked",
-        "subheading": "questions",
-        "description": "<p>Frequently asked questions ordered by popularity. Remember that if the visitor has not committed to the call to action, they may still have questions (doubts) that can be answered.</p>",
-        "button_label": "Contact",
-        "button_link": "",
-        "background_start": "#1f8f8e",
-        "background_middle": "#0f6335",
-        "background_end": "#1f7ea2",
-        "padding-block-start": 40,
-        "padding-block-end": 40,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0
-      }
-    },
-    "blog_editorial_grid_RbUUmX": {
-      "type": "blog-editorial-grid",
-      "name": "t:names.blog_editorial_grid",
-      "settings": {
-        "blog": "",
-        "post_limit": 3,
-        "eyebrow": "Shop by category",
-        "heading": "<p>Medium length section <em>heading goes</em> here</p>",
-        "view_all_label": "View all",
-        "view_all_url": "",
-        "category_fallback": "Category",
-        "read_more_label": "Read more",
-        "section_width": "page-width",
-        "color_scheme": "",
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "email_split_cta_tb4J6B": {
-      "type": "email-split-cta",
-      "name": "t:names.email_split_cta",
-      "settings": {
-        "heading_primary": "Medium length heading",
-        "heading_accent": "goes here",
-        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-        "image_alt": "",
-        "show_avatar": true,
-        "email_placeholder": "Enter your email",
-        "submit_label": "Submit",
-        "customer_tags": "newsletter",
-        "disclaimer": "<p>By clicking Sign Up you're confirming that you agree with our <a href=\"/policies/terms-of-service\" title=\"Terms and Conditions\">Terms and Conditions</a>.</p>",
-        "background_color": "#2d6a4f",
-        "text_color": "#ffffff",
-        "section_width": "page-width",
-        "mobile_image": "bottom",
-        "corner_radius": 28,
-        "min_height": 340,
-        "padding-block-start": 36,
-        "padding-block-end": 36,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0
-      }
     }
   },
   "order": [
+    "hero_jVaWmY",
     "concern_tabs_showcase_home",
     "stats_41_home",
     "group_6_products_home",
     "group_6_media_grid_home",
-    "product_list_fa6P9H",
-    "feature_accordion_image_Uqxyi4",
-    "product_comparison_table_8jC998",
-    "gradient_feature_product_yK3MKL",
-    "testimonials_slider_YhQqKH",
-    "faq_3_DEDNpL",
-    "blog_editorial_grid_RbUUmX",
-    "email_split_cta_tb4J6B"
+    "product_list_fa6P9H"
   ]
 }
