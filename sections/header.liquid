@@ -315,8 +315,8 @@
     data-transparent-color-scheme="{{ transparent_color_scheme_value }}"
   {% endif %}
   style="
-    --color-scheme-top-row: rgba({{ section.settings.color_scheme_top.settings.background.rgba }});
-    --color-scheme-bottom-row: rgba({{ section.settings.color_scheme_bottom.settings.background.rgba }});
+    --color-scheme-top-row: rgba(0, 0, 0, 0.6);
+    --color-scheme-bottom-row: rgba(0, 0, 0, 0.6);
     {% if section.settings.actions_display_style == 'text' %}
       --header-actions-font-size: {{ section.settings.actions_font_size | default: '1rem' }};
       --header-actions-font-family: var(--font-{{ section.settings.actions_font | default: 'heading' }}--family);
