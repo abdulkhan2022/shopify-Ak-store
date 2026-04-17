@@ -194,19 +194,8 @@
                     {% if block.settings.heading_bold != blank %}
                       <h2 class="concern-tabs-showcase__slide-heading-bold">{{ block.settings.heading_bold }}</h2>
                     {% endif %}
-                    {% if block.settings.heading_italic != blank %}
-                      <p class="concern-tabs-showcase__slide-heading-italic">{{ block.settings.heading_italic }}</p>
-                    {% endif %}
                     {% if block.settings.description != blank %}
                       <p class="concern-tabs-showcase__slide-desc">{{ block.settings.description }}</p>
-                    {% endif %}
-                    {% if block.settings.button_label != blank and block.settings.button_link != blank %}
-                      <a class="concern-tabs-showcase__slide-cta" href="{{ block.settings.button_link }}">
-                        <span>{{ block.settings.button_label }}</span>
-                        <span class="svg-wrapper" aria-hidden="true">
-                          {{ 'icon-arrow.svg' | inline_asset_content }}
-                        </span>
-                      </a>
                     {% endif %}
                   </div>
                 </div>
@@ -517,46 +506,12 @@
     color: #fff;
   }
 
-  .concern-tabs-showcase__slide-heading-italic {
-    margin: 0;
-    font-family: var(--font-accent--family, var(--font-heading--family));
-    font-style: italic;
-    font-size: clamp(1.1rem, 2vw, 1.65rem);
-    line-height: 1.2;
-    color: rgb(255 255 255 / 95%);
-  }
-
   .concern-tabs-showcase__slide-desc {
     margin: 0;
     max-width: 42ch;
     font-size: 0.9375rem;
     line-height: 1.55;
     color: rgb(255 255 255 / 88%);
-  }
-
-  .concern-tabs-showcase__slide-cta {
-    margin-top: 6px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    min-height: var(--minimum-touch-target, 44px);
-    padding: 10px 20px;
-    border-radius: 999px;
-    background: #fff;
-    color: #000;
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1;
-  }
-
-  .concern-tabs-showcase__slide-cta:hover {
-    background: rgb(255 255 255 / 92%);
-  }
-
-  .concern-tabs-showcase__slide-cta .svg-wrapper {
-    width: 14px;
-    height: 14px;
-    display: inline-flex;
   }
 
   .concern-tabs-showcase__tabs--center {
@@ -1006,27 +961,10 @@
           "default": "Medium length hero heading goes here"
         },
         {
-          "type": "text",
-          "id": "heading_italic",
-          "label": "Subheading (italic)",
-          "default": "Supporting line goes here"
-        },
-        {
           "type": "textarea",
           "id": "description",
           "label": "Description",
           "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button label",
-          "default": "Shop now"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Button link"
         }
       ]
     }
@@ -1054,9 +992,7 @@
             "tab_label": "Tab 1",
             "media_type": "image",
             "heading_bold": "Medium length hero heading goes here",
-            "heading_italic": "Therra derma spotlight",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation.",
-            "button_label": "Shop collection"
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation."
           }
         },
         {
@@ -1065,9 +1001,7 @@
             "tab_label": "Tab 2",
             "media_type": "image",
             "heading_bold": "Second story headline",
-            "heading_italic": "Wellness ritual",
-            "description": "Pair products for morning and night routines tailored to your goals.",
-            "button_label": "Learn more"
+            "description": "Pair products for morning and night routines tailored to your goals."
           }
         },
         {
@@ -1076,9 +1010,7 @@
             "tab_label": "Tab 3",
             "media_type": "image",
             "heading_bold": "Third spotlight",
-            "heading_italic": "Pure ingredients",
-            "description": "Transparent sourcing and small-batch quality you can trust.",
-            "button_label": "View ingredients"
+            "description": "Transparent sourcing and small-batch quality you can trust."
           }
         },
         {
@@ -1087,9 +1019,7 @@
             "tab_label": "Tab 4",
             "media_type": "image",
             "heading_bold": "Fourth spotlight",
-            "heading_italic": "Community picks",
-            "description": "Customer favorites refreshed weekly.",
-            "button_label": "See bestsellers"
+            "description": "Customer favorites refreshed weekly."
           }
         }
       ]
