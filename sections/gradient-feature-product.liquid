@@ -13,18 +13,7 @@
     {%- endif -%}
 
     {%- if section.settings.heading != blank -%}
-      {%- assign heading_before = section.settings.heading_before | strip -%}
-      {%- assign heading_italic = section.settings.heading_italic | strip -%}
-      {%- assign heading_after = section.settings.heading_after | strip -%}
-      {%- if heading_before != blank or heading_italic != blank or heading_after != blank -%}
-        <h2 class="gradient-feature-product__heading gradient-feature-product__heading--split">
-          {%- if heading_before != blank -%}<span class="gradient-feature-product__heading-normal">{{ heading_before | escape }}</span>{%- endif -%}
-          {%- if heading_italic != blank -%}<span class="gradient-feature-product__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
-          {%- if heading_after != blank -%}<span class="gradient-feature-product__heading-normal">{{ heading_after | escape }}</span>{%- endif -%}
-        </h2>
-      {%- else -%}
-        <div class="gradient-feature-product__heading rte">{{ section.settings.heading }}</div>
-      {%- endif -%}
+      <div class="gradient-feature-product__heading rte">{{ section.settings.heading }}</div>
     {%- endif -%}
 
     <div class="gradient-feature-product__content">
@@ -125,16 +114,6 @@
   </div>
 
   <style>
-    @font-face {
-      font-family: 'Area Normal Section';
-      src: url('{{ "AreaNormalTrial-Semibold-BF65ea75c6b547e.otf" | asset_url }}') format('opentype');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-
     #{{ section_id }}.gradient-feature-product {
       margin-top: -10px;
       border-radius: 24px 24px 0 0;
@@ -188,39 +167,10 @@
       line-height: 1.05;
       letter-spacing: -0.02em;
       color: #fff;
-      font-family: 'Area Normal Section', sans-serif;
-      font-style: normal;
-      font-weight: 600;
     }
 
     #{{ section_id }} .gradient-feature-product__heading p {
       margin: 0;
-    }
-
-    #{{ section_id }} .gradient-feature-product__heading em {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
-    }
-
-    #{{ section_id }} .gradient-feature-product__heading--split {
-      display: block;
-    }
-
-    #{{ section_id }} .gradient-feature-product__heading--split span + span {
-      margin-left: .22em;
-    }
-
-    #{{ section_id }} .gradient-feature-product__heading-normal {
-      font-family: 'Area Normal Section', sans-serif;
-      font-style: normal;
-      font-weight: 600;
-    }
-
-    #{{ section_id }} .gradient-feature-product__heading-italic {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
     }
 
     #{{ section_id }} .gradient-feature-product__content {
@@ -231,11 +181,10 @@
     }
 
     #{{ section_id }} .gradient-feature-product__image-wrap {
-      width: 638px;
-      height: 789px;
-      border: 1.4px solid rgb(255 255 255 / 65%);
-      border-radius: 32px;
+      border: 1px solid rgb(255 255 255 / 65%);
+      border-radius: 20px;
       overflow: hidden;
+      min-height: 420px;
       background: rgb(255 255 255 / 12%);
     }
 
@@ -255,7 +204,7 @@
     }
 
     #{{ section_id }} .gradient-feature-product__viewport {
-      width: 315px;
+      width: min(250px, 100%);
       overflow: hidden;
     }
 
@@ -285,38 +234,28 @@
     }
 
     #{{ section_id }} .gradient-feature-product__card {
-      width: 315px;
-      min-width: 315px;
-      height: 504px;
+      width: 100%;
+      min-width: 100%;
       background: #f3f0e6;
       color: #161616;
-      border-radius: 24px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      border-radius: 16px;
+      padding: 10px;
       text-align: left;
       box-shadow: 0 10px 28px rgb(0 0 0 / 18%);
     }
 
     #{{ section_id }} .gradient-feature-product__card-media {
-      width: 283px;
-      height: 338px;
-      margin: 0 auto;
       border-radius: 10px;
       overflow: hidden;
       background: #ddd8cb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     #{{ section_id }} .gradient-feature-product__product-image {
       display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
-      aspect-ratio: auto;
+      aspect-ratio: 1 / 1;
     }
 
     #{{ section_id }} .gradient-feature-product__card-row {
@@ -324,7 +263,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 10px;
-      margin-top: 0;
+      margin-top: 10px;
     }
 
     #{{ section_id }} .gradient-feature-product__product-title {
@@ -344,7 +283,7 @@
     }
 
     #{{ section_id }} .gradient-feature-product__rating {
-      margin: 0;
+      margin: 8px 0 10px;
       font-size: 0.95rem;
       line-height: 1;
     }
@@ -368,8 +307,6 @@
       }
 
       #{{ section_id }} .gradient-feature-product__image-wrap {
-        width: 100%;
-        height: auto;
         min-height: 340px;
       }
 
@@ -424,10 +361,6 @@
   "settings": [
     { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-6" },
     { "type": "text", "id": "label", "label": "Top label", "default": "Shop by category" },
-    { "type": "header", "content": "Split heading" },
-    { "type": "text", "id": "heading_before", "label": "Heading text before italic", "default": "Lorem Ipsum is simply dummy text of the printing and" },
-    { "type": "text", "id": "heading_italic", "label": "Italic heading text", "default": "typesetting industry" },
-    { "type": "text", "id": "heading_after", "label": "Heading text after italic" },
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>.</p>" },
     { "type": "image_picker", "id": "background_image", "label": "Background image" },
     { "type": "range", "id": "background_overlay_opacity", "label": "Background image opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 45 },

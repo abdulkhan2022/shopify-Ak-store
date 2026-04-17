@@ -5,11 +5,6 @@
     --faq3-bg-start: {{ section.settings.background_start }};
     --faq3-bg-middle: {{ section.settings.background_middle }};
     --faq3-bg-end: {{ section.settings.background_end }};
-    {% if section.settings.background_image != blank %}
-      --faq3-bg-image: url('{{ section.settings.background_image | image_url: width: 2200 }}');
-    {% else %}
-      --faq3-bg-image: none;
-    {% endif %}
   "
 >
   <div class="faq-3__inner">
@@ -31,7 +26,7 @@
       {% if section.settings.button_label != blank and section.settings.button_link != blank %}
         <a class="faq-3__button" href="{{ section.settings.button_link }}">
           <span>{{ section.settings.button_label | escape }}</span>
-          <span class="faq-3__button-arrow" aria-hidden="true">&rarr;</span>
+          <span class="faq-3__button-arrow" aria-hidden="true">+</span>
         </a>
       {% endif %}
     </div>
@@ -75,12 +70,12 @@
     left: 50%;
     width: 100vw;
     transform: translateX(-50%);
-    background-image:
-      var(--faq3-bg-image),
-      linear-gradient(115deg, var(--faq3-bg-start) 0%, var(--faq3-bg-middle) 55%, var(--faq3-bg-end) 100%);
-    background-size: cover, cover;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
+    background: linear-gradient(
+      115deg,
+      var(--faq3-bg-start) 0%,
+      var(--faq3-bg-middle) 55%,
+      var(--faq3-bg-end) 100%
+    );
     z-index: -1;
   }
 
@@ -283,11 +278,6 @@
       "id": "background_end",
       "label": "Gradient end",
       "default": "#1f7ea2"
-    },
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image"
     },
     {
       "type": "header",

@@ -4,29 +4,18 @@
 
 <section
   id="{{ section_id }}"
-  class="testimonials-slider section section--full-width color-{{ section.settings.color_scheme }}"
+  class="testimonials-slider section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
   style="
     --testimonials-bg: {{ section.settings.background_color }};
     --testimonials-border: {{ section.settings.border_color }};
     --testimonials-accent: {{ section.settings.accent_color }};
     --testimonials-gap: {{ section.settings.card_gap }}px;
+    --testimonials-radius: {{ section.settings.card_radius }}px;
+    --testimonials-columns: {{ section.settings.cards_per_view }};
   "
 >
   <div class="testimonials-slider__inner">
-    {%- assign heading_before = section.settings.heading_before | strip -%}
-    {%- assign heading_italic = section.settings.heading_italic | strip -%}
-    {%- assign heading_after = section.settings.heading_after | strip -%}
-    <div class="testimonials-slider__heading-wrap">
-      {%- if heading_before != blank or heading_italic != blank or heading_after != blank -%}
-        <h2 class="testimonials-slider__heading testimonials-slider__heading--split">
-          {%- if heading_before != blank -%}<span class="testimonials-slider__heading-normal">{{ heading_before | escape }}</span>{%- endif -%}
-          {%- if heading_italic != blank -%}<span class="testimonials-slider__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
-          {%- if heading_after != blank -%}<span class="testimonials-slider__heading-normal">{{ heading_after | escape }}</span>{%- endif -%}
-        </h2>
-      {%- else -%}
-        <h2 class="testimonials-slider__heading rte">{{ section.settings.heading }}</h2>
-      {%- endif -%}
-    </div>
+    <h2 class="testimonials-slider__heading rte">{{ section.settings.heading }}</h2>
 
     <div class="testimonials-slider__viewport-wrap">
       <div class="testimonials-slider__viewport" data-viewport tabindex="0" aria-label="{{ section.settings.heading_plain | escape }}">
@@ -95,21 +84,10 @@
         </button>
       </div>
     </div>
-
   </div>
 </section>
 
 {% stylesheet %}
-  @font-face {
-    font-family: 'Area Normal Testimonials';
-    src: url('{{ "AreaNormalTrial-Semibold-BF65ea75c6b547e.otf" | asset_url }}') format('opentype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-
   .testimonials-slider {
     background: var(--testimonials-bg);
     border-radius: 12px 12px 0 0 !important;
@@ -122,49 +100,13 @@
   }
 
   .testimonials-slider__inner {
-    width: 100%;
+    width: min(1400px, 100%);
     margin: 0 auto;
-    padding-inline: clamp(16px, 2.8vw, 40px);
+    padding-inline: var(--page-margin);
   }
 
   .testimonials-slider__heading {
-    margin: 0;
-    font-family: 'Area Normal Testimonials', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-  }
-
-  .testimonials-slider__heading-wrap {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto 40px;
-    padding-left: 50px;
-  }
-
-  .testimonials-slider__heading em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-  }
-
-  .testimonials-slider__heading--split {
-    display: block;
-  }
-
-  .testimonials-slider__heading--split span + span {
-    margin-left: 0.22em;
-  }
-
-  .testimonials-slider__heading-normal {
-    font-family: 'Area Normal Testimonials', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-  }
-
-  .testimonials-slider__heading-italic {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
+    margin: 0 0 1.5rem;
   }
 
   .testimonials-slider__heading p {
@@ -182,23 +124,18 @@
   }
 
   .testimonials-slider__track {
-    display: flex;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - (var(--testimonials-gap) * (var(--testimonials-columns) - 1))) / var(--testimonials-columns));
     gap: var(--testimonials-gap);
-    width: max-content;
   }
 
   .testimonials-slider__card {
     border: 1px solid var(--testimonials-border);
-    border-radius: 24px;
-    width: 600px;
-    height: 259.888916015625px;
-    padding: 32px;
+    border-radius: var(--testimonials-radius);
+    padding: 1.25rem;
     background: transparent;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    flex: 0 0 600px;
+    min-height: 200px;
   }
 
   .testimonials-slider__stars {
@@ -313,16 +250,14 @@
   }
 
   @media screen and (max-width: 989px) {
-    .testimonials-slider__card {
-      height: auto;
-      min-height: 259.888916015625px;
+    .testimonials-slider__track {
+      grid-auto-columns: calc((100% - var(--testimonials-gap)) / 2);
     }
   }
 
   @media screen and (max-width: 749px) {
-    .testimonials-slider__card {
-      min-height: auto;
-      padding: 24px;
+    .testimonials-slider__track {
+      grid-auto-columns: 100%;
     }
 
     .testimonials-slider__heading {
@@ -398,32 +333,11 @@
   "name": "Testimonials slider",
   "tag": "section",
   "class": "section-wrapper",
+  "max_blocks": 12,
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
-    {
-      "type": "header",
-      "content": "Split heading"
-    },
-    {
-      "type": "text",
-      "id": "heading_before",
-      "label": "Heading text before italic",
-      "default": "What our"
-    },
-    {
-      "type": "text",
-      "id": "heading_italic",
-      "label": "Italic heading text",
-      "default": "customers"
-    },
-    {
-      "type": "text",
-      "id": "heading_after",
-      "label": "Heading text after italic",
-      "default": "say about us"
-    },
     {
       "type": "richtext",
       "id": "heading",
@@ -435,6 +349,16 @@
       "id": "heading_plain",
       "label": "Heading plain text (accessibility)",
       "default": "Customer testimonials"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
     },
     {
       "type": "color_scheme",
@@ -462,6 +386,15 @@
     },
     {
       "type": "range",
+      "id": "cards_per_view",
+      "label": "Cards per view (desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
       "id": "card_gap",
       "label": "Card gap",
       "min": 8,
@@ -469,6 +402,16 @@
       "step": 1,
       "unit": "px",
       "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 8
     },
     {
       "type": "header",

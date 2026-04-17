@@ -448,7 +448,6 @@
         "blog": "",
         "post_limit": 3,
         "eyebrow": "Shop by category",
-        "heading": "<p>Medium length section <em>heading goes</em> here</p>",
         "view_all_label": "View all",
         "view_all_url": "",
         "category_fallback": "Category",
