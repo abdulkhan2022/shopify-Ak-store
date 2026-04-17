@@ -15,19 +15,19 @@
         "marquee_quote_1": {
           "type": "marquee_item",
           "settings": {
-            "text": "Exceeded my expectations – Emily R."
+            "text": "Exceeded my expectations Ã¢â‚¬â€œ Emily R."
           }
         },
         "marquee_quote_2": {
           "type": "marquee_item",
           "settings": {
-            "text": "Fast shipping – Jordan P."
+            "text": "Fast shipping Ã¢â‚¬â€œ Jordan P."
           }
         },
         "marquee_quote_3": {
           "type": "marquee_item",
           "settings": {
-            "text": "Beautiful packaging – Sam K."
+            "text": "Beautiful packaging Ã¢â‚¬â€œ Sam K."
           }
         },
         "showcase_tab_1": {
@@ -91,7 +91,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "ticker_left_text": "5000+ Happy Customers",
-        "ticker_fallback": "Exceeded my expectations – Emily R.\nFast shipping – Jordan P.\nBeautiful packaging – Sam K.",
+        "ticker_fallback": "Exceeded my expectations Ã¢â‚¬â€œ Emily R.\nFast shipping Ã¢â‚¬â€œ Jordan P.\nBeautiful packaging Ã¢â‚¬â€œ Sam K.",
         "ticker_aria_label": "Customer highlights",
         "pill_label": "Shop by Concern",
         "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
@@ -217,63 +217,63 @@
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✓"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€œ",
+            "column_3_value": "Ã¢Å“â€œ"
           }
         },
         "row_QCFTbq": {
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✓"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€œ",
+            "column_3_value": "Ã¢Å“â€œ"
           }
         },
         "row_Vjxa4Q": {
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€œ",
+            "column_3_value": "Ã¢Å“â€¢"
           }
         },
         "row_egXMXp": {
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€œ",
+            "column_3_value": "Ã¢Å“â€¢"
           }
         },
         "row_B8Xjbi": {
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€œ",
+            "column_3_value": "Ã¢Å“â€¢"
           }
         },
         "row_Y9ntVV": {
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✓",
-            "column_3_value": "✕"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€œ",
+            "column_3_value": "Ã¢Å“â€¢"
           }
         },
         "row_LmEfgj": {
           "type": "row",
           "settings": {
             "feature": "Feature text goes here",
-            "column_1_value": "✓",
-            "column_2_value": "✕",
-            "column_3_value": "✕"
+            "column_1_value": "Ã¢Å“â€œ",
+            "column_2_value": "Ã¢Å“â€¢",
+            "column_3_value": "Ã¢Å“â€¢"
           }
         }
       },

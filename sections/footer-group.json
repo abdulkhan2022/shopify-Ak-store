@@ -17,36 +17,31 @@
         "fmc_col_1": {
           "type": "column",
           "settings": {
-            "heading": "Column one",
-            "menu": ""
+            "heading": "Column one"
           }
         },
         "fmc_col_2": {
           "type": "column",
           "settings": {
-            "heading": "Column two",
-            "menu": ""
+            "heading": "Column two"
           }
         },
         "fmc_col_3": {
           "type": "column",
           "settings": {
-            "heading": "Column three",
-            "menu": ""
+            "heading": "Column three"
           }
         },
         "fmc_col_4": {
           "type": "column",
           "settings": {
-            "heading": "Column four",
-            "menu": ""
+            "heading": "Column four"
           }
         },
         "fmc_col_5": {
           "type": "column",
           "settings": {
-            "heading": "Column five",
-            "menu": ""
+            "heading": "Column five"
           }
         }
       },
@@ -67,15 +62,9 @@
         "card_padding": 40,
         "column_gap": 24,
         "divider_color": "#1a1a1a",
-        "logo_text": "",
-        "logo_link": "",
-        "copyright_custom": "",
         "privacy_label": "Privacy Policy",
-        "privacy_url": "",
         "terms_label": "Terms of Service",
-        "terms_url": "",
         "cookies_label": "Cookies Settings",
-        "cookies_url": "",
         "facebook_url": "https://www.facebook.com/shopify",
         "instagram_url": "https://www.instagram.com/shopify/",
         "twitter_url": "https://x.com/shopify",
