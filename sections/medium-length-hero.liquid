@@ -1,177 +1,252 @@
 <div class="medium-length-hero">
-  <div class="medium-length-hero__content">
-    <div class="medium-length-hero__text-wrapper">
-      <h2 class="medium-length-hero__heading">Medium length hero</h2>
-      <p class="medium-length-hero__subheading">heading goes here</p>
+  <div class="medium-length-hero__inner page-width-content">
+    <div class="medium-length-hero__top">
+      <div class="medium-length-hero__titles">
+        {% if section.settings.heading_line_1 != blank %}
+          <p class="medium-length-hero__line1">{{ section.settings.heading_line_1 | escape }}</p>
+        {% endif %}
+        <p class="medium-length-hero__line2">
+          {% if section.settings.subheading_italic != blank %}
+            <span class="medium-length-hero__line2-italic">{{ section.settings.subheading_italic | escape }}</span>
+          {% endif %}
+          {% if section.settings.subheading_suffix != blank %}
+            <span class="medium-length-hero__line2-sans"> {{ section.settings.subheading_suffix | escape }}</span>
+          {% endif %}
+        </p>
+      </div>
+      {% if section.settings.description != blank %}
+        <div class="medium-length-hero__intro rte">{{ section.settings.description }}</div>
+      {% endif %}
     </div>
-    <div class="medium-length-hero__description">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>
-    </div>
-  </div>
-  <div class="medium-length-hero__video-wrapper">
-    <div class="medium-length-hero__video-container">
-      <img src="https://cdn.shopify.com/s/files/1/0533/2083/files/placeholder_image.png?v=1613523581" alt="Placeholder video thumbnail" class="medium-length-hero__video-thumbnail">
-      <button class="medium-length-hero__play-button">
-        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="0 0 13 13">
-          <path fill="currentColor" d="M0 0h13v13H0V0z"/>
-          <path d="M4.322 2.668c-1.397-.582-2.322.28-2.322 1.332v5.66c0 1.052.925 1.914 2.322 1.332L10.32 6.54C11.717 5.958 11.717 4.042 10.32 3.46L4.322 2.668z" fill="#fff"/>
-        </svg>
-      </button>
+
+    <div class="medium-length-hero__media">
+      <div class="medium-length-hero__media-frame">
+        {% if section.settings.video_thumbnail != blank %}
+          {% liquid
+            assign mlh_alt = section.settings.video_thumbnail.alt | default: section.settings.heading_line_1
+          %}
+          {{
+            section.settings.video_thumbnail
+            | image_url: width: 2400
+            | image_tag:
+              class: 'medium-length-hero__image',
+              loading: 'lazy',
+              sizes: '(min-width: 990px) min(90vw, 1200px), 100vw',
+              alt: mlh_alt
+          }}
+        {% else %}
+          <div class="medium-length-hero__placeholder" aria-hidden="true"></div>
+        {% endif %}
+
+        {% if section.settings.video_url != blank %}
+          <a
+            class="medium-length-hero__play"
+            href="{{ section.settings.video_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="{{ 'accessibility.play_video' | t }}"
+          >
+            <span class="medium-length-hero__play-circle">
+              <svg class="medium-length-hero__play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polygon points="9,7 9,17 17,12" fill="currentColor"/>
+              </svg>
+            </span>
+          </a>
+        {% else %}
+          <span class="medium-length-hero__play" role="presentation">
+            <span class="medium-length-hero__play-circle">
+              <svg class="medium-length-hero__play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polygon points="9,7 9,17 17,12" fill="currentColor"/>
+              </svg>
+            </span>
+          </span>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>
 
 {% stylesheet %}
-.medium-length-hero {
-  background-color: #fcf8f0; /* Light cream background */
-  padding: 80px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-}
-
-@media (min-width: 768px) {
   .medium-length-hero {
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 80px;
-    padding: 100px 80px;
+    --mlh-cream: #fcf8f0;
+    --mlh-frame: #ebe8e4;
+    background-color: var(--mlh-cream);
+    padding-block: clamp(3rem, 7vw, 5rem);
+    padding-inline: var(--page-margin, 1.5rem);
   }
-}
 
-.medium-length-hero__content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 500px;
-}
-
-@media (min-width: 768px) {
-  .medium-length-hero__content {
-    flex-basis: 50%;
+  .medium-length-hero__inner {
+    margin-inline: auto;
   }
-}
 
-.medium-length-hero__text-wrapper {
-  margin-bottom: 20px;
-}
+  .medium-length-hero__top {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    align-items: start;
+  }
 
-.medium-length-hero__heading {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  line-height: 1.1;
-}
+  @media screen and (min-width: 990px) {
+    .medium-length-hero__top {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+  }
 
-.medium-length-hero__subheading {
-  font-size: 1.8rem;
-  font-style: italic;
-  color: #555;
-  line-height: 1.1;
-}
-
-.medium-length-hero__description p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-@media (min-width: 768px) {
-  .medium-length-hero__description {
+  .medium-length-hero__titles {
     text-align: left;
   }
-}
 
-.medium-length-hero__video-wrapper {
-  flex-basis: 50%;
-  max-width: 600px;
-  position: relative;
-}
+  .medium-length-hero__line1 {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-style: var(--font-heading--style, normal);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
 
-.medium-length-hero__video-container {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  background-color: #eee;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
+  .medium-length-hero__line2 {
+    margin: 0.35em 0 0;
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+    line-height: 1.15;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
 
-.medium-length-hero__video-thumbnail {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .medium-length-hero__line2-italic {
+    font-family: var(--font-subheading--family);
+    font-style: italic;
+    font-weight: 400;
+  }
 
-.medium-length-hero__play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: transform 0.2s ease-in-out;
-}
+  .medium-length-hero__line2-sans {
+    font-family: var(--font-body--family);
+    font-style: normal;
+    font-weight: 400;
+  }
 
-.medium-length-hero__play-button:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-}
+  .medium-length-hero__intro {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-size: clamp(0.9375rem, 1.1vw, 1rem);
+    line-height: 1.65;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
 
-.medium-length-hero__play-button svg {
-  width: 24px;
-  height: 24px;
-  fill: #000;
-}
+  @media screen and (min-width: 990px) {
+    .medium-length-hero__intro {
+      padding-top: 0.25rem;
+      max-width: 42ch;
+      justify-self: end;
+      text-align: left;
+    }
+  }
+
+  .medium-length-hero__media {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .medium-length-hero__media-frame {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--mlh-frame);
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 12px 40px rgb(var(--color-foreground-rgb, 0 0 0) / 0.08);
+  }
+
+  .medium-length-hero__image,
+  .medium-length-hero__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .medium-length-hero__placeholder {
+    background: linear-gradient(135deg, #e8e4df 0%, #f0ebe5 100%);
+  }
+
+  .medium-length-hero__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .medium-length-hero__play-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #111;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 0.12);
+    transition: transform 0.2s ease;
+  }
+
+  a.medium-length-hero__play:hover .medium-length-hero__play-circle,
+  a.medium-length-hero__play:focus-visible .medium-length-hero__play-circle {
+    transform: scale(1.06);
+  }
+
+  .medium-length-hero__play-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.15rem;
+  }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Medium Length Hero",
+  "tag": "section",
+  "class": "section-wrapper",
   "settings": [
     {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
       "default": "Medium length hero"
     },
     {
       "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "heading goes here"
+      "id": "subheading_italic",
+      "label": "Heading line 2 (italic part)",
+      "default": "heading goes"
+    },
+    {
+      "type": "text",
+      "id": "subheading_suffix",
+      "label": "Heading line 2 (regular part)",
+      "default": "here"
     },
     {
       "type": "richtext",
       "id": "description",
-      "label": "Description",
+      "label": "Intro text (right column)",
       "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
     },
     {
       "type": "image_picker",
       "id": "video_thumbnail",
-      "label": "Video Thumbnail",
-      "info": "Upload an image for the video thumbnail."
+      "label": "Image / video poster"
     },
     {
       "type": "video_url",
       "id": "video_url",
       "label": "Video URL",
       "accept": ["youtube", "vimeo"],
-      "info": "Provide a YouTube or Vimeo video URL."
+      "info": "Optional. The play button opens this link in a new tab."
     }
   ],
   "presets": [
