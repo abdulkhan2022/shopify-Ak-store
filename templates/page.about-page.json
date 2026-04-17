@@ -59,6 +59,73 @@
         "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
       }
     },
+    "logo-badges-split": {
+      "type": "logo-badges-split",
+      "blocks": {
+        "lbs1": {
+          "type": "badge",
+          "settings": {
+            "label": "Webflow"
+          }
+        },
+        "lbs2": {
+          "type": "badge",
+          "settings": {
+            "label": "Webflow"
+          }
+        },
+        "lbs3": {
+          "type": "badge",
+          "settings": {
+            "label": "Relume"
+          }
+        },
+        "lbs4": {
+          "type": "badge",
+          "settings": {
+            "label": "Relume"
+          }
+        },
+        "lbs5": {
+          "type": "badge",
+          "settings": {
+            "label": "Webflow"
+          }
+        },
+        "lbs6": {
+          "type": "badge",
+          "settings": {
+            "label": "Webflow"
+          }
+        },
+        "lbs7": {
+          "type": "badge",
+          "settings": {
+            "label": "Relume"
+          }
+        },
+        "lbs8": {
+          "type": "badge",
+          "settings": {
+            "label": "Relume"
+          }
+        }
+      },
+      "block_order": [
+        "lbs1",
+        "lbs2",
+        "lbs3",
+        "lbs4",
+        "lbs5",
+        "lbs6",
+        "lbs7",
+        "lbs8"
+      ],
+      "settings": {
+        "heading": "Lorem Ipsum is simply dummy text of the.",
+        "subtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {}
@@ -69,6 +136,7 @@
     "founder-word",
     "problem-we-solve",
     "vertical-video-statement",
+    "logo-badges-split",
     "main"
   ]
 }
