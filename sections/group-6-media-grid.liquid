@@ -5,7 +5,16 @@
         <p class="group-6-media-grid__pill">{{ section.settings.pill_label | escape }}</p>
       {%- endif -%}
 
-      {%- if section.settings.heading != blank -%}
+      {%- assign heading_before = section.settings.heading_before | strip -%}
+      {%- assign heading_italic = section.settings.heading_italic | strip -%}
+      {%- assign heading_after = section.settings.heading_after | strip -%}
+      {%- if heading_before != blank or heading_italic != blank or heading_after != blank -%}
+        <h2 class="group-6-media-grid__heading group-6-media-grid__heading--split">
+          {%- if heading_before != blank -%}<span>{{ heading_before | escape }}</span>{%- endif -%}
+          {%- if heading_italic != blank -%}<span class="group-6-media-grid__heading-italic">{{ heading_italic | escape }}</span>{%- endif -%}
+          {%- if heading_after != blank -%}<span>{{ heading_after | escape }}</span>{%- endif -%}
+        </h2>
+      {%- elsif section.settings.heading != blank -%}
         <div class="group-6-media-grid__heading rte">
           {{ section.settings.heading }}
         </div>
@@ -98,6 +107,13 @@
     }
     .group-6-media-grid__heading p{margin:0}
     .group-6-media-grid__heading em{font-style:italic}
+    .group-6-media-grid__heading--split{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.22em;
+    }
+    .group-6-media-grid__heading-italic{font-style:italic}
     .group-6-media-grid__tiles{
       margin-top:26px;
       display:grid;
@@ -150,6 +166,10 @@
   "settings": [
     { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" },
     { "type": "text", "id": "pill_label", "label": "Pill label", "default": "Shop by category" },
+    { "type": "header", "content": "Split heading" },
+    { "type": "text", "id": "heading_before", "label": "Heading text before italic", "default": "Lorem Ipsum is simply dummy text of the printing and" },
+    { "type": "text", "id": "heading_italic", "label": "Italic heading text", "default": "typesetting industry" },
+    { "type": "text", "id": "heading_after", "label": "Heading text after italic", "default": "Lorem Ipsum has been the industry's standard" },
     { "type": "richtext", "id": "heading", "label": "t:settings.heading", "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>" },
     { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 24 },
     { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 0 }

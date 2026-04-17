@@ -30,7 +30,6 @@
         {%- if section.settings.button_label != blank -%}
           <a class="group-6-products__cta button button-secondary" href="{{ section.settings.button_link | default: '#' }}">
             {{ section.settings.button_label | escape }}
-            <span class="group-6-products__cta-icon" aria-hidden="true">&rarr;</span>
           </a>
         {%- endif -%}
       </div>
@@ -106,14 +105,13 @@
 
   <style>
     #{{ section_id }}.group-6-products{background:#fff}
-    #{{ section_id }} .group-6-products__surface{width:100%;border-radius:18px 18px 0 0;{% if section.settings.background_image != blank %}background-image:linear-gradient(132deg,rgb(29 196 195 / 66%) 0%,rgb(45 147 207 / 66%) 52%,rgb(47 132 203 / 66%) 100%),url({{ section.settings.background_image | image_url: width: 2200 }});background-size:cover;background-position:center;background-repeat:no-repeat;{% else %}background:linear-gradient(132deg,#1dc4c3 0%,#2d93cf 52%,#2f84cb 100%);{% endif %}padding:clamp(30px,4vw,48px) var(--page-margin) clamp(28px,4vw,44px)}
+    #{{ section_id }} .group-6-products__surface{width:100%;border-radius:18px 18px 0 0;background:linear-gradient(132deg,#1dc4c3 0%,#2d93cf 52%,#2f84cb 100%);padding:clamp(30px,4vw,48px) var(--page-margin) clamp(28px,4vw,44px)}
     #{{ section_id }} .group-6-products__inner{max-width:1440px;margin:0 auto}
     #{{ section_id }} .group-6-products__head{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:24px}
     #{{ section_id }} .group-6-products__pill{margin:0 0 10px;display:inline-flex;padding:6px 12px;border:1px solid rgb(255 255 255 / 60%);border-radius:999px;color:#eafbf7;font-size:.8rem;line-height:1}
     #{{ section_id }} .group-6-products__heading{margin:0;color:#fff;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-weight:400}
     #{{ section_id }} .group-6-products__description{margin:10px 0 0;color:rgb(236 255 252 / 90%);font-size:1.05rem;line-height:1.35;max-width:40ch}
-    #{{ section_id }} .group-6-products__cta{border-radius:999px;background:#f5f4e7 !important;color:#1f2730 !important;border-color:#f5f4e7 !important;white-space:nowrap;margin-top:58px;display:inline-flex;align-items:center;gap:8px}
-    #{{ section_id }} .group-6-products__cta-icon{font-size:1em;line-height:1}
+    #{{ section_id }} .group-6-products__cta{border-radius:999px;background:#f5f4e7 !important;color:#1f2730 !important;border-color:#f5f4e7 !important;white-space:nowrap;margin-top:58px}
     #{{ section_id }} .group-6-products__carousel-wrap{display:block}
     #{{ section_id }} .group-6-products__carousel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * 16px)/4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
     #{{ section_id }} .group-6-products__carousel::-webkit-scrollbar{display:none}
@@ -126,7 +124,7 @@
     #{{ section_id }} .group-6-products__price{font-size:18px;line-height:1.2;color:#111;white-space:nowrap}
     #{{ section_id }} .group-6-products__rating{margin:6px 0 8px;color:#111;font-size:1rem}
     #{{ section_id }} .group-6-products__atc{width:100%;height:42px;border:1px solid rgb(17 17 17 / 55%);background:transparent;border-radius:999px;font-size:1.25rem;color:#111}
-    #{{ section_id }} .group-6-products__controls{margin-top:48px;display:flex;justify-content:space-between;align-items:center}
+    #{{ section_id }} .group-6-products__controls{margin-top:18px;display:flex;justify-content:space-between;align-items:center}
     #{{ section_id }} .group-6-products__dots{display:flex;gap:6px}
     #{{ section_id }} .group-6-products__dot{width:6px;height:6px;border-radius:50%;background:rgb(255 255 255 / 36%);border:none;padding:0}
     #{{ section_id }} .group-6-products__dot.is-active{background:#f6f4e8}
@@ -212,11 +210,10 @@
     { "type": "textarea", "id": "description", "label": "t:settings.description", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique." },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Powders" },
     { "type": "url", "id": "button_link", "label": "t:settings.link" },
-    { "type": "image_picker", "id": "background_image", "label": "Background image" },
     { "type": "collection", "id": "collection", "label": "t:settings.collection" },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
-    { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 2, "unit": "px", "label": "t:settings.top_padding", "default": 90 },
-    { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 2, "unit": "px", "label": "t:settings.bottom_padding", "default": 90 }
+    { "type": "range", "id": "padding-block-start", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.top_padding", "default": 24 },
+    { "type": "range", "id": "padding-block-end", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:settings.bottom_padding", "default": 0 }
   ],
   "presets": [{ "name": "Group 6 products" }]
 }
