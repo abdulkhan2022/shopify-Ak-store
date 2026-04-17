@@ -356,6 +356,7 @@
   .concern-tabs-showcase__pill-wrap {
     display: flex;
     justify-content: center;
+    margin-block-start: 90px;
     margin-block-end: 16px;
   }
 
@@ -721,10 +722,11 @@
     width: 100%;
     justify-content: center;
     border-radius: 999px;
-    font-weight: 400;
-    font-size: 1rem;
-    min-height: 56px;
-    border: 1px solid rgb(255 255 255 / 85%) !important;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    min-height: 48px;
+    padding: 12px 24px;
+    transition: all 200ms ease;
   }
 
   .concern-tabs-showcase__product-cta--light {
@@ -733,10 +735,19 @@
     border: 1px solid #fff !important;
   }
 
+  .concern-tabs-showcase__product-cta--light:hover {
+    background: rgb(255 255 255 / 92%) !important;
+  }
+
   .concern-tabs-showcase__product-cta--dark {
     background: transparent !important;
     color: #fff !important;
-    border: 1px solid rgb(255 255 255 / 85%) !important;
+    border: 1px solid rgb(255 255 255 / 70%) !important;
+  }
+
+  .concern-tabs-showcase__product-cta--dark:hover {
+    background: rgb(255 255 255 / 10%) !important;
+    border-color: rgb(255 255 255 / 90%) !important;
   }
 
   .concern-tabs-showcase__product-cta--dark .add-to-cart-icon svg {
