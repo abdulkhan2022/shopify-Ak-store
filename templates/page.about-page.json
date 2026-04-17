@@ -126,6 +126,53 @@
         "subtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
       }
     },
+    "our-team": {
+      "type": "our-team",
+      "blocks": {
+        "ot1": {
+          "type": "member",
+          "settings": {
+            "name": "Full name",
+            "job_title": "Job title",
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          }
+        },
+        "ot2": {
+          "type": "member",
+          "settings": {
+            "name": "Full name",
+            "job_title": "Job title",
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          }
+        },
+        "ot3": {
+          "type": "member",
+          "settings": {
+            "name": "Full name",
+            "job_title": "Job title",
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          }
+        },
+        "ot4": {
+          "type": "member",
+          "settings": {
+            "name": "Full name",
+            "job_title": "Job title",
+            "bio": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ot1",
+        "ot2",
+        "ot3",
+        "ot4"
+      ],
+      "settings": {
+        "badge_text": "Our Team",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry.</em></p>"
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {}
@@ -137,6 +184,7 @@
     "problem-we-solve",
     "vertical-video-statement",
     "logo-badges-split",
+    "our-team",
     "main"
   ]
 }

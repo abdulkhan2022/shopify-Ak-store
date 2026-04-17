@@ -1,0 +1,408 @@
+<div class="our-team">
+  <div class="our-team__inner">
+    <div class="our-team__content">
+      <div class="our-team__intro">
+        {% if section.settings.badge_text != blank %}
+          <p class="our-team__pill">{{ section.settings.badge_text | escape }}</p>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <div class="our-team__heading rte">{{ section.settings.heading }}</div>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="our-team__list">
+          {% for block in section.blocks %}
+            <article class="our-team__card" {{ block.shopify_attributes }}>
+              <div class="our-team__media">
+                {% if block.settings.image != blank %}
+                  {% liquid
+                    assign ot_alt = block.settings.image.alt | default: block.settings.name
+                  %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      class: 'our-team__image',
+                      loading: 'lazy',
+                      sizes: '(min-width: 750px) 38vw, 100vw',
+                      widths: '300, 450, 600, 800',
+                      alt: ot_alt
+                  }}
+                {% else %}
+                  <div class="our-team__image-placeholder" aria-hidden="true">
+                    {{ 'image' | placeholder_svg_tag: 'our-team__placeholder-svg' }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="our-team__details">
+                {% if block.settings.name != blank %}
+                  <h3 class="our-team__name">{{ block.settings.name | escape }}</h3>
+                {% endif %}
+                {% if block.settings.job_title != blank %}
+                  <p class="our-team__job">{{ block.settings.job_title | escape }}</p>
+                {% endif %}
+                {% if block.settings.bio != blank %}
+                  <div class="our-team__bio rte">{{ block.settings.bio }}</div>
+                {% endif %}
+
+                {% liquid
+                  assign has_social = false
+                  if block.settings.linkedin_url != blank or block.settings.x_url != blank or block.settings.website_url != blank
+                    assign has_social = true
+                  endif
+                %}
+                {% if has_social %}
+                  <div class="our-team__socials">
+                    {% if block.settings.linkedin_url != blank %}
+                      <a
+                        class="our-team__social-link"
+                        href="{{ block.settings.linkedin_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn — {{ block.settings.name | default: 'Team member' | escape }}"
+                      >
+                        <span class="our-team__social-icon our-team__social-icon--linkedin" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" focusable="false">
+                            <path d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764S5.534 3.204 6.5 3.204s1.75.79 1.75 1.764S7.466 6.732 6.5 6.732zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z"/>
+                          </svg>
+                        </span>
+                      </a>
+                    {% endif %}
+                    {% if block.settings.x_url != blank %}
+                      <a
+                        class="our-team__social-link"
+                        href="{{ block.settings.x_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="X — {{ block.settings.name | default: 'Team member' | escape }}"
+                      >
+                        <span class="our-team__social-icon" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" focusable="false">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298L17.61 20.644z"/>
+                          </svg>
+                        </span>
+                      </a>
+                    {% endif %}
+                    {% if block.settings.website_url != blank %}
+                      <a
+                        class="our-team__social-link"
+                        href="{{ block.settings.website_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Website — {{ block.settings.name | default: 'Team member' | escape }}"
+                      >
+                        <span class="our-team__social-icon" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" focusable="false">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                          </svg>
+                        </span>
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .our-team {
+    --ot-bg: #fdfcf0;
+    background-color: var(--ot-bg);
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+    padding-inline: var(--page-margin, 1.5rem);
+  }
+
+  .our-team__inner {
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  .our-team__content {
+    max-width: 1000px;
+    margin-inline: auto;
+    display: grid;
+    gap: clamp(2.25rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media screen and (min-width: 900px) {
+    .our-team__content {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
+      gap: clamp(2rem, 4vw, 3rem);
+    }
+  }
+
+  .our-team__intro {
+    text-align: left;
+  }
+
+  .our-team__pill {
+    margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
+    display: table;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgb(var(--color-foreground-rgb, 0 0 0) / 0.35);
+    border-radius: 999px;
+    font-family: var(--font-body--family);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .our-team__heading {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .our-team__heading :first-child {
+    margin-top: 0;
+  }
+
+  .our-team__heading :last-child {
+    margin-bottom: 0;
+  }
+
+  .our-team__heading em,
+  .our-team__heading i {
+    font-family: var(--font-subheading--family);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .our-team__list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .our-team__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  @media screen and (min-width: 750px) {
+    .our-team__card {
+      flex-direction: row;
+      gap: clamp(1rem, 2.5vw, 1.35rem);
+      align-items: flex-start;
+    }
+  }
+
+  .our-team__media {
+    flex: 0 0 auto;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #e8e6e1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .our-team__media {
+      width: 42%;
+      max-width: 42%;
+    }
+  }
+
+  .our-team__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .our-team__image-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #e4e2dd 0%, #eceae6 100%);
+  }
+
+  .our-team__placeholder-svg {
+    width: 42%;
+    height: auto;
+    opacity: 0.45;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .our-team__details {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .our-team__name {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .our-team__job {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .our-team__bio {
+    margin: 0 0 1rem;
+    font-family: var(--font-body--family);
+    font-size: clamp(0.875rem, 0.95vw, 0.9375rem);
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+  }
+
+  .our-team__bio p {
+    margin: 0 0 0.75em;
+  }
+
+  .our-team__bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  .our-team__socials {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .our-team__social-link {
+    display: flex;
+    color: rgb(var(--color-foreground-rgb, 0 0 0));
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .our-team__social-link:hover,
+  .our-team__social-link:focus-visible {
+    opacity: 0.65;
+  }
+
+  .our-team__social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .our-team__social-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .our-team__social-icon--linkedin svg {
+    border-radius: 4px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Our team",
+  "tag": "section",
+  "class": "section-wrapper",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Pill label",
+      "default": "Our Team"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry.</em></p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Team member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Full name"
+        },
+        {
+          "type": "text",
+          "id": "job_title",
+          "label": "Job title",
+          "default": "Job title"
+        },
+        {
+          "type": "richtext",
+          "id": "bio",
+          "label": "Bio",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+        },
+        {
+          "type": "url",
+          "id": "linkedin_url",
+          "label": "LinkedIn URL"
+        },
+        {
+          "type": "url",
+          "id": "x_url",
+          "label": "X (Twitter) URL"
+        },
+        {
+          "type": "url",
+          "id": "website_url",
+          "label": "Website URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our team",
+      "blocks": [
+        {
+          "type": "member"
+        },
+        {
+          "type": "member"
+        },
+        {
+          "type": "member"
+        },
+        {
+          "type": "member"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
