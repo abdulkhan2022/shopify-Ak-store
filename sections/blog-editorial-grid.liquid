@@ -1,0 +1,401 @@
+{%- liquid
+  assign sid = 'blog-editorial-grid-' | append: section.id
+  assign selected_blog = section.settings.blog
+  assign limit = section.settings.post_limit
+  assign view_url = section.settings.view_all_url
+  if view_url == blank and selected_blog != blank
+    assign view_url = selected_blog.url
+  endif
+-%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  id="{{ sid }}"
+  class="
+    blog-editorial-grid
+    section
+    section--{{ section.settings.section_width }}
+    color-{{ section.settings.color_scheme }}
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="blog-editorial-grid__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="blog-editorial-grid__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    <div class="blog-editorial-grid__head">
+      {%- if section.settings.heading != blank -%}
+        <div class="blog-editorial-grid__heading rte">{{ section.settings.heading }}</div>
+      {%- endif -%}
+      {%- if view_url != blank and section.settings.view_all_label != blank -%}
+        <a class="blog-editorial-grid__view-all" href="{{ view_url }}">
+          <span>{{ section.settings.view_all_label | escape }}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="blog-editorial-grid__cards">
+      {%- if selected_blog != blank and selected_blog.articles_count > 0 -%}
+        {%- for article in selected_blog.articles limit: limit -%}
+          <article class="blog-editorial-grid__card">
+            <a class="blog-editorial-grid__media-link" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+              {%- if article.image -%}
+                {{
+                  article.image
+                  | image_url: width: 900
+                  | image_tag:
+                    class: 'blog-editorial-grid__image',
+                    loading: 'lazy',
+                    sizes: '(min-width: 990px) 30vw, 100vw'
+                }}
+              {%- else -%}
+                <div class="blog-editorial-grid__image blog-editorial-grid__image--placeholder"></div>
+              {%- endif -%}
+            </a>
+            <div class="blog-editorial-grid__body">
+              {%- assign cat_label = article.tags.first | default: section.settings.category_fallback -%}
+              {%- if cat_label != blank -%}
+                <p class="blog-editorial-grid__category">{{ cat_label | escape }}</p>
+              {%- endif -%}
+              <h3 class="blog-editorial-grid__title">
+                <a href="{{ article.url }}">{{ article.title | escape }}</a>
+              </h3>
+              <div class="blog-editorial-grid__excerpt">
+                <p>
+                  {%- if article.excerpt != blank -%}
+                    {{ article.excerpt | strip_html | truncatewords: 28 }}
+                  {%- else -%}
+                    {{ article.content | strip_html | truncatewords: 28 }}
+                  {%- endif -%}
+                </p>
+              </div>
+              <a class="blog-editorial-grid__read-more" href="{{ article.url }}">
+                <span>{{ section.settings.read_more_label | escape }}</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..limit) -%}
+          <article class="blog-editorial-grid__card" data-placeholder="true">
+            <div class="blog-editorial-grid__image blog-editorial-grid__image--placeholder"></div>
+            <div class="blog-editorial-grid__body">
+              <p class="blog-editorial-grid__category">{{ section.settings.category_fallback | escape }}</p>
+              <h3 class="blog-editorial-grid__title">
+                <span>{{ 'placeholders.blog_post_title' | t }}</span>
+              </h3>
+              <div class="blog-editorial-grid__excerpt">
+                <p>{{ 'placeholders.blog_post_description' | t }}</p>
+              </div>
+              <span class="blog-editorial-grid__read-more blog-editorial-grid__read-more--disabled">
+                <span>{{ section.settings.read_more_label | escape }}</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/>
+                </svg>
+              </span>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <style>
+    #{{ sid }} .blog-editorial-grid__inner {
+      width: 100%;
+      max-width: var(--page-content-width, var(--page-width));
+      margin-inline: auto;
+    }
+    #{{ sid }} .blog-editorial-grid__eyebrow {
+      display: inline-flex;
+      margin: 0 0 1rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgb(var(--color-foreground-rgb) / 0.35);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      line-height: 1.2;
+    }
+    #{{ sid }} .blog-editorial-grid__head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem clamp(1rem, 4vw, 3rem);
+      align-items: end;
+      margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+    }
+    @media screen and (max-width: 749px) {
+      #{{ sid }} .blog-editorial-grid__head {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+    }
+    #{{ sid }} .blog-editorial-grid__heading {
+      margin: 0;
+      font-size: clamp(2rem, 4.2vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+    }
+    #{{ sid }} .blog-editorial-grid__heading p {
+      margin: 0;
+    }
+    #{{ sid }} .blog-editorial-grid__heading em {
+      font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    #{{ sid }} .blog-editorial-grid__view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+      padding: 0.45rem 1rem;
+      border: 1px solid rgb(var(--color-foreground-rgb) / 0.35);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    #{{ sid }} .blog-editorial-grid__view-all:hover {
+      border-color: rgb(var(--color-foreground-rgb) / 0.65);
+      background: rgb(var(--color-foreground-rgb) / 0.04);
+    }
+    #{{ sid }} .blog-editorial-grid__cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1.25rem, 3vw, 2rem);
+    }
+    @media screen and (max-width: 989px) {
+      #{{ sid }} .blog-editorial-grid__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media screen and (max-width: 549px) {
+      #{{ sid }} .blog-editorial-grid__cards {
+        grid-template-columns: 1fr;
+      }
+    }
+    #{{ sid }} .blog-editorial-grid__card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    #{{ sid }} .blog-editorial-grid__media-link {
+      display: block;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      margin-bottom: 0.85rem;
+    }
+    #{{ sid }} .blog-editorial-grid__image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+    }
+    #{{ sid }} .blog-editorial-grid__image--placeholder {
+      background: rgb(var(--color-foreground-rgb) / 0.08);
+      min-height: 12rem;
+    }
+    #{{ sid }} .blog-editorial-grid__category {
+      display: inline-flex;
+      margin: 0 0 0.65rem;
+      padding: 0.25rem 0.65rem;
+      width: fit-content;
+      border: 1px solid rgb(var(--color-foreground-rgb) / 0.35);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      text-transform: capitalize;
+    }
+    #{{ sid }} .blog-editorial-grid__title {
+      margin: 0 0 0.5rem;
+      font-size: 1.125rem;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+    #{{ sid }} .blog-editorial-grid__title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    #{{ sid }} .blog-editorial-grid__title a:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.12em;
+    }
+    #{{ sid }} .blog-editorial-grid__excerpt {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgb(var(--color-foreground-rgb) / 0.72);
+      margin-bottom: 0.75rem;
+    }
+    #{{ sid }} .blog-editorial-grid__excerpt p {
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    #{{ sid }} .blog-editorial-grid__read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: inherit;
+    }
+    #{{ sid }} .blog-editorial-grid__read-more:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+    #{{ sid }} .blog-editorial-grid__read-more--disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
+</div>
+
+{% schema %}
+{
+  "name": "t:names.blog_editorial_grid",
+  "tag": "section",
+  "class": "blog-editorial-grid-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:settings.blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "t:settings.post_count",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:content.heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:settings.label",
+      "default": "Shop by category"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "t:settings.heading",
+      "default": "<p>Medium length section <em>heading goes</em> here</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:names.view_all_button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "t:text_defaults.view_all_button_label",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View all URL",
+      "info": "Defaults to the selected blog when empty."
+    },
+    {
+      "type": "header",
+      "content": "t:names.blog_card"
+    },
+    {
+      "type": "text",
+      "id": "category_fallback",
+      "label": "Category label (no tag)",
+      "default": "Category",
+      "info": "Shown when a post has no tags."
+    },
+    {
+      "type": "text",
+      "id": "read_more_label",
+      "label": "Read more label",
+      "default": "Read more"
+    },
+    {
+      "type": "header",
+      "content": "t:content.section_layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        { "value": "page-width", "label": "t:options.page" },
+        { "value": "full-width", "label": "t:options.full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.blog_editorial_grid",
+      "category": "t:categories.storytelling",
+      "settings": {
+        "post_limit": 3,
+        "eyebrow": "Shop by category",
+        "heading": "<p>Medium length section <em>heading goes</em> here</p>",
+        "view_all_label": "View all",
+        "category_fallback": "Category",
+        "read_more_label": "Read more",
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    }
+  ]
+}
+{% endschema %}
