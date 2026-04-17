@@ -27,10 +27,123 @@
         "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>",
         "body": "<p>I never set out to build a supplement brand. I set out to understand performance.</p><p>As a trader, trading S&P 500 e-mini futures, performance wasn't optional – focus, energy, and clarity determined outcomes every day. At the same time, being a certified diver taught me the importance of calm, control, and what it truly means to operate under pressure.</p><p>That led me to a simple question: What actually supports performance from within?</p><p>The more I explored nutrition and supplementation, the clearer it became – most products don't fail because of ingredients, but because of how they're processed.</p><p>Therra was built to fix that.</p><p>We focus on preserving bioactive compounds through better sourcing and extraction – so what you take actually works.</p>"
       }
+    },
+    "problem_we_solve_c9mYPt": {
+      "type": "problem-we-solve",
+      "blocks": {
+        "point_CzGmrN": {
+          "type": "point",
+          "settings": {
+            "title": "Higher Bioavailability",
+            "text": "<p>Not all supplements are created equal, and it starts with extraction. Therra's proprietary botanical extraction technology unlocks bioactive compounds at their peak potency while preserving molecular integrity. The result? Superior absorption, faster results, and formulations that actually work.</p>"
+          }
+        },
+        "point_rpCJhR": {
+          "type": "point",
+          "settings": {
+            "title": "Standardized Potency",
+            "text": "<p>With standardized potency, every batch delivers the exact same therapeutic dose. No guesswork, just precise nutrition designed to support your body's daily needs reliably.</p>"
+          }
+        },
+        "point_QgeE3H": {
+          "type": "point",
+          "settings": {
+            "title": "Preserved Efficacy",
+            "text": "<p>Our cold-press extraction method ensures that heat-sensitive phytonutrients remain intact. This preservation of efficacy means you get the full spectrum of benefits nature intended.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "point_CzGmrN",
+        "point_rpCJhR",
+        "point_QgeE3H"
+      ],
+      "name": "The problem we solve",
+      "settings": {
+        "badge_text": "The Problem We Solve",
+        "heading": "<p>Lorem Ipsum is simply dummy text of the printing and <em>typesetting industry</em>. Lorem Ipsum has been the industry's <em>standard</em></p>"
+      }
+    },
+    "stats_41_v2_EcAAw3": {
+      "type": "stats-41-v2",
+      "name": "Stats 41",
+      "settings": {
+        "color_scheme": "",
+        "label": "Shop by category",
+        "heading": "<p>Medium length section <em>heading goes here</em></p>",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+        "card_1_title": "Short heading goes here",
+        "chart_values": "200,300,400,300,200,120",
+        "chart_max": 500,
+        "highlight_bar": 3,
+        "card_1_metric": "30%",
+        "card_1_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "card_2_title": "Short heading goes here",
+        "card_2_range_label": "Price range",
+        "card_2_min": "$2000",
+        "card_2_max": "$3500",
+        "card_2_metric": "30%",
+        "card_2_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "card_3_title": "Short heading goes here",
+        "card_3_range_label": "Price range",
+        "card_3_min": "$2000",
+        "card_3_max": "$3500",
+        "card_3_metric": "30%",
+        "card_3_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "blog_editorial_grid_yCnARH": {
+      "type": "blog-editorial-grid",
+      "name": "t:names.blog_editorial_grid",
+      "settings": {
+        "blog": "",
+        "post_limit": 3,
+        "eyebrow": "Shop by category",
+        "heading": "<p>Medium length section <em>heading goes</em> here</p>",
+        "view_all_label": "View all",
+        "view_all_url": "",
+        "category_fallback": "Category",
+        "read_more_label": "Read more",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    },
+    "email_split_cta_abpVBk": {
+      "type": "email-split-cta",
+      "name": "t:names.email_split_cta",
+      "settings": {
+        "heading_primary": "Medium length heading",
+        "heading_accent": "goes here",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+        "image_alt": "",
+        "show_avatar": true,
+        "email_placeholder": "Enter your email",
+        "submit_label": "Submit",
+        "customer_tags": "newsletter",
+        "disclaimer": "<p>By clicking Sign Up you're confirming that you agree with our <a href=\"/policies/terms-of-service\" title=\"Terms and Conditions\">Terms and Conditions</a>.</p>",
+        "background_color": "#2d6a4f",
+        "text_color": "#ffffff",
+        "section_width": "page-width",
+        "mobile_image": "bottom",
+        "corner_radius": 28,
+        "min_height": 340,
+        "padding-block-start": 36,
+        "padding-block-end": 36,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+      }
     }
   },
   "order": [
     "main",
-    "founder_word_TLyeJB"
+    "founder_word_TLyeJB",
+    "problem_we_solve_c9mYPt",
+    "stats_41_v2_EcAAw3",
+    "blog_editorial_grid_yCnARH",
+    "email_split_cta_abpVBk"
   ]
 }
